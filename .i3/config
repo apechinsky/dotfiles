@@ -15,6 +15,9 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+# Mod1 - Alt
+# Mod4 - Win
+
 set $mod Mod4
 
 # font for window titles. ISO 10646 = Unicode
@@ -119,8 +122,14 @@ bindsym $mod+Shift+E exit
 
 # MPD hotkey
 bindsym Mod4+space exec mpc toggle
+bindsym $mod+KP_Begin exec mpc toggle
+bindsym $mod+KP_Prior exec mpc prev
+bindsym $mod+KP_Next exec mpc next
+bindsym $mod+KP_Up exec amixer -q set Master 1%+ unmute
+bindsym $mod+KP_Down exec amixer -q set Master 1%- unmute
 
 # resize window (you can also use the mouse for that)
+bindsym $mod+r mode "resize"
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
@@ -128,10 +137,11 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 5 px or 5 ppt
+        bindsym l resize grow width 5 px or 5 ppt
+
+        bindsym j resize grow height 5 px or 5 ppt
+        bindsym k resize shrink height 5 px or 5 ppt
 
 #        bindsym 113 resize shrink width 10 px or 10 ppt
 #        bindsym 116 resize grow height 10 px or 10 ppt
@@ -143,18 +153,18 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
+# notebook specific settings
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 10%+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 10%- unmute
+bindsym XF86PowerOff exec gksu pm-suspend 
+#bindsym XF86AudioMute exec amixer -q set Master toggle
 
 bindsym $mod+Shift+W exec playonlinux --run "Microsoft Word 2007"
 bindsym $mod+Shift+X exec playonlinux --run "Microsoft Excel 2007"
 bindsym $mod+Shift+V exec playonlinux --run "Microsoft Visio 2007"
 bindsym $mod+Shift+P exec playonlinux --run "Microsoft Project 2007"
 
-bindsym $mod+Insert exec xfce4-screenshooter
-
-#bindsym $mod+i exec idea
+bindsym Print exec xfce4-screenshooter 
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -166,7 +176,7 @@ bindsym $mod+minus scratchpad show
 #bindsym mod4+s [title="^Sup ::"] scratchpad show
 
 bindsym $mod+t border normal
-bindsym $mod+y border 3pixel
+bindsym $mod+y border 1pixel
 bindsym $mod+u border none
 
 assign [class="Thunderbird"] 2
@@ -186,37 +196,39 @@ workspace_auto_back_and_forth yes
 bindsym $mod+Mod1+l exec i3lock -c 000000
 #bindsym $mod+Mod1+l exec i3lock -i /home/apechinsky/Pictures/sea1.png
 
-#assign [title="IntelliJ"] 3
-#assign [class="jetbrains-idea"] 3
-#
-#bindsym XF86AudioMute exec amixer -q set Master toggle
-
 # Make notification float
 for_window [class="Xfce4-notifyd"] floating enable
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status --config ~/.i3/i3status.conf
-        position top
-        
+    status_command i3status --config ~/.i3/i3status.conf
+    position top
 }
 
 #new_window <normal|1pixel|none|pixel>`
 new_window normal
 #hide_edge_borders both
 
+# for nVidia cards
+force_xinerama yes
 
+# Configure xscreensaver
+exec --no-startup-id xscreensaver -display :0 -no-splash
+bindsym $mod+Ctrl+l exec xscreensaver-command -lock
+
+# autostart
 exec --no-startup-id nm-applet
 exec --no-startup-id dropbox start
-exec --no-startup-id setxkbmap "us,ru" ",winkeys" "grp:ctrl_shift_toggle"
+exec --no-startup-id setxkbmap -layout 'us,ru' -option 'grp:ctrl_shift_toggle,grp_led:scroll,numpad:microsoft'
 exec --no-startup-id syndaemon -t -k -i 2 -d &
 exec --no-startup-id conky
-#exec --no-startup-id gnome-settings-daemon
+exec --no-startup-id skype --enable-dbus --use-system-dbus
+exec --no-startup-id thunderbird 
+exec --no-startup-id davmail 
+exec --no-startup-id gxneur
 
 #exec --no-startup-id feh --bg-max /home/user1/Изображения/neskuchnie_oboi/18.png
-
-bindsym XF86PowerOff exec gksu pm-suspend 
 
 # Keyboard repeat rate
 exec --no-startup-id xset r rate 250 30
