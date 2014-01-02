@@ -4,7 +4,11 @@
 SCRIPT_DIR=~/dotfiles
 
 # Target dir (where to create symbolic links)
+<<<<<<< HEAD
 TARGET_DIR=~
+=======
+TARGET_DIR=~/temp/dotfiles
+>>>>>>> f608e78d62cd4f9819bf1269cf495b43fabceb8c
 
 # Create dir to store old configuration files
 [ ! -d '$SCRIPT_DIR/old' ] && mkdir $SCRIPT_DIR/old
