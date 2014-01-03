@@ -68,6 +68,10 @@ set ruler
 " Enable inclremental search
 set incsearch
 
+" Allow to put/get yanked text to system clipboard (unnamedplus) or X11-selection (unnamed)
+" Check Vim xterm_clipboard option with (vim --version). If no option, install vim-gtk package
+set clipboard=unnamedplus
+
 colorscheme torte
 
 " adds vertical spaces to keep the text of the left and right pane aligned.
