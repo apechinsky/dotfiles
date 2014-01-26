@@ -223,7 +223,7 @@ exec --no-startup-id dropbox start
 exec --no-startup-id setxkbmap -layout 'us,ru' -option 'grp:ctrl_shift_toggle,grp_led:scroll,numpad:microsoft'
 exec --no-startup-id syndaemon -t -k -i 2 -d &
 exec --no-startup-id conky
-exec --no-startup-id skype --enable-dbus --use-system-dbus
+exec --no-startup-id PULSE_LATENCY_MSEC=30 skype --enable-dbus --use-system-dbus
 exec --no-startup-id thunderbird 
 exec --no-startup-id davmail 
 exec --no-startup-id gxneur
