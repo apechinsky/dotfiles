@@ -70,6 +70,9 @@ set incsearch
 
 colorscheme torte
 
+" Status line
+set statusline=%f\ %m\ %r\ line:%l/%L[%p%%]\ col:%v\ buf:#%n\ char:%b[0x%B]
+
 " adds vertical spaces to keep the text of the left and right pane aligned.
 "diffopt=filler
 
@@ -82,6 +85,9 @@ au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 
 " Make it possible to use vim navigation keys in normal mode when russian kb layout is active
 set langmap=ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>
+
+" Toggle the NERD Tree on an off with F7
+nmap <F7> :NERDTreeToggle<CR>
 
 function! DoPrettyXML()
     " save the filetype so we can restore it later
