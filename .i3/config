@@ -125,8 +125,10 @@ bindsym Mod4+space exec mpc toggle
 bindsym $mod+KP_Begin exec mpc toggle
 bindsym $mod+KP_Prior exec mpc prev
 bindsym $mod+KP_Next exec mpc next
-bindsym $mod+KP_Up exec amixer -q set Master 1%+ unmute
-bindsym $mod+KP_Down exec amixer -q set Master 1%- unmute
+#bindsym $mod+KP_Up exec amixer -q set Master 1%+ unmute
+#bindsym $mod+KP_Down exec amixer -q set Master 1%- unmute
+bindsym $mod+KP_Up exec mpc volume +10
+bindsym $mod+KP_Down exec mpc volume -10
 
 # resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
