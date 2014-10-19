@@ -120,7 +120,8 @@ map <F2> <Esc>:1,$!xmllint --format --recover -<CR>
 map <F12> <Esc>:FormatXml<CR>
 map <F9> <Esc>:set number<CR>
 map <F10> <Esc>:set nonumber<CR>
-
+map <C-n> :NERDTreeToggle<CR>
+map <leader>jt  <Esc>:%!json_xs -f json -t json-pretty<CR>
 " Do not jump to next occurence on *
 nnoremap * *N
 nnoremap <C-F8> :hlsearch<CR>
