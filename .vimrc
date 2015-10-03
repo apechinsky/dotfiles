@@ -2,41 +2,48 @@
 set nocompatible
 filetype off  
 
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim/
 
-call vundle#rc()
+call vundle#begin()
 
 filetype plugin indent on
-Bundle 'gmarik/vundle'
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
 "репозитории на github
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/nerdtree'
-Bundle 'vim-scripts/tComment'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'vim-scripts/tComment'
+Plugin 'jplaut/vim-arduino-ino'
+Plugin 'will133/vim-dirdiff'
 
 " Snipmate
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
 
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-surround'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-surround'
 
 "репозитории vim/scripts
-Bundle 'L9'
-Bundle 'FuzzyFinder'
+Plugin 'L9'
+Plugin 'FuzzyFinder'
 
-Bundle 'matchit.zip'
-Bundle 'vundle'
+Plugin 'matchit.zip'
+"Plugin 'vundle'
+
+Plugin 'apechinsky/vim-platform-io'
 
 "git репозитории (не на github)
-"Bundle 'git://git.wincent.com/command-t.git'
+"Plugin 'git://git.wincent.com/command-t.git'
 
 "локальные git репозитории(если работаете над собственным плагином)
-"Bundle 'file:///Users/gmarik/path/to/plugin'
+"Plugin 'file:///Users/gmarik/path/to/plugin'
+call vundle#end()
+filetype plugin indent on
 " END Vandle configuration
-
 
 " Terminal encoding
 set termencoding=utf-8

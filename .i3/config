@@ -159,6 +159,10 @@ mode "resize" {
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 10%+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 10%- unmute
 bindsym XF86PowerOff exec gksu pm-suspend 
+bindsym XF86AudioMute exec /usr/bin/pactl set-sink-volume 0 0
+bindsym XF86Launch1 exec /usr/bin/pactl play-sample that_was_easy
+bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5
 #bindsym XF86AudioMute exec amixer -q set Master toggle
 
 bindsym $mod+Shift+W exec playonlinux --run "Microsoft Word 2007"
@@ -222,13 +226,19 @@ bindsym $mod+Ctrl+l exec xscreensaver-command -lock
 # autostart
 exec --no-startup-id nm-applet
 exec --no-startup-id dropbox start
+
+# reset options
+#exec --no-startup-id setxkbmap -option ''
+# reset set options
 exec --no-startup-id setxkbmap -layout 'us,ru' -option 'grp:ctrl_shift_toggle,grp_led:scroll,numpad:microsoft'
+
 exec --no-startup-id syndaemon -t -k -i 2 -d &
 exec --no-startup-id conky
 exec --no-startup-id PULSE_LATENCY_MSEC=30 skype --enable-dbus --use-system-dbus
 exec --no-startup-id thunderbird 
 exec --no-startup-id davmail 
 exec --no-startup-id gxneur
+#exec --no-startup-id gnome-settings-daemon
 
 #exec --no-startup-id feh --bg-max /home/user1/Изображения/neskuchnie_oboi/18.png
 

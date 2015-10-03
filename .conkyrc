@@ -118,8 +118,9 @@ ${color #ffcb48}MUSIC$color
    $mpd_artist, $mpd_date $mpd_album, $mpd_title
    ${color #78af78}$mpd_bar${color}
 
-${color #ffcb48}WEATHER$color
-   #$weather http://weather.noaa.gov/pub/data/observations/metar/stations/ BOXX0005 temperature
-   ${color ffffff}${execi 10 wget -O /home/apechinsky/.conkyweather.gif http://informer.infobot.ru/weather/belarus.minsk%20city.minsk.day.100x100.gif}
-   ${image ~/.conkyweather.gif -p 30,700 -f 10}
+# Disable weather because of high power consumption
+#${color #ffcb48}WEATHER$color
+   ##$weather http://weather.noaa.gov/pub/data/observations/metar/stations/ BOXX0005 temperature
+   #${color ffffff}${execi 10 wget -O /home/apechinsky/.conkyweather.gif http://informer.infobot.ru/weather/belarus.minsk%20city.minsk.day.100x100.gif}
+   #${image ~/.conkyweather.gif -p 30,700 -f 10}
 
