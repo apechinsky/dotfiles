@@ -81,3 +81,7 @@ alias lsa='ls -ld .*'
 
 #. $HOME/_environment/env.sh
 . $HOME/.profile
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/apechinsky/.sdkman"
+[[ -s "/home/apechinsky/.sdkman/bin/sdkman-init.sh" ]] && source "/home/apechinsky/.sdkman/bin/sdkman-init.sh"
