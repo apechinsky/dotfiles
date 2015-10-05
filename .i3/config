@@ -20,14 +20,12 @@
 
 set $mod Mod4
 
-# font for window titles. ISO 10646 = Unicode
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-#font pango:Droid Sans 10
+# font for window titles. ISO 10646 = Unicodd11.06.2015
+#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font pango:Droid Sans 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
-
-workspace_auto_back_and_forth yes
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
@@ -37,6 +35,7 @@ bindsym $mod+Shift+Q kill
 bindsym $mod+Escape kill
 
 # start dmenu (a program launcher)
+#bindsym $mod+d exec dmenu_run -fn '-bitstream-courier 10 pitch-medium-r-normal-*-25-*-*-*-*-*-standard'
 bindsym $mod+d exec dmenu_run
 
 # change focus
@@ -64,10 +63,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym Mod1+h split h
+bindsym Mod1+Shift+H split h
 
 # split in vertical orientation
-bindsym Mod1+v split v
+bindsym Mod1+Shift+V split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -125,10 +124,10 @@ bindsym Mod4+space exec mpc toggle
 bindsym $mod+KP_Begin exec mpc toggle
 bindsym $mod+KP_Prior exec mpc prev
 bindsym $mod+KP_Next exec mpc next
-#bindsym $mod+KP_Up exec amixer -q set Master 1%+ unmute
-#bindsym $mod+KP_Down exec amixer -q set Master 1%- unmute
-bindsym $mod+KP_Up exec mpc volume +10
-bindsym $mod+KP_Down exec mpc volume -10
+bindsym $mod+KP_Up exec amixer -q set Master 1%+ unmute
+bindsym $mod+KP_Down exec amixer -q set Master 1%- unmute
+#bindsym $mod+KP_Up exec mpc volume +10
+#bindsym $mod+KP_Down exec mpc volume -10
 
 # resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
@@ -169,8 +168,9 @@ bindsym $mod+Shift+W exec playonlinux --run "Microsoft Word 2007"
 bindsym $mod+Shift+X exec playonlinux --run "Microsoft Excel 2007"
 bindsym $mod+Shift+V exec playonlinux --run "Microsoft Visio 2007"
 bindsym $mod+Shift+P exec playonlinux --run "Microsoft Project 2007"
+#bindsym Print exec xfce4-screenshooter 
+bindsym Print exec shutter -s -e
 
-bindsym Print exec xfce4-screenshooter 
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -186,21 +186,21 @@ bindsym $mod+y border 1pixel
 bindsym $mod+u border none
 
 assign [class="Thunderbird"] 2
-bindsym $mod+m workspace 2
+#bindsym $mod+m workspace 2
+bindcode $mod+58 workspace 2
 
 assign [class="Skype"] 3
-bindsym $mod+s workspace 3
+#bindsym $mod+s workspace 3
+bindcode $mod+39 workspace 3
 
 assign [class="jetbrains-idea"] 4
-bindsym $mod+i workspace 4
+#bindsym $mod+i workspace 4
+bindcode $mod+31 workspace 4
 
 
 bindsym $mod+b [title="Firefox"] focus
 
 workspace_auto_back_and_forth yes
-# Lock screen
-bindsym $mod+Mod1+l exec i3lock -c 000000
-#bindsym $mod+Mod1+l exec i3lock -i /home/apechinsky/Pictures/sea1.png
 
 # Make notification float
 for_window [class="Xfce4-notifyd"] floating enable
@@ -221,26 +221,30 @@ force_xinerama yes
 
 # Configure xscreensaver
 exec --no-startup-id xscreensaver -display :0 -no-splash
-bindsym $mod+Ctrl+l exec xscreensaver-command -lock
+
+# Lock screen
+bindsym $mod+Mod1+l exec xscreensaver-command -lock
+#bindsym $mod+Mod1+l exec i3lock -c 000000
+#bindsym $mod+Mod1+l exec i3lock -i /home/apechinsky/Pictures/sea1.png
 
 # autostart
 exec --no-startup-id nm-applet
 exec --no-startup-id dropbox start
 
-# reset options
-#exec --no-startup-id setxkbmap -option ''
-# reset set options
 exec --no-startup-id setxkbmap -layout 'us,ru' -option 'grp:ctrl_shift_toggle,grp_led:scroll,numpad:microsoft'
 
 exec --no-startup-id syndaemon -t -k -i 2 -d &
 exec --no-startup-id conky
-exec --no-startup-id PULSE_LATENCY_MSEC=30 skype --enable-dbus --use-system-dbus
+
+# PULSE_LATENCE_MSEC=30 fixes problem with skype with pulse audio
+#exec --no-startup-id PULSE_LATENCE_MSEC=30 skype --enable-dbus --use-system-dbus
+exec --no-startup-id skype.sh
+
 exec --no-startup-id thunderbird 
 exec --no-startup-id davmail 
-exec --no-startup-id gxneur
 #exec --no-startup-id gnome-settings-daemon
-
-#exec --no-startup-id feh --bg-max /home/user1/Изображения/neskuchnie_oboi/18.png
 
 # Keyboard repeat rate
 exec --no-startup-id xset r rate 250 30
+
+exec --no-startup-id feh --bg-scale /home/apechinsky/Pictures/wallpapers/storm_on_the_sea-wallpaper-1920x1080.jpg
