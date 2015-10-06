@@ -1,0 +1,58 @@
+c   Compare files with Vim
+    vimdiff %d/%f %D/%F
+
+d   Compare Dirs with Vim
+    vim +"DirDiff %d/%f %D/%F"
+
+F2  Compare files with Meld
+    meld %d/%f %D/%F
+
+1   Copy selected file name into clipboard
+    files=""
+    for file in %s
+    do
+        if [ -z $files ] ; then
+            files="$file"
+        else
+            files="$files\n$file"
+        fi
+    done
+    echo -n $files | xclip -selection "clipboard"
+
+2   Copy selected file full path into clipboard
+    files=""
+    for file in %s
+    do
+        if [ -z $files ] ; then
+            files="%d/$file"
+        else
+            files="$files\n%d/$file"
+        fi
+    done
+    echo -n $files | xclip -selection "clipboard"
+
+_   Mount directory to /home/ftp
+    sudo mkdir /home/ftp/%f
+    sudo mount -o bind %d/%f /home/ftp/%f
+
+_   UnMount directory from /home/ftp
+    sudo umount /home/ftp/%f
+    sudo rmdir /home/ftp/%f
+
+w   Open with "MS Word 2007"
+    word %d/%f &
+
+e   Open with "MS Excel 2007"
+    excel %d/%f &
+
+v   Open with "MS Visio 2007"
+    visio %d/%f &
+
+p   Open with "MS Project 2007"
+    msproject %d/%f &
+
+s   View x509 certificate
+    openssl x509 -text -in %d/%f > ~/temp/%f.txt
+    vim ~/temp/%f.txt
+    rm ~/temp/%f.txt
+
