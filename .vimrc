@@ -12,11 +12,10 @@ filetype plugin indent on
 Plugin 'VundleVim/Vundle.vim'
 
 "репозитории на github
-Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
-Plugin 'vim-scripts/tComment'
 Plugin 'jplaut/vim-arduino-ino'
 Plugin 'will133/vim-dirdiff'
+Plugin 'vim-scripts/tComment'
 
 " Snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
