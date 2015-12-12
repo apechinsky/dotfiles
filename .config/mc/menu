@@ -56,3 +56,5 @@ s   View x509 certificate
     vim ~/temp/%f.txt
     rm ~/temp/%f.txt
 
+_   Publish file using secure HTTP link
+    publish.sh %d/%f 
