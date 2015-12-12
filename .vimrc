@@ -31,7 +31,6 @@ Plugin 'L9'
 Plugin 'FuzzyFinder'
 
 Plugin 'matchit.zip'
-"Plugin 'vundle'
 
 Plugin 'apechinsky/vim-platform-io'
 
@@ -96,9 +95,6 @@ au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 " Make it possible to use vim navigation keys in normal mode when russian kb layout is active
 set langmap=ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>
 
-" Toggle the NERD Tree on an off with F7
-nmap <F7> :NERDTreeToggle<CR>
-
 function! DoPrettyXML()
     " save the filetype so we can restore it later
     let l:origft = &ft
@@ -129,12 +125,14 @@ function! DoPrettyXML()
 command! FormatXml call DoPrettyXML()
 
 map <F2> <Esc>:1,$!xmllint --format --recover -<CR>
-map <F12> <Esc>:FormatXml<CR>
+map <F6> <Esc>:FormatXml<CR>
+map <F7> <Esc>:%!json_xs -f json -t json-pretty<CR>
 map <F9> <Esc>:set number<CR>
 map <F10> <Esc>:set nonumber<CR>
 map <C-n> :NERDTreeToggle<CR>
-map <leader>jt  <Esc>:%!json_xs -f json -t json-pretty<CR>
+map <F5> :buffers<CR>:buffer<Space>
+
 " Do not jump to next occurence on *
 nnoremap * *N
-nnoremap <C-F8> :hlsearch<CR>
+nnoremap <C-F8> :set hlsearch<CR>
 

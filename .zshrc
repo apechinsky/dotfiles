@@ -72,8 +72,8 @@ alias cp='nocorrect cp'       # no spelling correction on cp
 alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
 alias grep='egrep --color'
 alias ls='ls -F --color=auto'
-alias ll='ls -l --color=auto -h'
-alias lla='ls -l -a --color -h'
+alias ll='ls -l --color=auto -h --time-style=long-iso'
+alias lla='ls -l -a --color -h --time-style=long-iso'
 alias la='ls -a --color'
 alias lsd='ls -d *(-/DN) --color'
 alias lld='ls -ld *(-/DN) --color'
