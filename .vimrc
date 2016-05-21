@@ -58,6 +58,9 @@ set nobackup
 " Disable line wrapping
 set nowrap
 
+" prevent new line at the EOF
+set noeol
+
 set autoindent
 
 " Set tabulation
