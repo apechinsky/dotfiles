@@ -56,5 +56,15 @@ s   View x509 certificate
     vim ~/temp/%f.txt
     rm ~/temp/%f.txt
 
-_   Publish file using secure HTTP link
-    publish.sh %d/%f 
+_   Publish selected files using secure HTTP link
+    publish.sh %s
+
+a   Accept files using n
+    ~/work/scripts/filetransfer/acceptFile.sh
+
+s   Send files using n
+    echo -n "Enter host IP address:" 
+    read host
+    for file in %s; do
+        ~/work/scripts/filetransfer/sendFile.sh $host "$file"
+    done
