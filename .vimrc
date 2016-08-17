@@ -1,3 +1,16 @@
+if 1
+    fun! ProfileStart()
+        let profile_file = '/tmp/vim.'.getpid().'.profile.txt'
+        echom "Profiling into" profile_file
+        exec 'profile start '.profile_file
+        profile! file **
+        profile  func *
+    endfun
+    if get(g:, 'profile')
+        call ProfileStart()
+    endif
+endif
+
 " START Vandle configuration
 set nocompatible
 filetype off  
