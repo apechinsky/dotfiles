@@ -52,7 +52,8 @@ p   Open with "MS Project 2007"
     msproject %d/%f &
 
 s   View x509 certificate
-    openssl x509 -text -in %d/%f > ~/temp/%f.txt
+    openssl x509 -noout -in %d/%f -fingerprint > ~/temp/%f.txt
+    openssl x509 -text -in %d/%f >> ~/temp/%f.txt
     vim ~/temp/%f.txt
     rm ~/temp/%f.txt
 
