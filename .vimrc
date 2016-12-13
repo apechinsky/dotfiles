@@ -92,6 +92,8 @@ set incsearch
 " Allow to put/get yanked text to system clipboard (unnamedplus) or X11-selection (unnamed)
 " Check Vim xterm_clipboard option with (vim --version). If no option, install vim-gtk package
 set clipboard=unnamedplus
+" Prevent clipboard from being cleared on exit
+autocmd VimLeave * call system("xclip -o -sel clip | xclip -sel clip")
 
 colorscheme torte
 
@@ -151,4 +153,12 @@ map <F5> :buffers<CR>:buffer<Space>
 " Do not jump to next occurence on *
 nnoremap * *N
 nnoremap <C-F8> :set hlsearch<CR>
+
+" CtrlP plugin settings
+" do not search project root (git, svn, etc.)
+let g:ctrlp_working_path_mode = 'c'
+" search by file name by default
+let g:ctrlp_by_filename = 1
+" window size and position
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 

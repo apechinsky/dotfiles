@@ -57,8 +57,8 @@ s   View x509 certificate
     vim ~/temp/%f.txt
     rm ~/temp/%f.txt
 
-_   Publish selected files using secure HTTP link
-    publish.sh %s
+_   Publish selected files using secure HTTP link (5days)
+    publish.sh %{Time to live. <number>(s|m|h|d)} %s
 
 a   Accept files using n
     ~/work/scripts/filetransfer/acceptFile.sh
