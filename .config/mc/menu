@@ -69,3 +69,11 @@ s   Send files using n
     for file in %s; do
         ~/work/scripts/filetransfer/sendFile.sh $host "$file"
     done
+
+_   vtb24biz validate XML using project wsdl
+    xmllint --valid --schema /home/apechinsky/work/qulix/vtb24-biz/test/tools/xmlvalidation/all.xsd  %f
+
+_   Filter log file
+    cd /home/apechinsky/work/qulix/vtb24-biz/src/src
+    gradlew logFilter -Din=%d/%f -Dout=%d/%f.filtered -Dfilter=%{Filter}
+
