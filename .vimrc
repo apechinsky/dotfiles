@@ -31,6 +31,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-scripts/tComment'
 " Plugin 'tpope/vim-commentary'
 Plugin 'majutsushi/tagbar'
+Plugin 'editorconfig/editorconfig-vim'
 
 " Snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
