@@ -26,9 +26,11 @@ Plugin 'VundleVim/Vundle.vim'
 
 "репозитории на github
 Plugin 'scrooloose/nerdtree'
-Plugin 'jplaut/vim-arduino-ino'
 Plugin 'will133/vim-dirdiff'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-scripts/tComment'
+" Plugin 'tpope/vim-commentary'
+Plugin 'majutsushi/tagbar'
 
 " Snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -38,6 +40,10 @@ Plugin 'honza/vim-snippets'
 
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-surround'
+
+Plugin 'tomasiser/vim-code-dark'
+Plugin 'danilo-augusto/vim-afterglow'
+Plugin 'jansenfuller/crayon'
 
 "репозитории vim/scripts
 Plugin 'L9'
@@ -74,17 +80,25 @@ set nowrap
 " prevent new line at the EOF
 set noeol
 
+" position new window right
+set splitright
+
 set autoindent
+
+set wildmenu
+set path+=**
 
 " Set tabulation
 set expandtab
 set tabstop=4
 set shiftwidth=4
 
-set pastetoggle=<F5>
+" set pastetoggle=<F5>
 
 " Show cursor position
 set ruler
+
+set path+=**
 
 " Enable inclremental search
 set incsearch
@@ -148,13 +162,14 @@ function! DoPrettyXML()
     endfunction
 command! FormatXml call DoPrettyXML()
 
+
 map <F2> <Esc>:1,$!xmllint --format --recover -<CR>
 map <F6> <Esc>:FormatXml<CR>
-map <F7> <Esc>:%!json_xs -f json -t json-pretty<CR>
+" map <F7> <Esc>:%!json_xs -f json -t json-pretty<CR>
 map <F9> <Esc>:set number<CR>
 map <F10> <Esc>:set nonumber<CR>
 map <C-n> :NERDTreeToggle<CR>
-map <F5> :buffers<CR>:buffer<Space>
+" map <F5> :buffers<CR>:buffer<Space>
 
 " Do not jump to next occurence on *
 nnoremap * *N
@@ -168,3 +183,11 @@ let g:ctrlp_by_filename = 1
 " window size and position
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 
+command! MakeTags !ctags -R .
+
+autocmd FileType java set tags=~/.javatags
+
+inoremap ^] ^X^]
+inoremap ^F ^X^F
+inoremap ^D ^X^D
+inoremap ^L ^X^L
