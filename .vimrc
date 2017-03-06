@@ -106,6 +106,12 @@ set statusline=%f\ %m\ %r\ line:%l/%L[%p%%]\ col:%v\ buf:#%n\ char:%b[0x%B]
 " ignore whitespace
 "diffopt+=iwhite
 
+set wildmenu
+
+set path+=**
+
+command! Ctags !ctags -R .
+
 filetype plugin on
 
 au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
@@ -156,7 +162,7 @@ nnoremap <C-F8> :set hlsearch<CR>
 
 " CtrlP plugin settings
 " do not search project root (git, svn, etc.)
-let g:ctrlp_working_path_mode = 'c'
+let g:ctrlp_working_path_mode = ''
 " search by file name by default
 let g:ctrlp_by_filename = 1
 " window size and position

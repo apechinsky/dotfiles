@@ -75,5 +75,5 @@ _   vtb24biz validate XML using project wsdl
 
 _   Filter log file
     cd /home/apechinsky/work/qulix/vtb24-biz/src/src
-    gradlew logFilter -Din=%d/%f -Dout=%d/%f.%{Filter} -Dfilter=%{Filter}
+    gradlew logFilter -Din=%d/%f -Dfilter='%{Filter}'
 
