@@ -1,85 +1,96 @@
-#completion
-autoload -U compinit
-compinit
-autoload -U incremental-complete-word
-zle -N incremental-complete-word
-autoload -U insert-files
-zle -N insert-files
-autoload -U predict-on
-zle -N predict-on
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-zmodload -a zsh/stat stat
-zmodload -a zsh/zpty zpty
-zmodload -a zsh/zprof zprof
-zmodload -ap zsh/mapfile mapfile
+# Path to your oh-my-zsh installation.
+  export ZSH=/home/apechinsky/.oh-my-zsh
 
-export LS_COLORS='no=00:fi=00:di=01;34:ln=01;35:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;31:'
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME=""
+ZSH_THEME="gallois-my"
 
-zstyle ':completion:*:default' list-colors "$LS_COLORS"
-zstyle ':completion:*' completer _complete _list _oldlist _expand _ignored _match _correct _approximate _prefix
-zstyle ':completion:*' insert-unambiguous true
-zstyle ':completion:*' add-space true
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-zstyle ':completion:*:functions' ignored-patterns '_*'
-zstyle ':completion:*' menu select=long-list select=0
-zstyle ':completion:*' old-menu false
-zstyle ':completion:*' original true
-zstyle ':completion:*' substitute 1
-zstyle ':completion:*' use-compctl true
-zstyle ':completion:*' verbose true
-zstyle ':completion:*' word true
-zstyle ':completion:*' users {}
 
-setopt   notify globdots correct pushdtohome cdablevars autolist
-setopt   correctall autocd recexact longlistjobs
-setopt   autoresume histignoredups pushdsilent noclobber
-setopt   autopushd pushdminus extendedglob rcquotes mailwarning
-unsetopt bgnice autoparamslash
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-#bindkey
-bindkey -e
-bindkey ' ' magic-space    # also do history expansion on space
-bindkey '^I' complete-word # complete on tab, leave expansion to _expand
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
-#ftp
-autoload -U zfinit
-zfinit 
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
 
-#prompt
-PROMPT='[%d]$ '
-#RPROMPT='<%T>'
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
 
-#history
-HISTFILE=~/.zhistory
-SAVEHIST=5000
-HISTSIZE=5000
-setopt APPEND_HISTORY
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_SPACE
-setopt HIST_REDUCE_BLANKS
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
 
-#mime types
-alias -s {avi,mpeg,mpg,mp4,mov,ogg,mp3,wav,wma}=mplayer
-alias -s {djvu,djv,ps,dvi,pdf}=evince
-alias -s {odt,doc,sxw,rtf,doc,xls,docx,xlsx}=soffice
-alias -s {html,htm,xhtml}=firefox
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
 
-#web browser
-autoload -U pick-web-browser
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
 
-alias mv='nocorrect mv'       # no spelling correction on mv
-alias cp='nocorrect cp'       # no spelling correction on cp
-alias mkdir='nocorrect mkdir' # no spelling correction on mkdir
-alias grep='egrep --color'
-alias ls='ls -F --color=auto'
-alias ll='ls -l --color=auto -h --time-style=long-iso'
-alias lla='ls -l -a --color -h --time-style=long-iso'
-alias la='ls -a --color'
-alias lsd='ls -d *(-/DN) --color'
-alias lld='ls -ld *(-/DN) --color'
-alias lsa='ls -ld .*'
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
 
-#. $HOME/_environment/env.sh
-. $HOME/.profile
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="yyyy-mm-dd"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git adb docker history-substring-search spring jira themes)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Apply whe shell starts/restarts
+source $HOME/_environment/env.sh
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/apechinsky/.sdkman"
+[[ -s "/home/apechinsky/.sdkman/bin/sdkman-init.sh" ]] && source "/home/apechinsky/.sdkman/bin/sdkman-init.sh"
 
