@@ -99,8 +99,6 @@ set shiftwidth=4
 " Show cursor position
 set ruler
 
-set path+=**
-
 " Enable inclremental search
 set incsearch
 
@@ -128,8 +126,6 @@ set path+=**
 command! Ctags !ctags -R .
 
 filetype plugin on
-
-au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 
 " Make it possible to use vim navigation keys in normal mode when russian kb layout is active
 set langmap=ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>
@@ -164,17 +160,22 @@ function! DoPrettyXML()
 command! FormatXml call DoPrettyXML()
 
 
-map <F2> <Esc>:1,$!xmllint --format --recover -<CR>
+map <F2> <Esc>:'<,'>!xmllint --format --recover -<CR>
 map <F6> <Esc>:FormatXml<CR>
 " map <F7> <Esc>:%!json_xs -f json -t json-pretty<CR>
-map <F9> <Esc>:set number<CR>
-map <F10> <Esc>:set nonumber<CR>
+" map <F9> <Esc>:set number<CR>
+" map <F10> <Esc>:set nonumber<CR>
 map <C-n> :NERDTreeToggle<CR>
 " map <F5> :buffers<CR>:buffer<Space>
 
 " Do not jump to next occurence on *
 nnoremap * *N
 nnoremap <C-F8> :set hlsearch<CR>
+
+" Next window with Tab key
+" nmap <Tab> <C-w>w
+" Previous window with Shift-Tab key
+" nmap <S-Tab> <C-w>W
 
 " CtrlP plugin settings
 " do not search project root (git, svn, etc.)
@@ -186,9 +187,22 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 
 command! MakeTags !ctags -R .
 
-autocmd FileType java set tags=~/.javatags
+autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+autocmd FileType Makefile noexpandtab
+
+autocmd FileType groovy set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/home/apechinsky/ctags/libs/jdk-1.8.0.tags
+autocmd FileType java set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/home/apechinsky/ctags/libs/jdk-1.8.0.tags
+autocmd FileType java map <F9> :!javac %<CR>
+autocmd FileType java map <F10> :!java %:r<CR>
+autocmd FileType java map <C-F10> :!javac %<CR> <bar> :!java %:r<CR>
+autocmd Filetype java set makeprg=javac\ %
+set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
+map <F9> :make<Return>:copen<Return>
+map <F10> :cprevious<Return>
+map <F11> :cnext<Return>
 
 inoremap ^] ^X^]
 inoremap ^F ^X^F
 inoremap ^D ^X^D
 inoremap ^L ^X^L
+
