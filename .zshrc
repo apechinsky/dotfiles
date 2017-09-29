@@ -54,7 +54,7 @@ JIRA_URL=https://jira.qulix.com
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git adb docker history-substring-search spring jira themes)
+plugins=(git adb docker history-substring-search spring jira themes zsh-wakatime)
 
 source $ZSH/oh-my-zsh.sh
 

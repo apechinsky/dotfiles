@@ -32,6 +32,7 @@ Plugin 'vim-scripts/tComment'
 " Plugin 'tpope/vim-commentary'
 Plugin 'majutsushi/tagbar'
 Plugin 'editorconfig/editorconfig-vim'
+" Plugin 'wakatime/vim-wakatime'
 
 " Snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
