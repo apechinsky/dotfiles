@@ -2,7 +2,8 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/apechinsky/.oh-my-zsh
+# export ZSH=/home/apechinsky/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -94,5 +95,5 @@ alias -s pdf="evince"
 
 set +o noclobber
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/apechinsky/.sdkman"
+export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "/home/apechinsky/.sdkman/bin/sdkman-init.sh" ]] && source "/home/apechinsky/.sdkman/bin/sdkman-init.sh"
