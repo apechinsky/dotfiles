@@ -40,25 +40,28 @@ _   UnMount directory from /home/ftp
     sudo rmdir /home/ftp/%f
 
 w   Open with "MS Word 2007"
-    word %d/%f &
+    word %f &
 
 e   Open with "MS Excel 2007"
-    excel %d/%f &
+    excel %f &
 
 v   Open with "MS Visio 2007"
-    visio %d/%f &
+    visio %f &
 
 p   Open with "MS Project 2007"
-    msproject %d/%f &
+    msproject %f &
 
 s   View x509 certificate
-    openssl x509 -noout -in %d/%f -fingerprint > ~/temp/%f.txt
-    openssl x509 -text -in %d/%f >> ~/temp/%f.txt
-    vim ~/temp/%f.txt
-    rm ~/temp/%f.txt
+    openssl x509 -noout -in %d/%f -fingerprint > ~/tmp/%f.txt
+    openssl x509 -text -in %d/%f >> ~/tmp/%f.txt
+    vim ~/tmp/%f.txt
+    rm ~/tmp/%f.txt
 
-_   Publish selected files using secure HTTP link (5days)
+_   Publish (cs-pub) selected files using secure HTTP link (5days)
     publish.sh %{Time to live. <number>(s|m|h|d)} %s
+
+_   Publish (localhost) selected files using secure HTTP link (5days)
+    publish-local.sh %{Time to live. <number>(s|m|h|d)} %s
 
 a   Accept files using n
     ~/work/scripts/filetransfer/acceptFile.sh
