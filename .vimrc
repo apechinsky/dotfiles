@@ -32,7 +32,8 @@ Plugin 'vim-scripts/tComment'
 " Plugin 'tpope/vim-commentary'
 Plugin 'majutsushi/tagbar'
 Plugin 'editorconfig/editorconfig-vim'
-" Plugin 'wakatime/vim-wakatime'
+Plugin 'bumaociyuan/vim-swift'
+Plugin 'vimwiki/vimwiki'
 
 " Snipmate
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -95,7 +96,7 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
-" set pastetoggle=<F5>
+set pastetoggle=<F5>
 
 " Show cursor position
 set ruler
@@ -119,10 +120,6 @@ set statusline=%f\ %m\ %r\ line:%l/%L[%p%%]\ col:%v\ buf:#%n\ char:%b[0x%B]
 
 " ignore whitespace
 "diffopt+=iwhite
-
-set wildmenu
-
-set path+=**
 
 command! Ctags !ctags -R .
 
@@ -178,32 +175,50 @@ nnoremap <C-F8> :set hlsearch<CR>
 " Previous window with Shift-Tab key
 " nmap <S-Tab> <C-w>W
 
-" CtrlP plugin settings
-" do not search project root (git, svn, etc.)
-let g:ctrlp_working_path_mode = ''
-" search by file name by default
-let g:ctrlp_by_filename = 1
-" window size and position
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
-
 command! MakeTags !ctags -R .
 
 autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 autocmd FileType Makefile noexpandtab
 
 autocmd FileType groovy set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/home/apechinsky/ctags/libs/jdk-1.8.0.tags
+autocmd FileType groovy map <F10> :w<CR>:!groovy %<CR>
+
 autocmd FileType java set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/home/apechinsky/ctags/libs/jdk-1.8.0.tags
-autocmd FileType java map <F9> :!javac %<CR>
-autocmd FileType java map <F10> :!java %:r<CR>
-autocmd FileType java map <C-F10> :!javac %<CR> <bar> :!java %:r<CR>
+autocmd FileType java set colorcolumn=130
+autocmd FileType java highlight ColorColumn ctermbg=darkgray
+
 autocmd Filetype java set makeprg=javac\ %
-set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
-map <F9> :make<Return>:copen<Return>
-map <F10> :cprevious<Return>
-map <F11> :cnext<Return>
+autocmd FileType java map <F9> :w<CR>:make<CR>
+autocmd FileType java map <F10> :wall<CR>:make<CR>:!java %:r<CR>
+
+autocmd FileType sh map <F10> :w<CR>:!./%<CR>
+autocmd FileType sh map <F10> :w<CR>:!sh -v %<CR>
+
+autocmd FileType awk map <F10> :w<CR>:!awk -f %<CR>
+
+" set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
+" map <F9> :make<Return>:copen<Return>
+" map <F10> :cprevious<Return>
+" map <F11> :cnext<Return>
 
 inoremap ^] ^X^]
 inoremap ^F ^X^F
 inoremap ^D ^X^D
 inoremap ^L ^X^L
+
+" Vim wiki
+
+let wiki_personal = {}
+let wiki_personal.path = '~/Dropbox/vimwiki/personal'
+let wiki_personal.path_html = '~/Dropbox/vimwiki/personal/html'
+let wiki_personal.syntax = 'markdown'
+let wiki_personal.ext = '.md'
+
+let wiki_work = {}
+let wiki_work.path = '~/Dropbox/vimwiki/work'
+let wiki_work.path_html = '~/Dropbox/vimwiki/work/html'
+let wiki_work.syntax = 'markdown'
+let wiki_work.ext = '.md'
+
+let g:vimwiki_list = [wiki_personal, wiki_work]
 
