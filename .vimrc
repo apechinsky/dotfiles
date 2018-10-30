@@ -157,7 +157,6 @@ function! DoPrettyXML()
     endfunction
 command! FormatXml call DoPrettyXML()
 
-
 map <F2> <Esc>:'<,'>!xmllint --format --recover -<CR>
 map <F6> <Esc>:FormatXml<CR>
 " map <F7> <Esc>:%!json_xs -f json -t json-pretty<CR>
