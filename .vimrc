@@ -47,6 +47,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tomasiser/vim-code-dark'
 Plugin 'danilo-augusto/vim-afterglow'
 Plugin 'jansenfuller/crayon'
+Plugin 'Valloric/YouCompleteMe'
 
 "репозитории vim/scripts
 Plugin 'L9'
@@ -101,8 +102,11 @@ set pastetoggle=<F5>
 " Show cursor position
 set ruler
 
-" Enable inclremental search
+" Enable incremental search
 set incsearch
+
+" Ignore case if search string is in lowercase. Otherwise use case sensitive search.
+set ignorecase smartcase
 
 " Allow to put/get yanked text to system clipboard (unnamedplus) or X11-selection (unnamed)
 " Check Vim xterm_clipboard option with (vim --version). If no option, install vim-gtk package
@@ -181,6 +185,8 @@ autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/n
 autocmd FileType Makefile noexpandtab
 
 autocmd FileType groovy set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/home/apechinsky/ctags/libs/jdk-1.8.0.tags
+autocmd FileType groovy set colorcolumn=130
+autocmd FileType groovy highlight ColorColumn ctermbg=darkgray
 autocmd FileType groovy map <F10> :w<CR>:!groovy %<CR>
 
 autocmd FileType java set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/home/apechinsky/ctags/libs/jdk-1.8.0.tags
