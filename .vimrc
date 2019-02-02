@@ -44,9 +44,6 @@ Plugin 'honza/vim-snippets'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-surround'
 
-Plugin 'tomasiser/vim-code-dark'
-Plugin 'danilo-augusto/vim-afterglow'
-Plugin 'jansenfuller/crayon'
 Plugin 'Valloric/YouCompleteMe'
 
 " Color management plugins
@@ -56,6 +53,9 @@ Plugin 'xolox/vim-colorscheme-switcher'
 " Color schemes
 Plugin 'morhetz/gruvbox'
 Plugin 'jnurmine/Zenburn'
+Plugin 'tomasiser/vim-code-dark'
+Plugin 'danilo-augusto/vim-afterglow'
+Plugin 'jansenfuller/crayon'
 
 "репозитории vim/scripts
 Plugin 'L9'
