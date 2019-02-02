@@ -198,7 +198,7 @@ autocmd FileType java map <F9> :w<CR>:make<CR>
 autocmd FileType java map <F10> :wall<CR>:make<CR>:!java %:r<CR>
 
 autocmd FileType sh map <F10> :w<CR>:!./%<CR>
-autocmd FileType sh map <F10> :w<CR>:!sh -v %<CR>
+autocmd FileType sh map <F10> :w<CR>:!bash %<CR>
 
 autocmd FileType awk map <F10> :w<CR>:!awk -f %<CR>
 
