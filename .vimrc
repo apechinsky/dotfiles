@@ -44,10 +44,18 @@ Plugin 'honza/vim-snippets'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-surround'
 
+Plugin 'Valloric/YouCompleteMe'
+
+" Color management plugins
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-colorscheme-switcher'
+" Plugin 'Taverius/vim-colorscheme-manager'
+" Color schemes
+Plugin 'morhetz/gruvbox'
+Plugin 'jnurmine/Zenburn'
 Plugin 'tomasiser/vim-code-dark'
 Plugin 'danilo-augusto/vim-afterglow'
 Plugin 'jansenfuller/crayon'
-Plugin 'Valloric/YouCompleteMe'
 
 "репозитории vim/scripts
 Plugin 'L9'
@@ -114,7 +122,11 @@ set clipboard=unnamedplus
 " Prevent clipboard from being cleared on exit
 autocmd VimLeave * call system("xclip -o -sel clip | xclip -sel clip")
 
-colorscheme torte
+" colorscheme torte
+colorscheme gruvbox
+" colorscheme zenburn
+" let g:gruvbox_termcolors=256
+set background=dark
 
 " Status line
 set statusline=%f\ %m\ %r\ line:%l/%L[%p%%]\ col:%v\ buf:#%n\ char:%b[0x%B]
@@ -160,7 +172,6 @@ function! DoPrettyXML()
     exe "set ft=" . l:origft
     endfunction
 command! FormatXml call DoPrettyXML()
-
 
 map <F2> <Esc>:'<,'>!xmllint --format --recover -<CR>
 map <F6> <Esc>:FormatXml<CR>
