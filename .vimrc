@@ -48,6 +48,14 @@ Plugin 'tomasiser/vim-code-dark'
 Plugin 'danilo-augusto/vim-afterglow'
 Plugin 'jansenfuller/crayon'
 
+" Color management plugins
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-colorscheme-switcher'
+" Plugin 'Taverius/vim-colorscheme-manager'
+" Color schemes
+Plugin 'morhetz/gruvbox'
+Plugin 'jnurmine/Zenburn'
+
 "репозитории vim/scripts
 Plugin 'L9'
 Plugin 'FuzzyFinder'
@@ -110,7 +118,11 @@ set clipboard=unnamedplus
 " Prevent clipboard from being cleared on exit
 autocmd VimLeave * call system("xclip -o -sel clip | xclip -sel clip")
 
-colorscheme torte
+" colorscheme torte
+colorscheme gruvbox
+" colorscheme zenburn
+" let g:gruvbox_termcolors=256
+set background=dark
 
 " Status line
 set statusline=%f\ %m\ %r\ line:%l/%L[%p%%]\ col:%v\ buf:#%n\ char:%b[0x%B]

@@ -97,3 +97,8 @@ set +o noclobber
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "/home/apechinsky/.sdkman/bin/sdkman-init.sh" ]] && source "/home/apechinsky/.sdkman/bin/sdkman-init.sh"
+
+# CSREPO tool initialization
+export CSREPO_HOME="/home/apechinsky/.csrepo"
+export CSREPO_JAVA_HOME="$CSREPO_HOME/repository/com.oracle.java/jre-1.8.0_152-linux64"
+[[ -d "${CSREPO_HOME}/bin" ]] && export PATH="$PATH:$CSREPO_HOME/bin"
