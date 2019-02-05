@@ -19,8 +19,6 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 
 call vundle#begin()
 
-filetype plugin indent on
-
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
@@ -32,7 +30,6 @@ Plugin 'vim-scripts/tComment'
 " Plugin 'tpope/vim-commentary'
 Plugin 'majutsushi/tagbar'
 Plugin 'editorconfig/editorconfig-vim'
-Plugin 'bumaociyuan/vim-swift'
 Plugin 'vimwiki/vimwiki'
 
 " Snipmate
@@ -46,10 +43,9 @@ Plugin 'tpope/vim-surround'
 
 Plugin 'Valloric/YouCompleteMe'
 
-" Color management plugins
+""" Color management plugins
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-colorscheme-switcher'
-" Plugin 'Taverius/vim-colorscheme-manager'
 " Color schemes
 Plugin 'morhetz/gruvbox'
 Plugin 'jnurmine/Zenburn'
@@ -65,14 +61,19 @@ Plugin 'matchit.zip'
 
 Plugin 'apechinsky/vim-platform-io'
 
+" Mirror of official vim Swift support
+Plugin 'bumaociyuan/vim-swift'
+
 "git репозитории (не на github)
 "Plugin 'git://git.wincent.com/command-t.git'
 
 "локальные git репозитории(если работаете над собственным плагином)
 "Plugin 'file:///Users/gmarik/path/to/plugin'
+"
 call vundle#end()
-filetype plugin indent on
 " END Vandle configuration
+
+filetype plugin indent on
 
 " Terminal encoding
 set termencoding=utf-8
@@ -104,6 +105,8 @@ set path+=**
 set expandtab
 set tabstop=4
 set shiftwidth=4
+
+set textwidth=100
 
 set pastetoggle=<F5>
 
