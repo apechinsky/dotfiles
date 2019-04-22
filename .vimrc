@@ -41,7 +41,7 @@ Plugin 'honza/vim-snippets'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-surround'
 
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 
 """ Color management plugins
 Plugin 'xolox/vim-misc'
@@ -106,7 +106,7 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
-set textwidth=100
+" set textwidth=100
 
 set pastetoggle=<F5>
 
@@ -215,6 +215,8 @@ autocmd FileType sh map <F10> :w<CR>:!./%<CR>
 autocmd FileType sh map <F10> :w<CR>:!bash %<CR>
 
 autocmd FileType awk map <F10> :w<CR>:!awk -f %<CR>
+
+autocmd FileType asciidoc map <F10> :wall<CR>:!asciidoctorj --require asciidoctor-diagram %<CR>
 
 " set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
 " map <F9> :make<Return>:copen<Return>

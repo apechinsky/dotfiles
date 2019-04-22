@@ -53,7 +53,7 @@ p   Open with "MS Project 2007"
 
 s   View x509 certificate
     openssl x509 -noout -in %d/%f -fingerprint > ~/tmp/%f.txt
-    openssl x509 -text -in %d/%f >> ~/tmp/%f.txt
+    openssl x509 -text -nameopt=utf8 -in %d/%f >> ~/tmp/%f.txt
     vim ~/tmp/%f.txt
     rm ~/tmp/%f.txt
 
@@ -81,3 +81,10 @@ _   Filter log file
     filter=%{Filter}
     gradlew logFilter -Din=%d/%f -Dout=%d/%f.$filter -Dfilter="$filter"
 
+= f *.pdf
+_   Rotate PDF file
+    tempFile=$(tempfile -p 'pdftk-')
+    for file in %s; do
+        pdftk "$file" cat 1-end%{Direction. (right|left|down)} output $tempFile
+        mv $tempFile "$file"
+    done
