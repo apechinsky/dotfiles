@@ -44,7 +44,8 @@ Plugin 'honza/vim-snippets'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-surround'
 
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
+" Plugin 'vim-syntastic/syntastic'
 
 " Color management plugins
 Plugin 'xolox/vim-misc'
@@ -239,3 +240,11 @@ let wiki_work.ext = '.md'
 
 let g:vimwiki_list = [wiki_personal, wiki_work]
 
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
