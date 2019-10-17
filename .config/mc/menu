@@ -57,8 +57,11 @@ s   View x509 certificate
     vim ~/tmp/%f.txt
     rm ~/tmp/%f.txt
 
-_   Publish (cs-pub) selected files using secure HTTP link (5days)
-    cshare publish %{Time to live. <number>(s|m|h|d)} %s
+_   Publish (cs-share) selected files using secure HTTP link (5days)
+    cshare publish -c %{Time to live. <number>(s|m|h|d)} %s
+
+_   Publish (cs-share) and send selected files using secure HTTP link (5days)
+    cshare publish -c -q %{Time to live. <number>(s|m|h|d)} %s | emailer cshare
 
 _   Publish (localhost) selected files using secure HTTP link (5days)
     publish-local.sh %{Time to live. <number>(s|m|h|d)} %s
