@@ -19,7 +19,6 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 
 call vundle#begin()
 
-filetype plugin indent on
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -72,7 +71,9 @@ Plugin 'apechinsky/vim-platform-io'
 "локальные git репозитории(если работаете над собственным плагином)
 "Plugin 'file:///Users/gmarik/path/to/plugin'
 call vundle#end()
+
 filetype plugin indent on
+" filetype plugin on
 " END Vandle configuration
 
 " Terminal encoding
@@ -140,7 +141,6 @@ set statusline=%f\ %m\ %r\ line:%l/%L[%p%%]\ col:%v\ buf:#%n\ char:%b[0x%B]
 
 command! Ctags !ctags -R .
 
-filetype plugin on
 
 " Make it possible to use vim navigation keys in normal mode when russian kb layout is active
 set langmap=ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>
@@ -158,7 +158,8 @@ function! DoPrettyXML()
     " XML that may contain multiple top-level elements.
     0put ='<PrettyXML>'
     $put ='</PrettyXML>'
-    silent %!xmllint --format --encode utf8 --recover - 
+    %!xmllint --format --encode utf8 --recover - 
+    " silent %!xmllint --format --encode utf8 --recover - 
     " xmllint will insert an <?xml?> header. it's easy enough to delete
     " if you don't want it.
     " delete the fake tags
@@ -174,7 +175,7 @@ function! DoPrettyXML()
     endfunction
 command! FormatXml call DoPrettyXML()
 
-map <F2> <Esc>:'<,'>!xmllint --format --recover -<CR>
+map <F2> <Esc>:'<,'>!xmllint --format --recover --noent - \| sed 1d<CR>
 map <F6> <Esc>:FormatXml<CR>
 " map <F7> <Esc>:%!json_xs -f json -t json-pretty<CR>
 " map <F9> <Esc>:set number<CR>
@@ -213,6 +214,10 @@ autocmd FileType sh map <F10> :w<CR>:!./%<CR>
 autocmd FileType sh map <F10> :w<CR>:!bash %<CR>
 
 autocmd FileType awk map <F10> :w<CR>:!awk -f %<CR>
+
+" autocmd FileType yml set suffixesadd+=.yml
+" autocmd FileType yml set set tabstop=2
+" autocmd FileType yml set set shiftwidth=2
 
 " set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
 " map <F9> :make<Return>:copen<Return>

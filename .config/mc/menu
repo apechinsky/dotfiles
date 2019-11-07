@@ -58,7 +58,7 @@ s   View x509 certificate
     rm ~/tmp/%f.txt
 
 _   Publish (cs-pub) selected files using secure HTTP link (5days)
-    cshare publish %{Time to live. <number>(s|m|h|d)} %s
+    cshare publish %{Time to live. <number>(s|m|h|d)} "%s"
 
 _   Publish (localhost) selected files using secure HTTP link (5days)
     publish-local.sh %{Time to live. <number>(s|m|h|d)} %s

@@ -91,6 +91,9 @@ source $ZSH/oh-my-zsh.sh
 
 alias -s pdf="evince"
 
+autoload -U promptinit
+promptinit
+
 . $HOME/_environment/env.sh
 
 set +o noclobber
@@ -103,3 +106,5 @@ export SDKMAN_DIR="$HOME/.sdkman"
 export CSREPO_HOME="/home/apechinsky/.csrepo"
 export CSREPO_JAVA_HOME="$CSREPO_HOME/repository/com.oracle.java/jre-1.8.0_152-linux64"
 [[ -d "${CSREPO_HOME}/bin" ]] && export PATH="$PATH:$CSREPO_HOME/bin"
+
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
