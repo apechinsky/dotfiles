@@ -19,7 +19,6 @@ set rtp+=~/.vim/bundle/Vundle.vim/
 
 call vundle#begin()
 
-
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
@@ -31,7 +30,6 @@ Plugin 'vim-scripts/tComment'
 " Plugin 'tpope/vim-commentary'
 Plugin 'majutsushi/tagbar'
 Plugin 'editorconfig/editorconfig-vim'
-Plugin 'bumaociyuan/vim-swift'
 Plugin 'vimwiki/vimwiki'
 
 " Snipmate
@@ -46,10 +44,9 @@ Plugin 'tpope/vim-surround'
 " Plugin 'Valloric/YouCompleteMe'
 " Plugin 'vim-syntastic/syntastic'
 
-" Color management plugins
+""" Color management plugins
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-colorscheme-switcher'
-" Plugin 'Taverius/vim-colorscheme-manager'
 " Color schemes
 Plugin 'morhetz/gruvbox'
 Plugin 'jnurmine/Zenburn'
@@ -65,16 +62,19 @@ Plugin 'matchit.zip'
 
 Plugin 'apechinsky/vim-platform-io'
 
+" Mirror of official vim Swift support
+Plugin 'bumaociyuan/vim-swift'
+
 "git репозитории (не на github)
 "Plugin 'git://git.wincent.com/command-t.git'
 
 "локальные git репозитории(если работаете над собственным плагином)
 "Plugin 'file:///Users/gmarik/path/to/plugin'
+"
 call vundle#end()
+" END Vandle configuration
 
 filetype plugin indent on
-" filetype plugin on
-" END Vandle configuration
 
 " Terminal encoding
 set termencoding=utf-8
@@ -106,6 +106,8 @@ set path+=**
 set expandtab
 set tabstop=4
 set shiftwidth=4
+
+" set textwidth=100
 
 set pastetoggle=<F5>
 
@@ -194,7 +196,9 @@ nnoremap <C-F8> :set hlsearch<CR>
 
 command! MakeTags !ctags -R .
 
+autocmd FileType xml map <F10> :%!envsubst<CR>`^
 autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+
 autocmd FileType Makefile noexpandtab
 
 autocmd FileType groovy set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/home/apechinsky/ctags/libs/jdk-1.8.0.tags
@@ -218,6 +222,8 @@ autocmd FileType awk map <F10> :w<CR>:!awk -f %<CR>
 " autocmd FileType yml set suffixesadd+=.yml
 " autocmd FileType yml set set tabstop=2
 " autocmd FileType yml set set shiftwidth=2
+
+autocmd FileType asciidoc map <F10> :wall<CR>:!asciidoctorj --require asciidoctor-diagram %<CR>
 
 " set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
 " map <F9> :make<Return>:copen<Return>
@@ -243,7 +249,7 @@ let wiki_work.path_html = '~/Dropbox/vimwiki/work/html'
 let wiki_work.syntax = 'markdown'
 let wiki_work.ext = '.md'
 
-let g:vimwiki_list = [wiki_personal, wiki_work]
+let g:vimwiki_list = [wiki_work, wiki_personal]
 
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
