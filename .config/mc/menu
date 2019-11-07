@@ -61,7 +61,7 @@ _   Publish (cs-share) selected files using secure HTTP link (5days)
     cshare publish -c %{Time to live. <number>(s|m|h|d)} %s
 
 _   Publish (cs-share) and send selected files using secure HTTP link (5days)
-    cshare publish -c -q %{Time to live. <number>(s|m|h|d)} %s | emailer cshare
+    cshare publish -q %{Time to live. <number>(s|m|h|d)} %s | csmail cshare
 
 _   Publish (localhost) selected files using secure HTTP link (5days)
     publish-local.sh %{Time to live. <number>(s|m|h|d)} %s

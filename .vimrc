@@ -195,7 +195,9 @@ nnoremap <C-F8> :set hlsearch<CR>
 
 command! MakeTags !ctags -R .
 
+autocmd FileType xml map <F10> :%!envsubst<CR>`^
 autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+
 autocmd FileType Makefile noexpandtab
 
 autocmd FileType groovy set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/home/apechinsky/ctags/libs/jdk-1.8.0.tags
@@ -242,5 +244,5 @@ let wiki_work.path_html = '~/Dropbox/vimwiki/work/html'
 let wiki_work.syntax = 'markdown'
 let wiki_work.ext = '.md'
 
-let g:vimwiki_list = [wiki_personal, wiki_work]
+let g:vimwiki_list = [wiki_work, wiki_personal]
 
