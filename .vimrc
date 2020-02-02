@@ -1,80 +1,64 @@
-if 1
-    fun! ProfileStart()
-        let profile_file = '/tmp/vim.'.getpid().'.profile.txt'
-        echom "Profiling into" profile_file
-        exec 'profile start '.profile_file
-        profile! file **
-        profile  func *
-    endfun
-    if get(g:, 'profile')
-        call ProfileStart()
-    endif
+""" Vim editor configuration
+
+""" vim-plug plugin manager (https://github.com/junegunn/vim-plug)
+
+" vim-plug. Automatic installation
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" START Vandle configuration
-set nocompatible
-filetype off  
+" vim-plug. Configuration
+call plug#begin('~/.vim/plugged')
 
-set rtp+=~/.vim/bundle/Vundle.vim/
-
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" Fuzzy finder. After installation FZF will be available from command line also. 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 "репозитории на github
-Plugin 'scrooloose/nerdtree'
-Plugin 'will133/vim-dirdiff'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'vim-scripts/tComment'
+Plug 'scrooloose/nerdtree'
+Plug 'will133/vim-dirdiff'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-scripts/tComment'
 " Plugin 'tpope/vim-commentary'
-Plugin 'majutsushi/tagbar'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'vimwiki/vimwiki'
+Plug 'majutsushi/tagbar'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'vimwiki/vimwiki'
 
 " Snipmate
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
 
-Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-surround'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-surround'
 
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'vim-syntastic/syntastic'
+" Plug 'Valloric/YouCompleteMe'
+" Plug 'vim-syntastic/syntastic'
 
 """ Color management plugins
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-colorscheme-switcher'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-colorscheme-switcher'
 " Color schemes
-Plugin 'morhetz/gruvbox'
-Plugin 'jnurmine/Zenburn'
-Plugin 'tomasiser/vim-code-dark'
-Plugin 'danilo-augusto/vim-afterglow'
-Plugin 'jansenfuller/crayon'
+Plug 'morhetz/gruvbox'
+Plug 'jnurmine/Zenburn'
+Plug 'tomasiser/vim-code-dark'
+Plug 'danilo-augusto/vim-afterglow'
 
-"репозитории vim/scripts
-Plugin 'L9'
-Plugin 'FuzzyFinder'
-
-Plugin 'matchit.zip'
-
-Plugin 'apechinsky/vim-platform-io'
+" platformio support (leader-c - compile, leader-d - compile&deploy)
+Plug 'apechinsky/vim-platform-io'
 
 " Mirror of official vim Swift support
-Plugin 'bumaociyuan/vim-swift'
+Plug 'bumaociyuan/vim-swift'
 
-"git репозитории (не на github)
-"Plugin 'git://git.wincent.com/command-t.git'
+""" репозитории vim/scripts
+Plug 'vim-scripts/L9'
 
-"локальные git репозитории(если работаете над собственным плагином)
-"Plugin 'file:///Users/gmarik/path/to/plugin'
-"
-call vundle#end()
-" END Vandle configuration
+Plug 'vim-scripts/matchit.zip'
 
-filetype plugin indent on
+call plug#end()
+" END vim-plug configuration
 
 " Terminal encoding
 set termencoding=utf-8
