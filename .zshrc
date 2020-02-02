@@ -94,6 +94,8 @@ alias -s pdf="evince"
 autoload -U promptinit
 promptinit
 
+# bindkey -v
+
 . $HOME/_environment/env.sh
 
 set +o noclobber

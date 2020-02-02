@@ -15,31 +15,45 @@ call plug#begin('~/.vim/plugged')
 " Fuzzy finder. After installation FZF will be available from command line also. 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
-"репозитории на github
+" Directory tree explorer plugin for vim (Ctrl-N)
 Plug 'scrooloose/nerdtree'
+
+" vimdiff for directories
 Plug 'will133/vim-dirdiff'
+
+" Pairs of handy bracket mappings
 Plug 'tpope/vim-unimpaired'
+
 Plug 'vim-scripts/tComment'
 " Plugin 'tpope/vim-commentary'
+"
 Plug 'majutsushi/tagbar'
+
 Plug 'editorconfig/editorconfig-vim'
+
+" Personal Wiki for Vim http://vimwiki.github.io/
 Plug 'vimwiki/vimwiki'
 
-" Snipmate
+" SnipMate and snippets
+" SnipMate aims to provide support for textual snippets, similar to TextMate
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
-Plug 'kien/ctrlp.vim'
+" Surround.vim is all about "surroundings": parentheses, brackets, quotes, XML tags, and more.
 Plug 'tpope/vim-surround'
 
 " Plug 'Valloric/YouCompleteMe'
 " Plug 'vim-syntastic/syntastic'
 
+
 """ Color management plugins
+
+" Color schemes switcher (F8, Shift-F8)
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-colorscheme-switcher'
+
 " Color schemes
 Plug 'morhetz/gruvbox'
 Plug 'jnurmine/Zenburn'
@@ -49,10 +63,10 @@ Plug 'danilo-augusto/vim-afterglow'
 " platformio support (leader-c - compile, leader-d - compile&deploy)
 Plug 'apechinsky/vim-platform-io'
 
-" Mirror of official vim Swift support
+" Swift language support
 Plug 'bumaociyuan/vim-swift'
 
-""" репозитории vim/scripts
+" Vim-script library, which provides some utility functions and commands for programming in Vim.
 Plug 'vim-scripts/L9'
 
 Plug 'vim-scripts/matchit.zip'
@@ -113,7 +127,7 @@ autocmd VimLeave * call system("xclip -o -sel clip | xclip -sel clip")
 " colorscheme torte
 colorscheme gruvbox
 " colorscheme zenburn
-" let g:gruvbox_termcolors=256
+let g:gruvbox_termcolors=256
 set background=dark
 
 " Status line
@@ -219,8 +233,7 @@ inoremap ^F ^X^F
 inoremap ^D ^X^D
 inoremap ^L ^X^L
 
-" Vim wiki
-
+" START vim wiki configuration
 let wiki_personal = {}
 let wiki_personal.path = '~/Dropbox/vimwiki/personal'
 let wiki_personal.path_html = '~/Dropbox/vimwiki/personal/html'
@@ -234,6 +247,7 @@ let wiki_work.syntax = 'markdown'
 let wiki_work.ext = '.md'
 
 let g:vimwiki_list = [wiki_work, wiki_personal]
+" END vim wiki configuration
 
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
