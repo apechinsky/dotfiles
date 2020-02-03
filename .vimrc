@@ -24,8 +24,8 @@ Plug 'will133/vim-dirdiff'
 " Pairs of handy bracket mappings
 Plug 'tpope/vim-unimpaired'
 
-Plug 'vim-scripts/tComment'
-" Plugin 'tpope/vim-commentary'
+" Plug 'vim-scripts/tComment'
+Plug 'tpope/vim-commentary'
 "
 Plug 'majutsushi/tagbar'
 
@@ -65,6 +65,9 @@ Plug 'apechinsky/vim-platform-io'
 
 " Swift language support
 Plug 'bumaociyuan/vim-swift'
+
+" Javascript plugin
+Plug 'pangloss/vim-javascript' 
 
 " Vim-script library, which provides some utility functions and commands for programming in Vim.
 Plug 'vim-scripts/L9'
