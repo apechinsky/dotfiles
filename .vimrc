@@ -226,6 +226,8 @@ autocmd FileType awk map <F10> :w<CR>:!awk -f %<CR>
 
 autocmd FileType asciidoc map <F10> :wall<CR>:!asciidoctorj --require asciidoctor-diagram %<CR>
 
+autocmd FileType swift set suffixesadd+=.swift
+
 " set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
 " map <F9> :make<Return>:copen<Return>
 " map <F10> :cprevious<Return>

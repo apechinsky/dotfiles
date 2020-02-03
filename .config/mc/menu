@@ -52,8 +52,11 @@ p   Open with "MS Project 2007"
     msproject %f &
 
 s   View x509 certificate
-    openssl x509 -noout -in %d/%f -fingerprint > ~/tmp/%f.txt
-    openssl x509 -text -nameopt=utf8 -in %d/%f >> ~/tmp/%f.txt
+    INFORM=PEM
+    grep CERTIFICATE %d/%f || INFORM=DER
+    echo $INFORM
+    openssl x509 -noout -inform $INFORM -in %d/%f -fingerprint > ~/tmp/%f.txt
+    openssl x509 -text -nameopt=utf8 -inform $INFORM -in %d/%f >> ~/tmp/%f.txt
     vim ~/tmp/%f.txt
     rm ~/tmp/%f.txt
 
