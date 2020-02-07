@@ -44,10 +44,6 @@ Plug 'honza/vim-snippets'
 " Surround.vim is all about "surroundings": parentheses, brackets, quotes, XML tags, and more.
 Plug 'tpope/vim-surround'
 
-" Plug 'Valloric/YouCompleteMe'
-" Plug 'vim-syntastic/syntastic'
-
-
 """ Color management plugins
 
 " Color schemes switcher (F8, Shift-F8)
@@ -73,6 +69,9 @@ Plug 'pangloss/vim-javascript'
 Plug 'vim-scripts/L9'
 
 Plug 'vim-scripts/matchit.zip'
+
+" Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support 
+Plug 'dense-analysis/ale'
 
 call plug#end()
 " END vim-plug configuration
@@ -226,7 +225,7 @@ autocmd FileType awk map <F10> :w<CR>:!awk -f %<CR>
 
 autocmd FileType asciidoc map <F10> :wall<CR>:!asciidoctorj --require asciidoctor-diagram %<CR>
 
-autocmd FileType swift set suffixesadd+=.swift
+autocmd FileType swift set suffixesadd+=.swift,.m,.h
 
 " set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
 " map <F9> :make<Return>:copen<Return>
@@ -258,7 +257,7 @@ let g:vimwiki_list = [wiki_work, wiki_personal]
 " set statusline+=%{SyntasticStatuslineFlag()}
 " set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" ALE configuration
+let g:ale_java_eclipselsp_path = '/home/apechinsky/opt/eclipse.jdt.ls'
+
+noremap ff :FZF<CR>
