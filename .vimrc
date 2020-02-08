@@ -132,8 +132,11 @@ colorscheme gruvbox
 let g:gruvbox_termcolors=256
 set background=dark
 
-" Status line
-set statusline=%f\ %m\ %r\ line:%l/%L[%p%%]\ col:%v\ buf:#%n\ char:%b[0x%B]
+""" Status line
+" Always show status line
+set laststatus=2
+" status format
+set statusline=%f\ %m\ %y\ %r\ line:%l/%L[%p%%]\ col:%v\ buf:#%n\ char:%b[0x%B]
 
 " adds vertical spaces to keep the text of the left and right pane aligned.
 "diffopt=filler
@@ -187,7 +190,12 @@ map <C-n> :NERDTreeToggle<CR>
 
 " Do not jump to next occurence on *
 nnoremap * *N
-nnoremap <C-F8> :set hlsearch<CR>
+
+" Enable search highlight
+" set hlsearch
+
+" enable incremental search
+set incsearch
 
 " Next window with Tab key
 " nmap <Tab> <C-w>w
@@ -259,5 +267,6 @@ let g:vimwiki_list = [wiki_work, wiki_personal]
 
 " ALE configuration
 let g:ale_java_eclipselsp_path = '/home/apechinsky/opt/eclipse.jdt.ls'
+let g:ale_java_eclipselsp_path = '$HOME/opt/eclipse.jdt.ls'
 
 noremap ff :FZF<CR>
