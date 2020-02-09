@@ -136,16 +136,21 @@ set background=dark
 " Always show status line
 set laststatus=2
 " status format
-set statusline=%f\ %m\ %y\ %r\ line:%l/%L[%p%%]\ col:%v\ buf:#%n\ char:%b[0x%B]
+set statusline=
+set statusline+=#%n
+set statusline+=\ %f
+set statusline+=\ %y
+set statusline+=%=
+set statusline+=\ char:%b[0x%B]
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %2l:%-2c\ [%L/%p%%]
 
 " adds vertical spaces to keep the text of the left and right pane aligned.
 "diffopt=filler
 
 " ignore whitespace
 "diffopt+=iwhite
-
-command! Ctags !ctags -R .
-
 
 " Make it possible to use vim navigation keys in normal mode when russian kb layout is active
 set langmap=ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>
@@ -261,12 +266,7 @@ let wiki_work.ext = '.md'
 let g:vimwiki_list = [wiki_work, wiki_personal]
 " END vim wiki configuration
 
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" ALE configuration
-let g:ale_java_eclipselsp_path = '/home/apechinsky/opt/eclipse.jdt.ls'
+" ALE (language server plugin) configuration
 let g:ale_java_eclipselsp_path = '$HOME/opt/eclipse.jdt.ls'
 
-noremap ff :FZF<CR>
+noremap <Leader>f :FZF<CR>
