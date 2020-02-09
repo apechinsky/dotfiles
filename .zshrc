@@ -96,18 +96,45 @@ promptinit
 
 # bindkey -v
 
-. $HOME/_environment/env.sh
+# source my environment
+source $HOME/_environment/env.sh
+
+# 
+# Directory bookmarks (shortcuts) support function 'cdg' (cd global)
+#
+# Usage:
+#   $ cdg
+#
+# Function activates dir selection using Fuzzy finder.
+# After selection jumps to selected dir.
+# 
+# Bookmark dirs are defined in '~/.bookmarks' file.
+#
+unalias cdg 2> /dev/null
+cdg() {
+    local bookmarks_file=~/.bookmarks
+
+    if [[ -r $bookmarks_file ]]; then
+
+        local dirs=$(cat "$bookmarks_file" | sed '/^\s*$/d' | sed '/^#.*/d')
+        local dest_dir=$(echo -e "$dirs" | fzf )
+
+        if [[ $dest_dir != '' ]]; then
+            cd $(eval echo "${dest_dir}")
+        fi
+    fi
+}
 
 set +o noclobber
+
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "/home/apechinsky/.sdkman/bin/sdkman-init.sh" ]] && source "/home/apechinsky/.sdkman/bin/sdkman-init.sh"
-
-
-
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 # CSREPO tool initialization
 export CSREPO_HOME="/home/apechinsky/.csrepo"
 export CSREPO_JAVA_HOME="$CSREPO_HOME/repository/com.oracle.java/jre-1.8.0_152-linux64"
 [[ -d "${CSREPO_HOME}/bin" ]] && export PATH="$PATH:$CSREPO_HOME/bin"
+
