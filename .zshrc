@@ -117,13 +117,17 @@ cdg() {
     if [[ -r $bookmarks_file ]]; then
 
         local dirs=$(cat "$bookmarks_file" | sed '/^\s*$/d' | sed '/^#.*/d')
-        local dest_dir=$(echo -e "$dirs" | fzf )
+        local dest_dir=$(echo -e "$dirs" | fzf --height=40%)
 
-        if [[ $dest_dir != '' ]]; then
+        if [[ "${dest_dir:0:1}" == '!' ]]; then
+            $(eval echo "${dest_dir:1}")
+        elif [[ $dest_dir != '' ]]; then
             cd $(eval echo "${dest_dir}")
         fi
     fi
 }
+
+bindkey -s '^B' 'cdg\n'
 
 set +o noclobber
 
