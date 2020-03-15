@@ -71,7 +71,7 @@ Plug 'vim-scripts/L9'
 Plug 'vim-scripts/matchit.zip'
 
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support 
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 
 call plug#end()
 " END vim-plug configuration
@@ -237,6 +237,7 @@ autocmd FileType awk map <F10> :w<CR>:!awk -f %<CR>
 " autocmd FileType yml set set shiftwidth=2
 
 autocmd FileType asciidoc map <F10> :wall<CR>:!asciidoctorj --require asciidoctor-diagram %<CR>
+autocmd FileType asciidoc set textwidth=80
 
 autocmd FileType swift set suffixesadd+=.swift,.m,.h
 
@@ -267,6 +268,6 @@ let g:vimwiki_list = [wiki_work, wiki_personal]
 " END vim wiki configuration
 
 " ALE (language server plugin) configuration
-let g:ale_java_eclipselsp_path = '$HOME/opt/eclipse.jdt.ls'
+" let g:ale_java_eclipselsp_path = '$HOME/opt/eclipse.jdt.ls'
 
 noremap <Leader>f :FZF<CR>
