@@ -128,6 +128,7 @@ autocmd VimLeave * call system("xclip -o -sel clip | xclip -sel clip")
 
 " colorscheme torte
 colorscheme gruvbox
+" colorscheme codedark
 " colorscheme zenburn
 let g:gruvbox_termcolors=256
 set background=dark
@@ -226,6 +227,10 @@ autocmd FileType java highlight ColorColumn ctermbg=darkgray
 autocmd Filetype java set makeprg=javac\ %
 autocmd FileType java map <F9> :w<CR>:make<CR>
 autocmd FileType java map <F10> :wall<CR>:make<CR>:!java %:r<CR>
+
+autocmd Filetype javascript set makeprg=node\ %
+autocmd FileType javascript map <F9> :wall<CR>:!node %<CR>
+autocmd FileType javascript map <F10> :wall<CR>:!node %<CR>
 
 autocmd FileType sh map <F10> :w<CR>:!./%<CR>
 autocmd FileType sh map <F10> :w<CR>:!bash %<CR>
