@@ -1,6 +1,1 @@
-*
-!.config/mc/menu
-!.zhrc
-!.vimrc
-!.conkyrc
-!.gitignore
+.dotfiles
