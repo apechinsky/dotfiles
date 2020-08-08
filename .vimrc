@@ -26,6 +26,10 @@ Plug 'tpope/vim-unimpaired'
 
 " Plug 'vim-scripts/tComment'
 Plug 'tpope/vim-commentary'
+
+" Git integration
+Plug 'tpope/vim-fugitive'
+
 "
 Plug 'majutsushi/tagbar'
 
@@ -61,6 +65,9 @@ Plug 'apechinsky/vim-platform-io'
 
 " Swift language support
 Plug 'bumaociyuan/vim-swift'
+
+" Kotlin language support
+Plug 'udalov/kotlin-vim'
 
 " Javascript plugin
 Plug 'pangloss/vim-javascript' 
@@ -245,6 +252,9 @@ autocmd FileType asciidoc map <F10> :wall<CR>:!asciidoctorj --require asciidocto
 autocmd FileType asciidoc set textwidth=80
 
 autocmd FileType swift set suffixesadd+=.swift,.m,.h
+autocmd FileType kt set suffixesadd+=.kt
+
+autocmd FileType typescriptreact set suffixesadd+=.tsx
 
 " set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%#
 " map <F9> :make<Return>:copen<Return>
