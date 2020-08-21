@@ -77,6 +77,9 @@ Plug 'vim-scripts/L9'
 
 Plug 'vim-scripts/matchit.zip'
 
+" Translate shell integration
+Plug 'echuraev/translate-shell.vim'
+
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support 
 " Plug 'dense-analysis/ale'
 
