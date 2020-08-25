@@ -8,7 +8,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
+ZSH_THEME="robbyrussell"
 # ZSH_THEME="gallois-my"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -55,7 +55,16 @@ JIRA_URL=https://jira.qulix.com
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git adb docker history-substring-search spring jira themes zsh-wakatime)
+plugins=(
+    git 
+    adb 
+    docker 
+    history-substring-search 
+    spring 
+    jira 
+    themes 
+    zsh-wakatime
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -136,6 +145,7 @@ set +o noclobber
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "/home/apechinsky/.sdkman/bin/sdkman-init.sh" ]] && source "/home/apechinsky/.sdkman/bin/sdkman-init.sh"
+
 
 # CSREPO tool initialization
 export CSREPO_HOME="/home/apechinsky/.csrepo"
