@@ -13,7 +13,8 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Fuzzy finder. After installation FZF will be available from command line also. 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf'
 
 " Directory tree explorer plugin for vim (Ctrl-N)
 Plug 'scrooloose/nerdtree'
@@ -291,3 +292,5 @@ let g:vimwiki_list = [wiki_work, wiki_personal]
 " let g:ale_java_eclipselsp_path = '$HOME/opt/eclipse.jdt.ls'
 
 noremap <Leader>f :FZF<CR>
+
+let g:snipMate = { 'snippet_version' : 1 }
