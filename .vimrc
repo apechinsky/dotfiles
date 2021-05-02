@@ -140,6 +140,8 @@ autocmd VimLeave * call system("xclip -o -sel clip | xclip -sel clip")
 colorscheme gruvbox
 " colorscheme codedark
 " colorscheme zenburn
+" autocmd vimenter * ++nested colorscheme gruvbox
+
 let g:gruvbox_termcolors=256
 set background=dark
 
