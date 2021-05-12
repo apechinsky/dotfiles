@@ -1,0 +1,42 @@
+## buildscript
+snippet buildscript
+	buildscript {
+		${0}
+	}
+## repositories
+snippet repositories
+	repositories {
+		mavenCentral()
+	}
+## dependencies
+snippet dependencies
+	dependencies {
+		${0}
+	}
+## dependenciesall
+snippet dependenciesall
+	dependencies {
+		versions = [:]
+		libs = [:]
+
+		versions.junit = '5.5.2'
+		libs.junit = [
+			libs.junit5_jupiter_engine = "org.junit.jupiter:junit-jupiter-engine:${versions.junit}",
+			libs.junit5_platform_launcher = "org.junit.platform:junit-platform-launcher:1.5.2",
+		]
+
+		libs.mockito = "org.mockito:mockito-core:1.10.19"
+
+		versions.hamcrest = '1.3'
+		libs.hamcrest = [
+			libs.hamcrest_core = "org.hamcrest:hamcrest-core:${versions.hamcrest}",
+			libs.hamcrest_library = "org.hamcrest:hamcrest-library:${versions.hamcrest}",
+		]
+
+		libs.test = [
+			libs.junit,
+			libs.mockito,
+			libs.hamcrest,
+		]
+	}
+

@@ -12,8 +12,11 @@ endif
 " vim-plug. Configuration
 call plug#begin('~/.vim/plugged')
 
-" Fuzzy finder. After installation FZF will be available from command line also. 
+" Fuzzy finder.  
+" Method 1. Install fzf viz vim plugin
+" After installation FZF will be available from command line also.
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Method 2. Install fzf externally and declare plugin
 Plug 'junegunn/fzf'
 
 " Directory tree explorer plugin for vim (Ctrl-N)
@@ -293,4 +296,6 @@ let g:vimwiki_list = [wiki_work, wiki_personal]
 
 noremap <Leader>f :FZF<CR>
 
-let g:snipMate = { 'snippet_version' : 1 }
+let g:snipMate = { 'snippet_version': 1}
+" Custom snippets '$HOME/.vim/after/snippets' override standard
+let g:snipMate.override = 1
