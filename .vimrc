@@ -12,8 +12,11 @@ endif
 " vim-plug. Configuration
 call plug#begin('~/.vim/plugged')
 
-" Fuzzy finder. After installation FZF will be available from command line also. 
+" Fuzzy finder.  
+" Method 1. Install fzf viz vim plugin
+" After installation FZF will be available from command line also.
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Method 2. Install fzf externally and declare plugin
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
@@ -148,6 +151,9 @@ autocmd VimLeave * call system("xclip -o -sel clip | xclip -sel clip")
 " Enable spell highlighting with gruvbox theme
 let g:gruvbox_guisp_fallback = "bg"
 colorscheme gruvbox
+" colorscheme codedark
+" colorscheme zenburn
+" autocmd vimenter * ++nested colorscheme gruvbox
 let g:gruvbox_termcolors=256
 set background=dark
 
@@ -305,4 +311,6 @@ let g:vimwiki_list = [wiki_work, wiki_personal]
 
 noremap <Leader>f :FZF<CR>
 
-let g:snipMate = { 'snippet_version' : 1 }
+let g:snipMate = { 'snippet_version': 1}
+" Custom snippets '$HOME/.vim/after/snippets' override standard
+let g:snipMate.override = 1

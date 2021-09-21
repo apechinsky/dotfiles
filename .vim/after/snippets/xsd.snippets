@@ -1,0 +1,37 @@
+## Complex type
+snippet complexType
+	<xs:complexType name="${1}">
+		${0}
+	</xs:complexType>
+##
+## Simple type
+snippet simpleType
+	<xs:simpleType name="${1}">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="${0}"/>
+		</xs:restriction>
+	</xs:simpleType>
+##
+## Sequence
+snippet sequence
+	<xs:sequence>
+		${0}
+	</xs:sequence>
+##
+## element
+snippet element
+	<xs:element name="${3}" type="${2:xs:string}" ${1:minOccurs="0"} ${0:maxOccurs="unbounded"}/>
+##
+## element
+snippet elementComplex
+	<xs:element name="${1}">
+		${0}
+	</xs:element>
+##
+## Annotation
+snippet annotation
+	<xs:annotation>
+		<xs:documentation>
+			${0}
+		</xs:documentation>
+	</xs:annotation>

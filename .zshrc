@@ -63,7 +63,6 @@ plugins=(
     spring 
     jira 
     themes 
-    zsh-wakatime
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -141,13 +140,8 @@ bindkey -s '^B' 'cdg\n'
 
 set +o noclobber
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-# export SDKMAN_DIR="$HOME/.sdkman"
-# [[ -s "/home/apechinsky/.sdkman/bin/sdkman-init.sh" ]] && source "/home/apechinsky/.sdkman/bin/sdkman-init.sh"
-
 [[ -f ~/.asdf/asdf.sh ]] && source $HOME/.asdf/asdf.sh
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-
+[[ -f ~/.fzf.zsh ]] && source $HOME/.fzf.zsh
 
 # CSREPO tool initialization
 export CSREPO_HOME="/home/apechinsky/.csrepo"
