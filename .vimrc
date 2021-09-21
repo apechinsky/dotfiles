@@ -18,6 +18,7 @@ call plug#begin('~/.vim/plugged')
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Method 2. Install fzf externally and declare plugin
 Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 " Directory tree explorer plugin for vim (Ctrl-N)
 Plug 'scrooloose/nerdtree'
@@ -84,8 +85,10 @@ Plug 'vim-scripts/matchit.zip'
 " Translate shell integration
 Plug 'echuraev/translate-shell.vim'
 
+Plug 'codota/tabnine-vim'
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support 
 " Plug 'dense-analysis/ale'
+" Plug 'ycm-core/YouCompleteMe' 
 
 call plug#end()
 " END vim-plug configuration
@@ -98,6 +101,8 @@ set fileencodings=utf8,cp1251
 
 " Enable line numbers
 set number
+" Enable relative numbers
+set relativenumber
 
 " Disable backup files creation
 set nobackup
@@ -143,12 +148,12 @@ set clipboard=unnamedplus
 " Prevent clipboard from being cleared on exit
 autocmd VimLeave * call system("xclip -o -sel clip | xclip -sel clip")
 
-" colorscheme torte
+" Enable spell highlighting with gruvbox theme
+let g:gruvbox_guisp_fallback = "bg"
 colorscheme gruvbox
 " colorscheme codedark
 " colorscheme zenburn
 " autocmd vimenter * ++nested colorscheme gruvbox
-
 let g:gruvbox_termcolors=256
 set background=dark
 
@@ -165,6 +170,9 @@ set statusline+=\ char:%b[0x%B]
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
 set statusline+=\[%{&fileformat}\]
 set statusline+=\ %2l:%-2c\ [%L/%p%%]
+
+set undodir=~/.vim/undodir
+set undofile
 
 " adds vertical spaces to keep the text of the left and right pane aligned.
 "diffopt=filler
@@ -235,17 +243,21 @@ autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/n
 autocmd FileType Makefile noexpandtab
 
 autocmd FileType groovy set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/home/apechinsky/ctags/libs/jdk-1.8.0.tags
-autocmd FileType groovy set colorcolumn=130
+autocmd FileType groovy set colorcolumn=80,130
 autocmd FileType groovy highlight ColorColumn ctermbg=darkgray
 autocmd FileType groovy map <F10> :w<CR>:!groovy %<CR>
 
 autocmd FileType java set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/home/apechinsky/ctags/libs/jdk-1.8.0.tags
-autocmd FileType java set colorcolumn=130
+autocmd FileType java set colorcolumn=80,130
 autocmd FileType java highlight ColorColumn ctermbg=darkgray
 
 autocmd Filetype java set makeprg=javac\ %
 autocmd FileType java map <F9> :w<CR>:make<CR>
 autocmd FileType java map <F10> :wall<CR>:make<CR>:!java %:r<CR>
+
+autocmd Filetype kotlin set makeprg=kotlinc\ %
+autocmd FileType kotlin map <F9> :w<CR>:make<CR>
+autocmd FileType kotlin map <F10> :wall<CR>:make<CR>:!kotlin %:r<CR>
 
 autocmd Filetype javascript set makeprg=node\ %
 autocmd FileType javascript map <F9> :wall<CR>:!node %<CR>

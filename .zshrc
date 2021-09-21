@@ -115,7 +115,7 @@ source $HOME/_environment/env.sh
 #
 # Function activates dir selection using Fuzzy finder.
 # After selection jumps to selected dir.
-# 
+#
 # Bookmark dirs are defined in '~/.bookmarks' file.
 #
 unalias cdg 2> /dev/null
@@ -135,12 +135,13 @@ cdg() {
     fi
 }
 
+
 bindkey -s '^B' 'cdg\n'
 
 set +o noclobber
 
-[[ -f ~/.asdf/asdf.sh ]] && source ~/.asdf/asdf.sh
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+[[ -f ~/.asdf/asdf.sh ]] && source $HOME/.asdf/asdf.sh
+[[ -f ~/.fzf.zsh ]] && source $HOME/.fzf.zsh
 
 
 # CSREPO tool initialization
