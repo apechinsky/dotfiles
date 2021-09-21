@@ -127,8 +127,8 @@ cdg() {
         local dirs=$(cat "$bookmarks_file" | sed '/^\s*$/d' | sed '/^#.*/d')
         local dest_dir=$(echo -e "$dirs" | fzf --height=40%)
 
-        if [[ "${dest_dir:0:1}" == '!' ]]; then
-            $(eval echo "${dest_dir:1}")
+        if [[ "${dest_dir:0:4}" == 'EDIT' ]]; then
+            $(eval echo "$EDITOR ${dest_dir:5}")
         elif [[ $dest_dir != '' ]]; then
             cd $(eval echo "${dest_dir}")
         fi
@@ -141,6 +141,7 @@ set +o noclobber
 
 [[ -f ~/.asdf/asdf.sh ]] && source ~/.asdf/asdf.sh
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
+
 
 # CSREPO tool initialization
 export CSREPO_HOME="/home/apechinsky/.csrepo"
