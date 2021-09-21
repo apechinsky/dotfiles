@@ -116,7 +116,7 @@ source $HOME/_environment/env.sh
 #
 # Function activates dir selection using Fuzzy finder.
 # After selection jumps to selected dir.
-# 
+#
 # Bookmark dirs are defined in '~/.bookmarks' file.
 #
 unalias cdg 2> /dev/null
@@ -128,13 +128,14 @@ cdg() {
         local dirs=$(cat "$bookmarks_file" | sed '/^\s*$/d' | sed '/^#.*/d')
         local dest_dir=$(echo -e "$dirs" | fzf --height=40%)
 
-        if [[ "${dest_dir:0:1}" == '!' ]]; then
-            $(eval echo "${dest_dir:1}")
+        if [[ "${dest_dir:0:4}" == 'EDIT' ]]; then
+            $(eval echo "$EDITOR ${dest_dir:5}")
         elif [[ $dest_dir != '' ]]; then
             cd $(eval echo "${dest_dir}")
         fi
     fi
 }
+
 
 bindkey -s '^B' 'cdg\n'
 
@@ -144,8 +145,8 @@ set +o noclobber
 # export SDKMAN_DIR="$HOME/.sdkman"
 # [[ -s "/home/apechinsky/.sdkman/bin/sdkman-init.sh" ]] && source "/home/apechinsky/.sdkman/bin/sdkman-init.sh"
 
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 [[ -f ~/.asdf/asdf.sh ]] && source $HOME/.asdf/asdf.sh
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 
 # CSREPO tool initialization
