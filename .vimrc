@@ -35,8 +35,8 @@ Plug 'tpope/vim-commentary'
 " Git integration
 Plug 'tpope/vim-fugitive'
 
-"
-Plug 'majutsushi/tagbar'
+" 
+Plug 'preservim/tagbar'
 
 Plug 'editorconfig/editorconfig-vim'
 
@@ -90,6 +90,8 @@ Plug 'codota/tabnine-vim'
 " Plug 'dense-analysis/ale'
 " Plug 'ycm-core/YouCompleteMe' 
 
+Plug 'mbbill/undotree'
+
 call plug#end()
 " END vim-plug configuration
 
@@ -106,6 +108,9 @@ set relativenumber
 
 " Disable backup files creation
 set nobackup
+set noswapfile
+set undodir=~/.vim/undodir
+set undofile
 
 " Disable line wrapping
 set nowrap
@@ -138,6 +143,8 @@ set ruler
 
 " Enable incremental search
 set incsearch
+
+set scrolloff=6
 
 " Ignore case if search string is in lowercase. Otherwise use case sensitive search.
 set ignorecase smartcase
