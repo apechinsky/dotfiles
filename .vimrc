@@ -131,7 +131,7 @@ set expandtab
 set tabstop=4
 set shiftwidth=4
 
-" allow to switch buffers if current is unsaved
+" Enable switch buffer if current is unsaved
 set hidden
 
 " set textwidth=100
@@ -321,3 +321,10 @@ noremap <Leader>f :FZF<CR>
 let g:snipMate = { 'snippet_version': 1}
 " Custom snippets '$HOME/.vim/after/snippets' override standard
 let g:snipMate.override = 1
+
+" experimental
+set relativenumber
+
+" Disable modifyOtherKeys mode to prevent '>4;2m' characters in terminal " (e.g. ':!ls')
+let &t_TI = ""
+let &t_TE = ""

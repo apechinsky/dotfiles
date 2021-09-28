@@ -143,6 +143,7 @@ set +o noclobber
 [[ -f ~/.asdf/asdf.sh ]] && source $HOME/.asdf/asdf.sh
 [[ -f ~/.fzf.zsh ]] && source $HOME/.fzf.zsh
 
+
 # CSREPO tool initialization
 export CSREPO_HOME="/home/apechinsky/.csrepo"
 export CSREPO_JAVA_HOME="$CSREPO_HOME/repository/net.adoptopenjdk/jre-1.8.0_252-linux64"
