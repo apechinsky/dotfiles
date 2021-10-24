@@ -220,11 +220,21 @@ function! DoPrettyXML()
     endfunction
 command! FormatXml call DoPrettyXML()
 
+" Toggles line numbering (relativenumber & number)
+function! ToggleLineNumbers()
+    if &number == 1
+        set nonumber
+        set norelativenumber
+    else
+        set number
+        set relativenumber
+    endif
+endfunction
+command! LineNumbers call ToggleLineNumbers()
+
 map <F2> <Esc>:'<,'>!xmllint --format --recover --noent - \| sed 1d<CR>
 map <F6> <Esc>:FormatXml<CR>
 " map <F7> <Esc>:%!json_xs -f json -t json-pretty<CR>
-" map <F9> <Esc>:set number<CR>
-" map <F10> <Esc>:set nonumber<CR>
 map <C-n> :NERDTreeToggle<CR>
 " map <F5> :buffers<CR>:buffer<Space>
 
@@ -316,7 +326,9 @@ let g:vimwiki_list = [wiki_work, wiki_personal]
 " ALE (language server plugin) configuration
 " let g:ale_java_eclipselsp_path = '$HOME/opt/eclipse.jdt.ls'
 
+" Fuzzy Finder configuration
 noremap <Leader>f :FZF<CR>
+let g:fzf_layout = { 'down': '40%' }
 
 let g:snipMate = { 'snippet_version': 1}
 " Custom snippets '$HOME/.vim/after/snippets' override standard
@@ -328,3 +340,22 @@ set relativenumber
 " Disable modifyOtherKeys mode to prevent '>4;2m' characters in terminal " (e.g. ':!ls')
 let &t_TI = ""
 let &t_TE = ""
+
+function SwapBool ()
+  let s:w = expand("<cword>")
+
+  if s:w == "false"
+    normal ciwtrue
+    if expand("<cword>") != "true"
+      normal u
+    endif
+  elseif s:w == "true"
+    normal ciwfalse
+    if expand("<cword>") != "false"
+      normal u
+    endif
+  endif
+endfunction
+
+noremap <leader>s :call SwapBool()<CR>
+command! SwapBool call SwapBool()
