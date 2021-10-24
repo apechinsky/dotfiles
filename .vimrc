@@ -86,8 +86,9 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'echuraev/translate-shell.vim'
 
 Plug 'codota/tabnine-vim'
+
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support 
-" Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 " Plug 'ycm-core/YouCompleteMe' 
 
 Plug 'mbbill/undotree'
@@ -328,3 +329,7 @@ set relativenumber
 " Disable modifyOtherKeys mode to prevent '>4;2m' characters in terminal " (e.g. ':!ls')
 let &t_TI = ""
 let &t_TE = ""
+
+" "trans" integration plugin config
+let g:trans_default_direction = ":ru"
+noremap <Leader>t :Trans<CR>
