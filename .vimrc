@@ -86,8 +86,9 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'echuraev/translate-shell.vim'
 
 Plug 'codota/tabnine-vim'
+
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support 
-" Plug 'dense-analysis/ale'
+Plug 'dense-analysis/ale'
 " Plug 'ycm-core/YouCompleteMe' 
 
 Plug 'mbbill/undotree'
@@ -359,3 +360,7 @@ endfunction
 
 noremap <leader>s :call SwapBool()<CR>
 command! SwapBool call SwapBool()
+
+" "trans" integration plugin config
+let g:trans_default_direction = ":ru"
+noremap <Leader>t :Trans<CR>
