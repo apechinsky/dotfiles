@@ -93,6 +93,8 @@ Plug 'dense-analysis/ale'
 
 Plug 'mbbill/undotree'
 
+Plug 'itchyny/lightline.vim'
+
 call plug#end()
 " END vim-plug configuration
 
@@ -166,18 +168,38 @@ let g:gruvbox_termcolors=256
 set background=dark
 
 """ Status line
+
 " Always show status line
 set laststatus=2
-" status format
-set statusline=
-set statusline+=#%n
-set statusline+=\ %f
-set statusline+=\ %y
-set statusline+=%=
-set statusline+=\ char:%b[0x%B]
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\[%{&fileformat}\]
-set statusline+=\ %2l:%-2c\ [%L/%p%%]
+
+" Standard statusline configuration
+" set statusline=
+" set statusline+=#%n
+" set statusline+=\ %f
+" set statusline+=\ %y
+" set statusline+=\ %{FugitiveStatusline()}
+" set statusline+=%=
+" set statusline+=\ char:%b[0x%B]
+" set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+" set statusline+=\[%{&fileformat}\]
+" set statusline+=\ %2l:%-2c\ [%L/%p%%]
+
+" lightline plugin statusline configuration
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ 
+      \     [ 'mode', 'paste' ],
+      \     [ 'gitbranch', 'readonly', 'filename', 'modified', 'char'] 
+      \   ]
+      \ },
+      \ 'component': {
+      \   'char': '%3b/%Bh',
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
 set undodir=~/.vim/undodir
 set undofile
@@ -264,10 +286,12 @@ autocmd FileType groovy set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/ho
 autocmd FileType groovy set colorcolumn=80,130
 autocmd FileType groovy highlight ColorColumn ctermbg=darkgray
 autocmd FileType groovy map <F10> :w<CR>:!groovy %<CR>
+autocmd FileType groovy set suffixesadd=.groovy,.java
 
 autocmd FileType java set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/home/apechinsky/ctags/libs/jdk-1.8.0.tags
 autocmd FileType java set colorcolumn=80,130
 autocmd FileType java highlight ColorColumn ctermbg=darkgray
+autocmd FileType java set suffixesadd=.java
 
 autocmd Filetype java set makeprg=javac\ %
 autocmd FileType java map <F9> :w<CR>:make<CR>
@@ -280,6 +304,7 @@ autocmd FileType kotlin map <F10> :wall<CR>:make<CR>:!kotlin %:r<CR>
 autocmd Filetype javascript set makeprg=node\ %
 autocmd FileType javascript map <F9> :wall<CR>:!node %<CR>
 autocmd FileType javascript map <F10> :wall<CR>:!node %<CR>
+autocmd FileType javascript set suffixesadd=.js,.ts
 
 autocmd FileType sh map <F10> :w<CR>:!./%<CR>
 autocmd FileType sh map <F10> :w<CR>:!bash %<CR>
@@ -334,9 +359,6 @@ let g:fzf_layout = { 'down': '40%' }
 let g:snipMate = { 'snippet_version': 1}
 " Custom snippets '$HOME/.vim/after/snippets' override standard
 let g:snipMate.override = 1
-
-" experimental
-set relativenumber
 
 " Disable modifyOtherKeys mode to prevent '>4;2m' characters in terminal " (e.g. ':!ls')
 let &t_TI = ""
