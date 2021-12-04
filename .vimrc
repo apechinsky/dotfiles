@@ -255,6 +255,8 @@ set incsearch
 
 command! MakeTags !ctags -R .
 
+nmap <F8> :TagbarToggle<CR>
+
 autocmd FileType xml map <F10> :%!envsubst<CR>`^
 autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 

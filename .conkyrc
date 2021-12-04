@@ -57,9 +57,9 @@ default_shade_color black
 default_outline_color DarkGrey
 
 # Text alignment, other possible values are commented
-#alignment top_left
-alignment top_left
-#alignment bottom_left
+# alignment top_left
+# alignment top_right
+alignment bottom_left
 #alignment bottom_right
 
 # Gap between borders of screen and text
@@ -113,10 +113,6 @@ ${color #ffcb48}DATA$color
    ${upspeedgraph eth0 20 000000 ffffff}
    Download:$color  ${downspeed eth0}kb/s
    ${downspeedgraph eth0 20 000000 ffffff}
-
-${color #ffcb48}MUSIC$color
-   $mpd_artist, $mpd_date $mpd_album, $mpd_title
-   ${color #78af78}$mpd_bar${color}
 
 # Disable weather because of high power consumption
 #${color #ffcb48}WEATHER$color
