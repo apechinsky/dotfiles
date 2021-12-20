@@ -89,7 +89,6 @@ Plug 'codota/tabnine-vim'
 
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support 
 Plug 'dense-analysis/ale'
-" Plug 'ycm-core/YouCompleteMe' 
 
 Plug 'mbbill/undotree'
 
@@ -213,7 +212,7 @@ set undofile
 " Make it possible to use vim navigation keys in normal mode when russian kb layout is active
 set langmap=ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>
 
-function! DoPrettyXML()
+function! FormatXml()
     " save the filetype so we can restore it later
     let l:origft = &ft
     set ft=
@@ -241,7 +240,7 @@ function! DoPrettyXML()
     " restore the filetype
     exe "set ft=" . l:origft
     endfunction
-command! FormatXml call DoPrettyXML()
+noremap <F6> :call FormatXml()<CR>
 
 " Toggles line numbering (relativenumber & number)
 function! ToggleLineNumbers()
@@ -253,10 +252,8 @@ function! ToggleLineNumbers()
         set relativenumber
     endif
 endfunction
-command! LineNumbers call ToggleLineNumbers()
+noremap <F2> :call ToggleLineNumbers()<CR>
 
-map <F2> <Esc>:'<,'>!xmllint --format --recover --noent - \| sed 1d<CR>
-map <F6> <Esc>:FormatXml<CR>
 " map <F7> <Esc>:%!json_xs -f json -t json-pretty<CR>
 map <C-n> :NERDTreeToggle<CR>
 " map <F5> :buffers<CR>:buffer<Space>
@@ -277,7 +274,7 @@ set incsearch
 
 command! MakeTags !ctags -R .
 
-autocmd FileType xml map <F10> :%!envsubst<CR>`^
+autocmd FileType xml map <F10> :%!envsubst<CR>
 autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 
 autocmd FileType Makefile noexpandtab
@@ -300,6 +297,7 @@ autocmd FileType java map <F10> :wall<CR>:make<CR>:!java %:r<CR>
 autocmd Filetype kotlin set makeprg=kotlinc\ %
 autocmd FileType kotlin map <F9> :w<CR>:make<CR>
 autocmd FileType kotlin map <F10> :wall<CR>:make<CR>:!kotlin %:r<CR>
+autocmd FileType kotlin set suffixesadd=.kt
 
 autocmd Filetype javascript set makeprg=node\ %
 autocmd FileType javascript map <F9> :wall<CR>:!node %<CR>
@@ -311,9 +309,9 @@ autocmd FileType sh map <F10> :w<CR>:!bash %<CR>
 
 autocmd FileType awk map <F10> :w<CR>:!awk -f %<CR>
 
-" autocmd FileType yml set suffixesadd+=.yml
-" autocmd FileType yml set set tabstop=2
-" autocmd FileType yml set set shiftwidth=2
+autocmd FileType yaml set tabstop=2
+autocmd FileType yaml set shiftwidth=2
+autocmd FileType yaml set suffixesadd+=.yml,.yaml
 
 autocmd FileType asciidoc map <F10> :wall<CR>:!asciidoctorj --require asciidoctor-diagram %<CR>
 autocmd FileType asciidoc set textwidth=80
@@ -379,10 +377,32 @@ function SwapBool ()
     endif
   endif
 endfunction
-
 noremap <leader>s :call SwapBool()<CR>
-command! SwapBool call SwapBool()
 
 " "trans" integration plugin config
 let g:trans_default_direction = ":ru"
 noremap <Leader>t :Trans<CR>
+
+""" ALE configuration
+
+highlight RedundantSpaces ctermbg=red guibg=red 
+match RedundantSpaces /\s\+$/
+
+highlight ALEWarning ctermbg=DarkMagenta
+highlight ALEError ctermbg=Red
+" highlight ALEErrorSign
+" highlight ALEWarningSign
+
+let g:ale_linters = {
+\   'java': ['checkstyle', 'eclipselsp', 'javac', 'javalsp', 'pmd'],
+\   'javascript': ['eslint'],
+\   'asciidoc': ['alex'],
+\   'bash': ['bashate', 'language_server', 'shell', 'shellcheck'],
+\   'sh': ['bashate', 'language_server', 'shell', 'shellcheck'],
+\}
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['eslint'],
+\}
+

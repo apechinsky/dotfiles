@@ -56,13 +56,13 @@ JIRA_URL=https://jira.qulix.com
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git 
-    adb 
-    docker 
-    history-substring-search 
-    spring 
-    jira 
-    themes 
+    git
+    adb
+    docker
+    history-substring-search
+    spring
+    jira
+    themes
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -107,7 +107,7 @@ promptinit
 # source my environment
 source $HOME/_environment/env.sh
 
-# 
+#
 # Directory bookmarks (shortcuts) support function 'cdg' (cd global)
 #
 # Usage:
