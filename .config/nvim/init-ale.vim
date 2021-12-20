@@ -1,12 +1,12 @@
 """ ALE configuration
 
-" Disable ALE lsp since neovim has built-in LSP
+" Disable ALE LSP since neovim has built-in LSP
 let g:ale_disable_lsp = 1
 
 " Only run linters named in ale_linters settings.
 " let g:ale_linters_explicit = 1
 
-highlight RedundantSpaces ctermbg=red guibg=red
+highlight RedundantSpaces ctermbg=gray guibg=gray
 match RedundantSpaces /\s\+$/
 
 highlight ALEWarning ctermbg=DarkMagenta
@@ -28,5 +28,6 @@ let g:ale_linters_ignore = ['cspell']
 
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['black', 'autoimport', 'autoflake', 'isort'],
 \   'javascript': ['eslint'],
 \}

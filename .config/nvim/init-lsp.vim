@@ -7,6 +7,8 @@ lua <<END
 --require'lspconfig'.kotlin_language_server.setup{}
 -- require'lspconfig'.jdtls.setup{}
 require'lspconfig'.pyright.setup{}
+require'lspconfig'.bashls.setup{}
+require'lspconfig'.dockerls.setup{}
 
 local lsp_installer = require("nvim-lsp-installer")
 
@@ -75,3 +77,13 @@ for _, lsp in ipairs(servers) do
   }
 end
 END
+
+" LSP config (the mappings used in the default file don't quite work right)
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+

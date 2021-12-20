@@ -173,11 +173,15 @@ let g:fzf_layout = { 'down': '40%' }
 let g:trans_default_direction = ":ru"
 noremap <Leader>d :Trans<CR>
 
+tnoremap <Esc> <C-\><C-n>
+
 source <sfile>:h/init-statusline.vim
 source <sfile>:h/init-lsp.vim
 source <sfile>:h/init-ale.vim
+source <sfile>:h/init-treesitter.vim
 source <sfile>:h/init-vimwiki.vim
 source <sfile>:h/init-telescope.vim
 source <sfile>:h/init-nvim-tree.vim
 source <sfile>:h/init-functions.vim
 
+" set list listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣

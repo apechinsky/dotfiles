@@ -57,6 +57,7 @@ JIRA_URL=https://jira.qulix.com
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
+    git-prompt
     adb
     docker
     history-substring-search
