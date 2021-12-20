@@ -12,7 +12,7 @@ endif
 " vim-plug. Configuration
 call plug#begin('~/.vim/plugged')
 
-" Fuzzy finder.  
+" Fuzzy finder.
 " Method 1. Install fzf viz vim plugin
 " After installation FZF will be available from command line also.
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -35,7 +35,7 @@ Plug 'tpope/vim-commentary'
 " Git integration
 Plug 'tpope/vim-fugitive'
 
-" 
+"
 Plug 'preservim/tagbar'
 
 Plug 'editorconfig/editorconfig-vim'
@@ -55,15 +55,8 @@ Plug 'tpope/vim-surround'
 
 """ Color management plugins
 
-" Color schemes switcher (F8, Shift-F8)
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-colorscheme-switcher'
-
 " Color schemes
 Plug 'morhetz/gruvbox'
-Plug 'jnurmine/Zenburn'
-Plug 'tomasiser/vim-code-dark'
-Plug 'danilo-augusto/vim-afterglow'
 
 " platformio support (leader-c - compile, leader-d - compile&deploy)
 Plug 'apechinsky/vim-platform-io'
@@ -75,7 +68,7 @@ Plug 'bumaociyuan/vim-swift'
 Plug 'udalov/kotlin-vim'
 
 " Javascript plugin
-Plug 'pangloss/vim-javascript' 
+Plug 'pangloss/vim-javascript'
 
 " Vim-script library, which provides some utility functions and commands for programming in Vim.
 Plug 'vim-scripts/L9'
@@ -85,15 +78,17 @@ Plug 'vim-scripts/matchit.zip'
 " Translate shell integration
 Plug 'echuraev/translate-shell.vim'
 
-Plug 'codota/tabnine-vim'
+" Plug 'codota/tabnine-vim'
 
-" Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support 
+" Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
 Plug 'dense-analysis/ale'
-" Plug 'ycm-core/YouCompleteMe' 
+" Plug 'ycm-core/YouCompleteMe'
 
 Plug 'mbbill/undotree'
 
 Plug 'itchyny/lightline.vim'
+
+Plug 'natebosch/vim-lsc'
 
 call plug#end()
 " END vim-plug configuration
@@ -188,9 +183,9 @@ set laststatus=2
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
-      \   'left': [ 
+      \   'left': [
       \     [ 'mode', 'paste' ],
-      \     [ 'gitbranch', 'readonly', 'filename', 'modified', 'char'] 
+      \     [ 'gitbranch', 'readonly', 'filename', 'modified', 'char']
       \   ]
       \ },
       \ 'component': {
@@ -226,8 +221,8 @@ function! DoPrettyXML()
     " XML that may contain multiple top-level elements.
     0put ='<PrettyXML>'
     $put ='</PrettyXML>'
-    %!xmllint --format --encode utf8 --recover - 
-    " silent %!xmllint --format --encode utf8 --recover - 
+    %!xmllint --format --encode utf8 --recover -
+    " silent %!xmllint --format --encode utf8 --recover -
     " xmllint will insert an <?xml?> header. it's easy enough to delete
     " if you don't want it.
     " delete the fake tags
@@ -275,7 +270,7 @@ set incsearch
 " Previous window with Shift-Tab key
 " nmap <S-Tab> <C-w>W
 
-command! MakeTags !ctags -R .
+command! MakeTags !ctags -R --exclude='**/node_modules' --exclude='**/build' .
 
 nmap <F8> :TagbarToggle<CR>
 
@@ -307,6 +302,8 @@ autocmd Filetype javascript set makeprg=node\ %
 autocmd FileType javascript map <F9> :wall<CR>:!node %<CR>
 autocmd FileType javascript map <F10> :wall<CR>:!node %<CR>
 autocmd FileType javascript set suffixesadd=.js,.ts
+
+autocmd FileType python map <F9> :wall<CR>:exec '!python3' shellescape(@%, 1)<CR>
 
 autocmd FileType sh map <F10> :w<CR>:!./%<CR>
 autocmd FileType sh map <F10> :w<CR>:!bash %<CR>
@@ -388,3 +385,23 @@ command! SwapBool call SwapBool()
 " "trans" integration plugin config
 let g:trans_default_direction = ":ru"
 noremap <Leader>t :Trans<CR>
+
+let g:ale_linters = {
+\   'java' : ['checkstyle', 'eclipselsp', 'javac', 'javalsp', 'pmd'],
+\   'python': ['flake8', 'mypy'],
+\   'asciidoc': ['alex', 'writegood'],
+\   'markdown': ['alex', 'writegood'],
+\   'vimwiki': ['alex', 'writegood'],
+\}
+
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['black', 'autoimport', 'autoflake', 'isort'],
+\}
+
+" Trailing whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
+
+let g:lsc_server_commands = {'java': '/home/apechinsky/.vim/java-language-server/dist/lang_server_linux.sh'}
