@@ -185,3 +185,4 @@ source <sfile>:h/init-nvim-tree.vim
 source <sfile>:h/init-functions.vim
 
 " set list listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+WhitespaceTrail
