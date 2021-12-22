@@ -6,7 +6,7 @@ let g:ale_disable_lsp = 1
 " Only run linters named in ale_linters settings.
 " let g:ale_linters_explicit = 1
 
-highlight RedundantSpaces ctermbg=gray guibg=gray
+highlight RedundantSpaces ctermbg=bg guibg=bg
 match RedundantSpaces /\s\+$/
 
 highlight ALEWarning ctermbg=DarkMagenta

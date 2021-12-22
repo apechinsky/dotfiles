@@ -71,7 +71,7 @@ let g:nvim_tree_icons = {
 
 lua << END
 require'nvim-tree'.setup {
-  disable_netrw       = true,
+  disable_netrw       = false,
   hijack_netrw        = true,
   open_on_setup       = false,
   ignore_ft_on_setup  = {},

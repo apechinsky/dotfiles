@@ -1,5 +1,8 @@
 " My vim functions
 
+command! WhitespaceAll set list listchars=eol:¬,tab:>·,trail:◦,extends:>,precedes:<,space:◦
+command! WhitespaceTrail set list listchars=tab:>·,trail:◦
+
 "
 " Swap words true and false
 "
@@ -65,3 +68,4 @@ function! ToggleLineNumbers()
     endif
 endfunction
 noremap <F2> :call ToggleLineNumbers()<CR>
+
