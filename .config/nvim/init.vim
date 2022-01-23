@@ -79,6 +79,11 @@ set number
 " Enable relative numbers
 set relativenumber
 
+set nobackup
+set noswapfile
+set undodir=~/.vim/undodir
+set undofile
+
 " Set tabulation
 set expandtab
 set tabstop=4
