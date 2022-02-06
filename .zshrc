@@ -8,8 +8,9 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
 # ZSH_THEME="gallois-my"
+ZSH_THEME="eastwood-my"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -149,3 +150,5 @@ set +o noclobber
 export CSREPO_HOME="/home/apechinsky/.csrepo"
 export CSREPO_JAVA_HOME="$CSREPO_HOME/repository/net.adoptopenjdk/jre-1.8.0_252-linux64"
 [[ -d "${CSREPO_HOME}/bin" ]] && export PATH="$PATH:$CSREPO_HOME/bin"
+
+source /usr/share/fzf/completion.zsh
