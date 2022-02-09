@@ -81,7 +81,11 @@ set relativenumber
 
 set nobackup
 set noswapfile
-set undodir=~/.vim/undodir
+
+" Create undodir
+let $undoDir = stdpath("data") . "/undodir"
+call mkdir($undoDir, "p", 0700)
+set undodir=$undoDir
 set undofile
 
 " Set tabulation
