@@ -153,6 +153,11 @@ autocmd FileType javascript map <F9> :wall<CR>:!node %<CR>
 autocmd FileType javascript map <F10> :wall<CR>:!node %<CR>
 autocmd FileType javascript set suffixesadd=.js,.ts
 
+autocmd Filetype typescript set makeprg=node\ %
+autocmd FileType typescript map <F9> :wall<CR>:!node %<CR>
+autocmd FileType typescript map <F10> :wall<CR>:!node %<CR>
+autocmd FileType typescript set suffixesadd=.ts
+
 autocmd FileType sh map <F10> :w<CR>:!./%<CR>
 autocmd FileType sh map <F10> :w<CR>:!bash %<CR>
 autocmd FileType sh set tabstop=4

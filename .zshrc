@@ -137,6 +137,15 @@ cdg() {
     fi
 }
 
+#
+# Git-Checkout-Branch
+# Choose and checkout remote/local git branch.
+#
+git-checkout-branch() {
+    local selectedBranch=$(git branch -a | sed -n 's/remotes\/origin\///p' | sort -u | fzf | xargs)
+    echo "branch: '$selectedBranch'"
+    test -n "$selectedBranch" && git checkout $selectedBranch
+}
 
 bindkey -s '^B' 'cdg\n'
 
