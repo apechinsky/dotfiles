@@ -99,6 +99,8 @@ set nowrap
 
 set hidden
 
+set splitright
+
 set scrolloff=6
 
 " Do not jump to next occurence on *
