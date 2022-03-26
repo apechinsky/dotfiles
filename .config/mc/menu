@@ -1,5 +1,5 @@
 c   Compare files with Vim
-    vimdiff %d/%f %D/%F
+    vim -d %d/%f %D/%F
 
 d   Compare Dirs with Vim
     vim +"DirDiff %d/%f %D/%F"

@@ -41,7 +41,8 @@ Plug 'ap/vim-css-color'
 Plug 'nvim-lua/plenary.nvim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+" Disabled since causes an error
+" Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
 " Telescope fuzzy finder plugin (requires: plenary, nvim-treesitter)
 Plug 'nvim-telescope/telescope.nvim'
@@ -94,6 +95,8 @@ set tabstop=4
 set shiftwidth=4
 set nohlsearch
 
+set splitright
+
 " Disable line wrapping
 set nowrap
 
@@ -112,6 +115,8 @@ set ignorecase smartcase
 " Allow to put/get yanked text to system clipboard (unnamedplus) or X11-selection (unnamed)
 " Check Vim xterm_clipboard option with (vim --version). If no option, install vim-gtk package
 set clipboard=unnamedplus
+
+set wildignore+=**/node_modules/**
 
 " Enable spell highlighting with gruvbox theme
 let g:gruvbox_guisp_fallback = "bg"
