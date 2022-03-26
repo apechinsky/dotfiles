@@ -409,4 +409,4 @@ let g:ale_fixers = {
 \   'python': ['black', 'autoimport', 'autoflake', 'isort'],
 \}
 
-let g:lsc_server_commands = {'java': '/home/apechinsky/.vim/java-language-server/dist/lang_server_linux.sh'}
+" let g:lsc_server_commands = {'java': '/home/apechinsky/.vim/java-language-server/dist/lang_server_linux.sh'}
