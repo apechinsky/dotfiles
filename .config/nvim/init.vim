@@ -15,6 +15,7 @@ Plug 'tpope/vim-commentary'
 
 " Git integration
 Plug 'tpope/vim-fugitive'
+Plug 'mhinz/vim-signify'
 
 " Pairs of handy bracket mappings
 Plug 'tpope/vim-unimpaired'
