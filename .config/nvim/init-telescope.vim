@@ -12,19 +12,20 @@ nnoremap <leader>gc <cmd>Telescope git_bcommits<cr>
 
 lua << END
 require('telescope').setup({
-defaults = {
-    layout_config = {
-        vertical = { width = 0.2 }
-        -- other layout configuration here
+    defaults = {
+        layout_config = {
+            vertical = { width = 0.2 }
+            -- other layout configuration here
         },
-    -- other defaults configuration here
+        path_display = { "truncate" }
+        -- other defaults configuration here
     },
-find_files = {
-    layout_strategy = 'horizontal',
-    layout_config = {
-        width=0.5
+    find_files = {
+        layout_strategy = 'horizontal',
+        layout_config = {
+            width=0.5
+        }
     }
-}
 
 -- other configuration values here
 })
