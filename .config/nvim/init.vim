@@ -42,6 +42,7 @@ Plug 'ap/vim-css-color'
 Plug 'nvim-lua/plenary.nvim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 " Disabled since causes an error
 " Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
