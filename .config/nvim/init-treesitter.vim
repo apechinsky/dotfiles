@@ -35,9 +35,14 @@ require'nvim-treesitter.configs'.setup {
                 },
             },
         },
+        indent = {
+            enable = true
+        }
     },
 }
 
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 END
 
 " local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
