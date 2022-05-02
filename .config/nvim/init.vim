@@ -226,7 +226,6 @@ tnoremap <Esc> <C-\><C-n>
 
 source <sfile>:h/init-statusline.vim
 source <sfile>:h/init-lsp.vim
-source <sfile>:h/init-nvim-cmp.vim
 source <sfile>:h/init-ale.vim
 source <sfile>:h/init-treesitter.vim
 source <sfile>:h/init-vimwiki.vim
