@@ -23,14 +23,8 @@ Plug 'tpope/vim-unimpaired'
 " Surround.vim is all about "surroundings": parentheses, brackets, quotes, XML tags, and more.
 Plug 'tpope/vim-surround'
 
-" LSP configuration 
-Plug 'neovim/nvim-lspconfig'
-
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support 
 Plug 'dense-analysis/ale'
-
-" LS installer
-Plug 'williamboman/nvim-lsp-installer'
 
 " Statusline configurer (via g:lightline variable)
 Plug 'itchyny/lightline.vim'
@@ -72,6 +66,12 @@ Plug 'kyazdani42/nvim-web-devicons'
 " nvim-tree plugin (requires nvim-web-devicons)
 Plug 'kyazdani42/nvim-tree.lua'
 
+" LSP configuration 
+Plug 'neovim/nvim-lspconfig'
+
+" LS installer
+Plug 'williamboman/nvim-lsp-installer'
+
 " nvim cmp
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -81,12 +81,12 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 
 " For vsnip users.
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/vim-vsnip'
+" Plug 'hrsh7th/cmp-vsnip'
+" Plug 'hrsh7th/vim-vsnip'
 
 " For luasnip users.
-" Plug 'L3MON4D3/LuaSnip'
-" Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 " For ultisnips users.
 " Plug 'SirVer/ultisnips'
@@ -235,3 +235,5 @@ source <sfile>:h/init-functions.vim
 
 " set list listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 WhitespaceTrail
+
+set thesaurus+=~/.config/nvim/thesaurus/thesaurus.txt

@@ -7,7 +7,10 @@ set completeopt=menu,menuone,noselect
 
 lua <<END
 
-local lspconfig = require('lspconfig')
+require("nvim-lsp-installer").setup({
+    ensure_installed = { "sumneko_lua" }, -- ensure these servers are always installed
+    automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+})
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -24,7 +27,6 @@ local on_attach = function(client, bufnr)
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'gs', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
     buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -42,46 +44,19 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
-local lsp_installer = require("nvim-lsp-installer")
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
--- Register a handler that will be called for all installed servers.
--- Alternatively, you may also register handlers on specific server instances instead (see example below).
-lsp_installer.on_server_ready(function(server)
+local lspconfig = require('lspconfig')
 
-    local opts = {
+-- Enable the following language servers
+local servers = { 'sumneko_lua', 'pyright' }
+for _, lsp in ipairs(servers) do
+    lspconfig[lsp].setup {
         on_attach = on_attach,
-        flags = {
-            debounce_text_changes = 150,
-        }
+        capabilities = capabilities,
     }
-
-    -- (optional) Customize the options passed to the server
-    -- if server.name == "tsserver" then
-    --     opts.root_dir = function() ... end
-    -- end
-    -- if server.name == "kotlin_language_server" then
-    --     opts.settings.kotlin.languageServer.path = "/home/apechinsky/.local/share/nvim/lsp_servers/kotlin/server/bin/kotlin-language-server"
-    -- end
-
-    if server.name == "sumneko_lua" then
-        opts.capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-    end
-    if server.name == "pyright" then
-        opts = {
-            capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-        }
-    end
-    -- This setup() function is exactly the same as lspconfig's setup function.
-    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-    server:setup(opts)
-end)
-
-
--- lspconfig.kotlin_language_server.setup{}
--- lspconfig.jdtls.setup{}
--- lspconfig.pyright.setup{}
--- lspconfig.bashls.setup{}
--- lspconfig.dockerls.setup{}
+end
 
 -- Setup nvim-cmp.
 local cmp = require('cmp')
@@ -90,8 +65,8 @@ cmp.setup({
     snippet = {
         -- REQUIRED - you must specify a snippet engine
         expand = function(args)
-          vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-          -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+          -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+          require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
           -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
           -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
         end,
@@ -107,7 +82,7 @@ cmp.setup({
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<C-y>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
 
     sources = cmp.config.sources({
