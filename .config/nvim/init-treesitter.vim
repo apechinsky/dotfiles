@@ -41,8 +41,8 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 END
 
 " local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
