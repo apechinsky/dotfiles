@@ -174,7 +174,8 @@ autocmd FileType java set suffixesadd=.java
 
 autocmd Filetype java set makeprg=javac\ %
 autocmd FileType java map <F9> :w<CR>:make<CR>
-autocmd FileType java map <F10> :wall<CR>:make<CR>:!java %:r<CR>
+" autocmd FileType java map <F10> :wall<CR>:make<CR>:!java %:r<CR>
+autocmd FileType java map <F10> :w<CR>:!jbang %<CR>
 
 autocmd Filetype kotlin set makeprg=kotlinc\ %
 autocmd FileType kotlin map <F9> :w<CR>:make<CR>

@@ -50,7 +50,7 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 local lspconfig = require('lspconfig')
 
 -- Enable the following language servers
-local servers = { 'sumneko_lua', 'pyright' }
+local servers = { 'sumneko_lua', 'pyright', 'dotls'}
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
         on_attach = on_attach,
