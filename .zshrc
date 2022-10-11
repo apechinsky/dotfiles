@@ -138,6 +138,17 @@ cdg() {
     fi
 }
 
+bindkey -s '^B' 'cdg\n'
+
+source $HOME/bin/tagged-commands.sh
+
+source $HOME/work/qulix/alfabank/alfabank.sh
+source $HOME/work/qulix/alfabank/acquiring/acquiring.sh
+source $HOME/work/qulix/alfabank/deposits/deposits.sh
+source $HOME/work/qulix/alfabank/products/products.sh
+source $HOME/work/qulix/alfabank/getcard/getcard.sh
+
+
 #
 # Git-Checkout-Branch
 # Choose and checkout remote/local git branch.
@@ -147,8 +158,6 @@ git-checkout-branch() {
     echo "branch: '$selectedBranch'"
     test -n "$selectedBranch" && git checkout $selectedBranch
 }
-
-bindkey -s '^B' 'cdg\n'
 
 set +o noclobber
 

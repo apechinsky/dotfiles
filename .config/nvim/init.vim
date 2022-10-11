@@ -128,8 +128,6 @@ set nowrap
 
 set hidden
 
-set splitright
-
 set scrolloff=6
 
 " Do not jump to next occurence on *
@@ -211,12 +209,16 @@ autocmd FileType swift set suffixesadd+=.swift,.m,.h
 
 autocmd FileType typescriptreact set suffixesadd+=.tsx
 
-command! MakeTags !ctags -R --exclude=**/node_modules --exclude=**/build .
+command! MakeTags !ctags -R --exclude='**/node_modules' --exclude='**/build' .
 nmap <F8> :TagbarToggle<CR>
 
 " Fuzzy Finder configuration
 noremap <Leader>f :FZF<CR>
 let g:fzf_layout = { 'down': '40%' }
+
+noremap <C-b> :Buffers<CR>
+
+map <Leader>tt :split term://zsh<CR>
 
 " Trans plugin config
 let g:trans_default_direction = ":ru"
@@ -232,8 +234,8 @@ source <sfile>:h/init-vimwiki.vim
 source <sfile>:h/init-telescope.vim
 source <sfile>:h/init-nvim-tree.vim
 source <sfile>:h/init-functions.vim
+source <sfile>:h/init-lua.vim
 
 " set list listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 WhitespaceTrail
 
-set thesaurus+=~/.config/nvim/thesaurus/thesaurus.txt

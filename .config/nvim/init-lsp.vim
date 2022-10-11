@@ -82,15 +82,12 @@ cmp.setup({
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<C-y>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
 
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
+      { name = 'luasnip' }, -- For luasnip users.
       { name = 'buffer', keyword_length = 4 },
     })
 })
@@ -123,12 +120,32 @@ cmp.setup.cmdline(':', {
     })
 })
 
--- Setup lspconfig.
--- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
--- require('lspconfig')['sumneko_lua'].setup {
---     capabilities = capabilities
--- }
-
+-- Setup sumneko_lua
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+require('lspconfig')['sumneko_lua'].setup {
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+            runtime = {
+                -- Recognize global LuaJIT variables: 'jit', 'bit'
+                version = 'LuaJIT',
+                -- Define lua path
+                path = vim.split(package.path, ';'),
+            },
+            diagnostics = {
+                -- Make language server recognize 'vim' global variable
+                globals = {'vim'},
+            },
+            workspace = {
+                -- Defina neovim runtime files
+                library = {
+                    [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                    [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+                },
+            },
+        },
+    },
+}
 END
 
 " LSP config (the mappings used in the default file don't quite work right)

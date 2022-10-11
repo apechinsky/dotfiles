@@ -13,6 +13,8 @@ nnoremap <leader>gc <cmd>Telescope git_bcommits<cr>
 lua << END
 require('telescope').setup({
     defaults = {
+        initial_mode = "normal",
+
         layout_config = {
             vertical = { width = 0.2 }
             -- other layout configuration here
