@@ -36,7 +36,7 @@ Plug 'ap/vim-css-color'
 Plug 'nvim-lua/plenary.nvim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
+" Plug 'nvim-treesitter/playground'
 " Disabled since causes an error
 " Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
@@ -122,6 +122,7 @@ set shiftwidth=4
 set nohlsearch
 
 set splitright
+set splitbelow
 
 " Disable line wrapping
 set nowrap
@@ -149,6 +150,8 @@ let g:gruvbox_guisp_fallback = "bg"
 colorscheme gruvbox
 let g:gruvbox_termcolors=256
 set background=dark
+
+set mouse=
 
 " Make it possible to use vim navigation keys in normal mode when russian kb layout is active
 set langmap=ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>
@@ -223,12 +226,15 @@ let g:fzf_layout = { 'down': '40%' }
 let g:trans_default_direction = ":ru"
 noremap <Leader>d :Trans<CR>
 
+" Copy current file path to clipboard
+noremap <Leader>c :let @+ = expand("%:p")<CR>
+
 tnoremap <Esc> <C-\><C-n>
 
 source <sfile>:h/init-statusline.vim
 source <sfile>:h/init-lsp.vim
 source <sfile>:h/init-ale.vim
-source <sfile>:h/init-treesitter.vim
+" source <sfile>:h/init-treesitter.vim
 source <sfile>:h/init-vimwiki.vim
 source <sfile>:h/init-telescope.vim
 source <sfile>:h/init-nvim-tree.vim
@@ -238,3 +244,6 @@ source <sfile>:h/init-functions.vim
 WhitespaceTrail
 
 set thesaurus+=~/.config/nvim/thesaurus/thesaurus.txt
+
+" Configure git log format for command 'Gclog'. Commit author is not visible by default
+let g:fugitive_summary_format="%ae %s"
