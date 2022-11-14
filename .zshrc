@@ -158,10 +158,10 @@ git-checkout-branch() {
     test -n "$selectedBranch" && git checkout $selectedBranch
 }
 
-
 set +o noclobber
 
 source /opt/asdf-vm/asdf.sh
+
 [[ -f ~/.fzf.zsh ]] && source $HOME/.fzf.zsh
 
 

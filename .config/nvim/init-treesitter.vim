@@ -11,7 +11,7 @@ require'nvim-treesitter.configs'.setup {
         disable = {},
     },
     ensure_installed = {
-        "java"
+        "java", "javascript"
     },
     textobjects = {
         select = {
