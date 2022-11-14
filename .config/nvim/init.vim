@@ -69,7 +69,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 " LSP configuration 
 Plug 'neovim/nvim-lspconfig'
 
-" LS installer
+" LSP installer
 Plug 'williamboman/nvim-lsp-installer'
 
 " nvim cmp
@@ -96,6 +96,7 @@ Plug 'saadparwaiz1/cmp_luasnip'
 " Plug 'dcampos/nvim-snippy'
 " Plug 'dcampos/cmp-snippy'
 "
+Plug 'habamax/vim-asciidoctor'
 call plug#end()
 
 set path+=**
@@ -236,6 +237,7 @@ source <sfile>:h/init-telescope.vim
 source <sfile>:h/init-nvim-tree.vim
 source <sfile>:h/init-functions.vim
 source <sfile>:h/init-lua.vim
+source <sfile>:h/init-asciidoc.vim
 
 " set list listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 WhitespaceTrail

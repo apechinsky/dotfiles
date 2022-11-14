@@ -161,7 +161,9 @@ git-checkout-branch() {
 
 set +o noclobber
 
-[[ -f ~/.asdf/asdf.sh ]] && source $HOME/.asdf/asdf.sh
+# [[ -f ~/.asdf/asdf.sh ]] && source $HOME/.asdf/asdf.sh
+source /opt/asdf-vm/asdf.sh
+
 [[ -f ~/.fzf.zsh ]] && source $HOME/.fzf.zsh
 
 
