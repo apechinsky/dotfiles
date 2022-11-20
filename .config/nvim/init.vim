@@ -36,7 +36,7 @@ Plug 'ap/vim-css-color'
 Plug 'nvim-lua/plenary.nvim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
+" Plug 'nvim-treesitter/playground'
 " Disabled since causes an error
 " Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 
@@ -123,6 +123,7 @@ set shiftwidth=4
 set nohlsearch
 
 set splitright
+set splitbelow
 
 " Disable line wrapping
 set nowrap
@@ -148,6 +149,8 @@ let g:gruvbox_guisp_fallback = "bg"
 colorscheme gruvbox
 let g:gruvbox_termcolors=256
 set background=dark
+
+set mouse=
 
 " Make it possible to use vim navigation keys in normal mode when russian kb layout is active
 set langmap=ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>
@@ -226,12 +229,20 @@ map <Leader>tt :split term://zsh<CR>
 let g:trans_default_direction = ":ru"
 noremap <Leader>d :Trans<CR>
 
+" Copy current file path to clipboard
+noremap <Leader>c :let @+ = expand("%:p")<CR>
+
 tnoremap <Esc> <C-\><C-n>
+
+" Replace buffer content with clipboard
+" gg - goto top, "_d - delete to null register to prevent (this keeps cliboard untouched)
+" p - paste
+noremap <Leader>p gg"_dGp
 
 source <sfile>:h/init-statusline.vim
 source <sfile>:h/init-lsp.vim
 source <sfile>:h/init-ale.vim
-source <sfile>:h/init-treesitter.vim
+" source <sfile>:h/init-treesitter.vim
 source <sfile>:h/init-vimwiki.vim
 source <sfile>:h/init-telescope.vim
 source <sfile>:h/init-nvim-tree.vim
@@ -242,6 +253,10 @@ source <sfile>:h/init-asciidoc.vim
 " set list listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 WhitespaceTrail
 
+set thesaurus+=~/.config/nvim/thesaurus/thesaurus.txt
+
+" Configure git log format for command 'Gclog'. Commit author is not visible by default
+let g:fugitive_summary_format="%ae %s"
 
 """ Experimental
 
@@ -256,4 +271,4 @@ nnoremap <Leader>+ <C-a>
 nnoremap <Leader>- <C-x>
 
 " Prevent yank char on deletion
-" nnoremap x "_x
+nnoremap x "_x

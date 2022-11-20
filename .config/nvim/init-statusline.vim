@@ -19,9 +19,14 @@ set laststatus=2
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
-      \   'left': [ 
+      \   'left': [
       \     [ 'mode', 'paste' ],
-      \     [ 'gitbranch', 'readonly', 'filename', 'modified', 'char'] 
+      \     [ 'gitbranch', 'readonly', 'relativepath', 'modified', 'char'] 
+      \   ],
+      \   'right': [
+      \     [ 'lineinfo' ],
+      \     [ 'percent' ],
+      \     [ 'fileformat', 'fileencoding', 'filetype' ]
       \   ]
       \ },
       \ 'component': {

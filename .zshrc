@@ -141,13 +141,12 @@ cdg() {
 bindkey -s '^B' 'cdg\n'
 
 source $HOME/bin/tagged-commands.sh
-
 source $HOME/work/qulix/alfabank/alfabank.sh
 source $HOME/work/qulix/alfabank/acquiring/acquiring.sh
 source $HOME/work/qulix/alfabank/deposits/deposits.sh
 source $HOME/work/qulix/alfabank/products/products.sh
 source $HOME/work/qulix/alfabank/getcard/getcard.sh
-
+source $HOME/work/qulix/alfabank/cards/cards.sh
 
 #
 # Git-Checkout-Branch
@@ -161,7 +160,6 @@ git-checkout-branch() {
 
 set +o noclobber
 
-# [[ -f ~/.asdf/asdf.sh ]] && source $HOME/.asdf/asdf.sh
 source /opt/asdf-vm/asdf.sh
 
 [[ -f ~/.fzf.zsh ]] && source $HOME/.fzf.zsh
@@ -177,10 +175,6 @@ export CSREPO_HOME="/home/apechinsky/.csrepo"
 export CSREPO_JAVA_HOME="$CSREPO_HOME/repository/net.adoptopenjdk/jre-1.8.0_252-linux64"
 [[ -d "${CSREPO_HOME}/bin" ]] && export PATH="$PATH:$CSREPO_HOME/bin"
 
-
-# Add JBang to environment
-alias j!=jbang
-export PATH="$HOME/.jbang/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
