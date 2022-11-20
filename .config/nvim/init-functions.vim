@@ -45,8 +45,8 @@ function! FormatXml()
     " xmllint will insert an <?xml?> header. it's easy enough to delete
     " if you don't want it.
     " delete the fake tags
-    2d
-    $d
+    2"_d
+    $"_d
     " restore the 'normal' indentation, which is one extra level
     " too deep due to the extra tags we wrapped around the document.
     silent %<

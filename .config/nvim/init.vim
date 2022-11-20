@@ -234,6 +234,11 @@ noremap <Leader>c :let @+ = expand("%:p")<CR>
 
 tnoremap <Esc> <C-\><C-n>
 
+" Replace buffer content with clipboard
+" gg - goto top, "_d - delete to null register to prevent (this keeps cliboard untouched)
+" p - paste
+noremap <Leader>p gg"_dGp
+
 source <sfile>:h/init-statusline.vim
 source <sfile>:h/init-lsp.vim
 source <sfile>:h/init-ale.vim
