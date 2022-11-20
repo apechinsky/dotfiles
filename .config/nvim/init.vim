@@ -242,3 +242,18 @@ source <sfile>:h/init-asciidoc.vim
 " set list listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
 WhitespaceTrail
 
+
+""" Experimental
+
+" Change leader to space
+" nnoremap <SPACE> <Nop>
+" let g:mapleader = " "
+
+" Increment number
+nnoremap <Leader>+ <C-a>
+
+" Decrement number
+nnoremap <Leader>- <C-x>
+
+" Prevent yank char on deletion
+" nnoremap x "_x
