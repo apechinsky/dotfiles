@@ -57,6 +57,8 @@ JIRA_URL=https://jira.qulix.com
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+# git-prompt
+# git
 plugins=(
     git
     git-prompt
@@ -139,6 +141,10 @@ cdg() {
 }
 
 bindkey -s '^B' 'cdg\n'
+bindkey -s '^V' 'feh --keep-zoom-vp --quiet cdg\n'
+bindkey -s '^G^B' 'git-checkout-branch\n'
+bindkey -s '^G^S' 'git status\n'
+bindkey -s '^G^K' 'git checkout '
 
 source $HOME/bin/tagged-commands.sh
 source $HOME/work/qulix/alfabank/alfabank.sh
