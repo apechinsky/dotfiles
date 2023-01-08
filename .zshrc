@@ -140,6 +140,8 @@ cdg() {
 
 bindkey -s '^B' 'cdg\n'
 
+bindkey -s '^V' 'feh --keep-zoom-vp --quiet \n'
+
 source $HOME/bin/tagged-commands.sh
 source $HOME/work/qulix/alfabank/alfabank.sh
 source $HOME/work/qulix/alfabank/acquiring/acquiring.sh

@@ -1,0 +1,23 @@
+require("mason").setup()
+
+require("mason-lspconfig").setup({
+    ensure_installed = {
+        "sumneko_lua",
+    }
+})
+
+require("mason-null-ls").setup({
+    ensure_installed = {
+        -- Opt to list sources here, when available in mason.
+    },
+    automatic_installation = false,
+
+    -- Recommended, but optional
+    automatic_setup = true,
+})
+
+require("null-ls").setup({
+    sources = {
+        -- Anything not supported by mason.
+    }
+})
