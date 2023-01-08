@@ -1,12 +1,8 @@
-" My vim functions
-
-command! WhitespaceAll set list listchars=eol:¬,tab:>·,trail:◦,extends:>,precedes:<,space:◦
-command! WhitespaceTrail set list listchars=tab:>·,trail:◦
-
-"
-" Swap words true and false
-"
-function SwapBool ()
+--
+-- Swap words true and false. TODO: port to lua
+--
+vim.cmd([[
+function! SwapBool ()
   let s:w = expand("<cword>")
 
   if s:w == "false"
@@ -21,12 +17,13 @@ function SwapBool ()
     endif
   endif
 endfunction
+]],
+true)
 
-noremap <leader>s :call SwapBool()<CR>
-
-"
-" Format XML
-"
+--
+-- Format XML. TODO: port to lua
+--
+vim.cmd([[
 function! FormatXml()
     " save the filetype so we can restore it later
     let l:origft = &ft
@@ -45,8 +42,8 @@ function! FormatXml()
     " xmllint will insert an <?xml?> header. it's easy enough to delete
     " if you don't want it.
     " delete the fake tags
-    2"_d
-    $"_d
+    1,2d_
+    $d_
     " restore the 'normal' indentation, which is one extra level
     " too deep due to the extra tags we wrapped around the document.
     silent %<
@@ -54,10 +51,14 @@ function! FormatXml()
     1
     " restore the filetype
     exe "set ft=" . l:origft
-    endfunction
-noremap <F6> :call FormatXml()<CR>
+endfunction
+]],
+true)
 
-" Toggles line numbering (relativenumber & number)
+--
+-- Toggle line numbers. TODO: port to lua
+--
+vim.cmd([[
 function! ToggleLineNumbers()
     if &number == 1
         set nonumber
@@ -67,5 +68,13 @@ function! ToggleLineNumbers()
         set relativenumber
     endif
 endfunction
-noremap <F2> :call ToggleLineNumbers()<CR>
+]],
+true)
 
+
+vim.cmd([[
+function! MakeTags()
+    ctags -R --exclude='**/node_modules' --exclude='**/build' .
+endfunction
+]],
+true)

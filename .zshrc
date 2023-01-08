@@ -146,6 +146,8 @@ bindkey -s '^G^B' 'git-checkout-branch\n'
 bindkey -s '^G^S' 'git status\n'
 bindkey -s '^G^K' 'git checkout '
 
+bindkey -s '^V' 'feh --keep-zoom-vp --quiet \n'
+
 source $HOME/bin/tagged-commands.sh
 source $HOME/work/qulix/alfabank/alfabank.sh
 source $HOME/work/qulix/alfabank/acquiring/acquiring.sh

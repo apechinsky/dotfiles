@@ -1,4 +1,4 @@
-" vimwiki plugin configuration
+vim.api.nvim_exec([[
 
 let wiki_personal = {}
 let wiki_personal.path = '~/Dropbox/vimwiki/personal'
@@ -13,3 +13,6 @@ let wiki_work.syntax = 'markdown'
 let wiki_work.ext = '.md'
 
 let g:vimwiki_list = [wiki_work, wiki_personal]
+
+]],
+true)
