@@ -23,4 +23,3 @@ augroup END
 
 vim.cmd.colorscheme("habamax")
 
---vim.cmd.colorscheme("gruvbox")

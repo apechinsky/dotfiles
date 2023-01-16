@@ -5,7 +5,7 @@ require('telescope').setup({
         layout_config = {
             vertical = { width = 0.2 }
         },
-        path_display = { "smart" }
+        path_display = { "truncate" }
     },
     pickers = {
         find_files = {

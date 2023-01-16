@@ -73,6 +73,7 @@ lspconfig.sumneko_lua.setup {
     },
 }
 
+-- Java configuration for lsp-config/Mason 
 lspconfig.jdtls.setup {
     capabilities = capabilities,
     on_attach = on_attach,
