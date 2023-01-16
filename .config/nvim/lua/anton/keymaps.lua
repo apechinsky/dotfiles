@@ -8,8 +8,8 @@ vim.keymap.set('n', '*', '*N')
 -- vim.keymap.set('n', "<leader>-", "<C-x>")
 
 -- move selection up and down
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+-- vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv")
+-- vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv")
 
 -- nvim-tree
 vim.keymap.set('n', "<C-n>", ":NvimTreeToggle<CR>")
@@ -51,3 +51,8 @@ vim.keymap.set('n', '<F6>', ':call FormatXml()<CR>');
 -- toggle line numbers
 vim.keymap.set('n', '<F2>', ':call ToggleLineNumbers()<CR>')
 
+
+-- luasnip mappings
+local opts = { noremap = true, silent = true }
+vim.keymap.set({"i", "s"}, "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
+vim.keymap.set({"i", "s"}, "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)

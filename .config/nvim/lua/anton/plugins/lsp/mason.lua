@@ -3,6 +3,18 @@ require("mason").setup()
 require("mason-lspconfig").setup({
     ensure_installed = {
         "sumneko_lua",
+        "awk_ls",
+        "bashls",
+        "cssls",
+        "dockerls",
+        "gradle_ls",
+        "grammarly",
+        "html",
+        "jsonls",
+        "tsserver",
+        "sumneko_lua",
+        "sqlls",
+        "yamlls",
     }
 })
 
