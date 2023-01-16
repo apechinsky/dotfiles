@@ -97,6 +97,8 @@ return require('packer').startup(function(use)
     -- use({ "glepnir/lspsaga.nvim", branch = "main" }) -- enhanced lsp uis
     -- -- vs-code like icons for autocompletion
     -- use("onsails/lspkind.nvim") 
+    
+    use 'mfussenegger/nvim-jdtls'
 
     -- treesitter
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate'})
