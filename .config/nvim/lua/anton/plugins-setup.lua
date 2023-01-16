@@ -88,16 +88,15 @@ return require('packer').startup(function(use)
     use "rafamadriz/friendly-snippets"
 
     -- managing & installing lsp servers, linters & formatters
-    use('williamboman/mason.nvim')
+    use 'williamboman/mason.nvim'
     -- bridges gap b/w mason & lspconfig
-    use('williamboman/mason-lspconfig.nvim')
+    use 'williamboman/mason-lspconfig.nvim'
 
     -- lsp configuration
-    use('neovim/nvim-lspconfig')
+    use 'neovim/nvim-lspconfig'
     -- use({ "glepnir/lspsaga.nvim", branch = "main" }) -- enhanced lsp uis
     -- -- vs-code like icons for autocompletion
     -- use("onsails/lspkind.nvim") 
-    
     use 'mfussenegger/nvim-jdtls'
 
     -- treesitter
