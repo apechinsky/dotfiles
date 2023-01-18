@@ -1,0 +1,11 @@
+{
+    "hello1": {
+        "prefix": "hello1",
+        "body": [
+            "===========================",
+            "Hello Anton!!!!!!!!!!!!!!!!!",
+            "==========================="
+        ],
+        "description": "Public static main method"
+    }
+}

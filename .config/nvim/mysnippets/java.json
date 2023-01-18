@@ -1,0 +1,13 @@
+{
+    "main1": {
+        "prefix": "main1",
+        "body": [
+            "public static void main(String[] args) {", 
+            "===========================",
+            "\t$0", 
+            "===========================",
+            "}"
+        ],
+        "description": "Public static main method"
+    }
+}
