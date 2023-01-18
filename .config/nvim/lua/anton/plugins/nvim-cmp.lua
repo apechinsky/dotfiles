@@ -12,7 +12,6 @@ vim.opt.completeopt = "menu,menuone,noselect"
 
 -- load vs-code like snippets from plugins (e.g. friendly-snippets)
 -- require("luasnip/loaders/from_vscode").lazy_load()
-
 -- or relative to the directory of $MYVIMRC
 require("luasnip.loaders.from_vscode").lazy_load({paths = "./mysnippets"})
 
