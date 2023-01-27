@@ -55,7 +55,7 @@ autocmd FileType yaml set suffixesadd+=.yml,.yaml
 autocmd FileType yaml set tabstop=2
 autocmd FileType yaml set shiftwidth=2
 
-autocmd FileType asciidoc map <F10> :wall<CR>:!asciidoctorj --require asciidoctor-diagram %<CR>
+autocmd FileType asciidoc map <F10> :wall<CR>:!asciidoctorj --require asciidoctor-diagram *<CR>
 autocmd FileType asciidoc set textwidth=80
 
 autocmd FileType swift set suffixesadd+=.swift,.m,.h

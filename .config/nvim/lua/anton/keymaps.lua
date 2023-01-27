@@ -7,10 +7,6 @@ vim.keymap.set('n', '*', '*N')
 -- vim.keymap.set('n', "<leader>+", "<C-a>")
 -- vim.keymap.set('n', "<leader>-", "<C-x>")
 
--- move selection up and down
--- vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv")
--- vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv")
-
 -- nvim-tree
 vim.keymap.set('n', "<C-n>", ":NvimTreeToggle<CR>")
 
@@ -35,7 +31,7 @@ vim.keymap.set('n', '<leader>tt', ":split term://zsh<CR>")
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
 -- Copy current file path to clipboard
-vim.keymap.set('n', '<leader>c', ':let @+ = expand("%:p")<CR>')
+-- vim.keymap.set('n', '<leader>c', ':let @+ = expand("%:p")<CR>')
 
 -- Replace buffer content with clipboard
 -- gg - goto top, "_d - delete to null register to prevent (this keeps cliboard untouched)
@@ -56,3 +52,8 @@ vim.keymap.set('n', '<F2>', ':call ToggleLineNumbers()<CR>')
 local opts = { noremap = true, silent = true }
 vim.keymap.set({"i", "s"}, "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
 vim.keymap.set({"i", "s"}, "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
+
+-- move selection up and down
+-- vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv")
+-- vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv")
+

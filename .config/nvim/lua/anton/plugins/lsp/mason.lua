@@ -29,7 +29,10 @@ require("mason-null-ls").setup({
 })
 
 require("null-ls").setup({
+    debug = true,
     sources = {
         -- Anything not supported by mason.
     }
 })
+
+require('mason-null-ls').setup_handlers()
