@@ -58,3 +58,4 @@ vim.opt.wildignore:append("**/node_modules/**")
 vim.cmd("set list listchars=tab:>·,trail:◦")
 
 vim.opt.thesaurus:append(os.getenv("HOME") .. "/.config/nvim/thesaurus/thesaurus.txt")
+

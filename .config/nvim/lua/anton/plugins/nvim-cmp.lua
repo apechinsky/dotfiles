@@ -34,13 +34,14 @@ cmp.setup({
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
 
-        -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        -- ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        -- Accept currently selected item.
+        -- `false` - to only confirm explicitly selected items.
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
 
     }),
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
+        { name = 'nvim_lua' },
         { name = 'luasnip' },
         { name = 'buffer' },
         { name = "path" },
