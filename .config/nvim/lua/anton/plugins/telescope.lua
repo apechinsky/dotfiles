@@ -2,11 +2,28 @@ require('telescope').setup({
     defaults = {
         initial_mode = "insert",
 
+        sorting_strategy = "ascending",
+
+        layout_strategy = 'flex',
+
         layout_config = {
-            vertical = { width = 0.2 }
+            horizontal = {
+                height = 0.95,
+                preview_cutoff = 20,
+                prompt_position = "top",
+                width = 0.95
+            },
+            vertical = {
+                height = 0.95,
+                preview_cutoff = 10,
+                prompt_position = "top",
+                width = 0.95
+            }
         },
-        path_display = { "truncate" }
+
+        path_display = { "truncate" },
     },
+
     pickers = {
         find_files = {
             hidden = true

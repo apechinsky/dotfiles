@@ -104,9 +104,6 @@ source $ZSH/oh-my-zsh.sh
 
 alias -s pdf="evince"
 
-autoload -U promptinit
-promptinit
-
 # bindkey -v
 
 # source my environment
@@ -167,6 +164,9 @@ git-checkout-branch() {
 }
 
 set +o noclobber
+
+# prevent shell from being closed with ctrl-d
+set -o ignoreeof
 
 source /opt/asdf-vm/asdf.sh
 
