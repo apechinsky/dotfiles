@@ -14,12 +14,13 @@ function FixHabamaxColors()
     vim.cmd("highlight MatchParen ctermbg=lightgreen ctermfg=black guibg=lightgreen guifg=black")
 end
 
-vim.cmd([[
-augroup FixHabamaxColors
-    autocmd!
-    autocmd ColorScheme habamax call v:lua.FixHabamaxColors()
-augroup END
-]])
+vim.api.nvim_create_autocmd("ColorScheme", {
+    group = vim.api.nvim_create_augroup("FixHabamaxColors", { clear = true }),
+
+    callback = function()
+        FixHabamaxColors()
+    end
+})
 
 vim.cmd.colorscheme("habamax")
 
