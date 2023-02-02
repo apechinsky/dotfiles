@@ -14,14 +14,6 @@ end
 
 packer_bootstrap = ensure_packer()
 
--- Reload file and install/update plugins on save
-vim.cmd([[
-    augroup packer_user_config
-        autocmd!
-        autocmd BufWritePost plugins-setup.lua source <afile> | PackerSync
-    augroup end
-]])
-
 -- List plugins to install with packer
 return require('packer').startup(function(use)
     -- plugin manager manages itself
@@ -123,6 +115,9 @@ return require('packer').startup(function(use)
 
     -- show colored CSS color literals
     use 'ap/vim-css-color'
+
+    -- autoadd parenthesis/brackets/braces
+    use 'windwp/nvim-autopairs'
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
