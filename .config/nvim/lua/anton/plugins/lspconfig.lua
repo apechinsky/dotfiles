@@ -105,7 +105,15 @@ null_ls.setup({
     debug = true,
     sources = {
         -- Anything not supported by mason.
-        null_ls.builtins.formatting.xmllint
+        null_ls.builtins.formatting.xmllint,
+
+        null_ls.builtins.formatting.shfmt.with({
+            extra_args = { "--indent", 4 },
+        }),
+
+        null_ls.builtins.diagnostics.markdownlint.with({
+            extra_args = { "--config", "~/.config/nvim/tools/.markdownlint.yaml" },
+        })
     },
     on_attach = on_attach
 })

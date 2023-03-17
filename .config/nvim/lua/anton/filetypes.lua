@@ -61,4 +61,6 @@ autocmd FileType asciidoc set textwidth=80
 autocmd FileType swift set suffixesadd+=.swift,.m,.h
 
 autocmd FileType typescriptreact set suffixesadd+=.tsx
+
+autocmd FileType markdown set suffixesadd+=.md
 ]])
