@@ -1,8 +1,8 @@
 c   Compare files with Vim
-    vim -d %d/%f %D/%F
+    nvim -d %d/%f %D/%F
 
 d   Compare Dirs with Vim
-    vim +"DirDiff %d/%f %D/%F"
+    nvim +"DirDiff %d/%f %D/%F"
 
 F2  Compare files with Meld
     meld %d/%f %D/%F
@@ -59,6 +59,9 @@ s   View x509 certificate
     openssl x509 -text -nameopt=utf8 -inform $INFORM -in %d/%f >> ~/tmp/%f.txt
     vim ~/tmp/%f.txt
     rm ~/tmp/%f.txt
+
+s   Convert x509 DER to PEM
+    openssl x509 -inform DER -in %d/%f -outform PEM -out %d/%f.pem
 
 _   Publish (cs-share) selected files using secure HTTP link (5days)
     cshare publish -c %{Time to live. <number>(s|m|h|d)} %s
