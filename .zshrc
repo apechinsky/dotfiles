@@ -138,7 +138,6 @@ cdg() {
 }
 
 bindkey -s '^B' 'cdg\n'
-bindkey -s '^V' 'feh --keep-zoom-vp --quiet cdg\n'
 bindkey -s '^G^B' 'git-checkout-branch\n'
 bindkey -s '^G^S' 'git status\n'
 bindkey -s '^G^K' 'git checkout '
@@ -184,3 +183,7 @@ export CSREPO_JAVA_HOME="$CSREPO_HOME/repository/net.adoptopenjdk/jre-1.8.0_252-
 [[ -d "${CSREPO_HOME}/bin" ]] && export PATH="$PATH:$CSREPO_HOME/bin"
 
 
+
+# Add JBang to environment
+alias j!=jbang
+export PATH="$HOME/.jbang/bin:$PATH"
