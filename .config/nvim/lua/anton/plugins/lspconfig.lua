@@ -3,8 +3,10 @@
 -- Diagnostic mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', '<leader>de', vim.diagnostic.enable, opts)
+vim.keymap.set('n', '<leader>dd', vim.diagnostic.disable, opts)
+vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 
@@ -85,7 +87,7 @@ mason_lspconfig.setup_handlers {
             flags = {
                 debounce_text_changes = 150,
             }
-        }
+        };
     end,
 }
 
@@ -103,17 +105,24 @@ local null_ls = require("null-ls")
 
 null_ls.setup({
     debug = true,
+
     sources = {
         -- Anything not supported by mason.
-        null_ls.builtins.formatting.xmllint,
+
+        null_ls.builtins.diagnostics.yamllint.with({
+            extra_args = { "-c", myconfig.tools('yamllint.yaml') }
+        }),
+
+        null_ls.builtins.diagnostics.markdownlint.with({
+            extra_args = { "--config", myconfig.tools("markdownlint.yaml") },
+        }),
+
+        null_ls.builtins.formatting.xmllint.with({
+        }),
 
         null_ls.builtins.formatting.shfmt.with({
             extra_args = { "--indent", 4 },
         }),
-
-        null_ls.builtins.diagnostics.markdownlint.with({
-            extra_args = { "--config", "~/.config/nvim/tools/.markdownlint.yaml" },
-        })
     },
     on_attach = on_attach
 })

@@ -9,6 +9,8 @@ if packer_bootstrap then
     return
 end
 
+myconfig = require("anton.config")
+
 require("anton.keymaps")
 require("anton.functions")
 require("anton.options")
