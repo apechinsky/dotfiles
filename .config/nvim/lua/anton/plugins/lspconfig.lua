@@ -113,6 +113,14 @@ null_ls.setup({
             extra_args = { "-c", myconfig.tools('yamllint.yaml') }
         }),
 
+        null_ls.builtins.formatting.yamlfmt.with({
+            extra_args = { "--conf", myconfig.tools('yamlfmt.yaml') }
+        }),
+
+        null_ls.builtins.formatting.jq.with({
+            extra_args = { "--indent", 4 },
+        }),
+
         null_ls.builtins.diagnostics.markdownlint.with({
             extra_args = { "--config", myconfig.tools("markdownlint.yaml") },
         }),
