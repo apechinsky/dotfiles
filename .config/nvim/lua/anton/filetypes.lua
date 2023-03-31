@@ -44,8 +44,8 @@ autocmd FileType typescript map <F9> :wall<CR>:!node %<CR>
 autocmd FileType typescript map <F10> :wall<CR>:!node %<CR>
 autocmd FileType typescript set suffixesadd=.ts
 
-autocmd Filetype cpp nnoremap <F9> :!g++ % -ggdb -o %:r <CR>
-autocmd Filetype cpp nnoremap<F10> :!g++ % -ggdb -o %:r && ./%:r <CR>
+autocmd Filetype cpp nnoremap <F9> :w<CR> :!g++ % -ggdb -fno-elide-constructors -o %:r <CR>
+autocmd Filetype cpp nnoremap<F10> :w<CR> :!g++ % -ggdb -fno-elide-constructors -o %:r && ./%:r <CR>
 
 autocmd FileType sh map <F10> :w<CR>:!./%<CR>
 autocmd FileType sh map <F10> :w<CR>:!bash %<CR>
