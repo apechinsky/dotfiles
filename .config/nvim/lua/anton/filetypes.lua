@@ -6,7 +6,7 @@ autocmd FileType Makefile noexpandtab
 autocmd FileType python map <buffer> <F10> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F10> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 
-autocmd FileType lua map <F10> :wall<CR>:!lua %<CR>
+" autocmd FileType lua map <F10> :wall<CR>:!lua %<CR>
 
 autocmd FileType xml map <F10> :%!envsubst<CR>
 autocmd FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
@@ -19,15 +19,15 @@ autocmd FileType groovy highlight ColorColumn ctermbg=darkgray
 autocmd FileType groovy map <F10> :w<CR>:!groovy %<CR>
 autocmd FileType groovy set suffixesadd=.groovy,.java
 
-autocmd FileType java set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/home/apechinsky/ctags/libs/jdk-1.8.0.tags
-autocmd FileType java set colorcolumn=80,130
-autocmd FileType java highlight ColorColumn ctermbg=darkgray
-autocmd FileType java set suffixesadd=.java
-
-autocmd Filetype java set makeprg=javac\ %
-autocmd FileType java map <F9> :w<CR>:make<CR>
-" autocmd FileType java map <F10> :wall<CR>:make<CR>:!java %:r<CR>
-autocmd FileType java map <F10> :w<CR>:!jbang %<CR>
+" autocmd FileType java set tags+=/home/apechinsky/ctags/libs/java-libs.tags,/home/apechinsky/ctags/libs/jdk-1.8.0.tags
+" autocmd FileType java set colorcolumn=80,130
+" autocmd FileType java highlight ColorColumn ctermbg=darkgray
+" autocmd FileType java set suffixesadd=.java
+"
+" autocmd Filetype java set makeprg=javac\ %
+" autocmd FileType java map <F9> :w<CR>:make<CR>
+" " autocmd FileType java map <F10> :wall<CR>:make<CR>:!java %:r<CR>
+" autocmd FileType java map <F10> :w<CR>:!jbang %<CR>
 
 autocmd Filetype kotlin set makeprg=kotlinc\ %
 autocmd FileType kotlin map <F9> :w<CR>:make<CR>
@@ -44,8 +44,8 @@ autocmd FileType typescript map <F9> :wall<CR>:!node %<CR>
 autocmd FileType typescript map <F10> :wall<CR>:!node %<CR>
 autocmd FileType typescript set suffixesadd=.ts
 
-autocmd Filetype cpp nnoremap <F9> :!g++ % -ggdb -o %:r <CR>
-autocmd Filetype cpp nnoremap<F10> :!g++ % -ggdb -o %:r && ./%:r <CR>
+autocmd Filetype cpp nnoremap <F9> :wall<CR>:!g++ % -ggdb -fno-elide-constructors -o %:r <CR>
+autocmd Filetype cpp nnoremap <F10> :wall<CR>:!g++ % -ggdb -fno-elide-constructors -o %:r && ./%:r <CR>
 
 autocmd FileType sh map <F10> :w<CR>:!./%<CR>
 autocmd FileType sh map <F10> :w<CR>:!bash %<CR>
