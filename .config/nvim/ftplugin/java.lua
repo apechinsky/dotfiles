@@ -2,10 +2,10 @@ vim.opt.suffixes:append({ '.java' })
 
 vim.opt.makeprg = 'javac %'
 
-vim.keymap.set('n', '<F9>', ":w<CR>:make<CR>")
+vim.api.nvim_buf_set_keymap(0, 'n', '<F9>', ':wall<CR>:make<CR>', { noremap = true })
 
 -- vim.keymap.set('n', '<F10>', ":wall<CR>:make<CR>:!java %:r<CR>")
-vim.keymap.set('n', '<F10>', ":w<CR>:!jbang %<CR>")
+vim.api.nvim_buf_set_keymap(0, 'n', '<F10>', ':wall<CR>:!jbang %<CR>', { noremap = true })
 
 vim.opt.tags:append({
     "/home/apechinsky/ctags/libs/java-libs.tags",

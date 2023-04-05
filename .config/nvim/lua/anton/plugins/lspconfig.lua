@@ -10,6 +10,11 @@ vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 
+-- IMPORTANT: make sure to setup neodev BEFORE lspconfig
+require("neodev").setup({
+  -- add any options here, or leave empty to use the default settings
+})
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -39,6 +44,7 @@ local on_attach = function(client, bufnr)
     end, bufopts)
 end
 
+
 local servers = {
 
     jdtls = {},
@@ -61,6 +67,9 @@ local servers = {
             -- telemetry = { enable = false },
             diagnostics = {
                 globals = { 'vim' }
+            },
+            completion = {
+              callSnippet = "Replace"
             }
         },
     },
