@@ -105,8 +105,6 @@ return require('packer').startup(function(use)
     -- bridges gap b/w mason & null-ls
     use("jayp0521/mason-null-ls.nvim")
 
-    -- autoclose parens, brackets, quotes, etc...
-    use("windwp/nvim-autopairs")
     -- autoclose tags
     use {
         "windwp/nvim-ts-autotag",
@@ -118,6 +116,8 @@ return require('packer').startup(function(use)
 
     -- autoadd parenthesis/brackets/braces
     use 'windwp/nvim-autopairs'
+
+    use 'folke/neodev.nvim'
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
