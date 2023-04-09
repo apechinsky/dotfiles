@@ -144,4 +144,3 @@ null_ls.setup({
     on_attach = on_attach
 })
 
-require('mason-null-ls').setup_handlers()
