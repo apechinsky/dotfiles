@@ -39,7 +39,7 @@ vim.opt.colorcolumn = "80,120"
 vim.opt.signcolumn = "yes"
 
 -- configure '-' as a part of 'word'
-vim.opt.iskeyword:append("-")
+-- vim.opt.iskeyword:append("-")
 
 vim.opt.path:append("**")
 

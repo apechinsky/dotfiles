@@ -1,7 +1,11 @@
 -- LSP configuration
 
--- Diagnostic mappings.
+-- disable diagnostics by default
+vim.diagnostic.disable()
+
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+
+
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<leader>de', vim.diagnostic.enable, opts)
 vim.keymap.set('n', '<leader>dd', vim.diagnostic.disable, opts)
@@ -30,7 +34,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', 'gR', require('telescope.builtin').lsp_references, opts)
+    vim.keymap.set('n', 'gR', require('telescope.builtin').lsp_references, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set('n', '<leader>wl', function()
@@ -47,7 +51,7 @@ end
 
 local servers = {
 
-    jdtls = {},
+    -- jdtls = {},
     awk_ls = {},
     bashls = {},
     cssls = {},
