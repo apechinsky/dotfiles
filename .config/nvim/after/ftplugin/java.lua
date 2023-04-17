@@ -17,7 +17,6 @@ vim.opt_local.colorcolumn = { 80, 130 }
 -- vim.api.nvim_set_hl(0, 'ColorColumn', { bg = red })
 vim.cmd("highlight ColorColumn ctermbg=darkgray")
 
-
 -- Java Language Server configuration.
 -- Locations:
 -- 'nvim/ftplugin/java.lua'.
@@ -38,7 +37,7 @@ local lombok_path = path_to_plugins .. "lombok.jar"
 
 local root_markers = { ".git", "mvnw", "gradlew" }
 local root_dir = require("jdtls.setup").find_root(root_markers)
-if root_dir == "" then
+if root_dir == nil or root_dir == "" then
   return
 end
 
@@ -55,18 +54,15 @@ if vim.fn.filereadable(gradle_settings) then
     project_name = require('anton.utils').getProperty(gradle_settings, 'rootProject.name')
 end
 
-print("project_name: " .. project_name)
+local workspace_dir = root_dir .. '/build/jdtls'
+os.execute("mkdir -p " .. workspace_dir)
 
-local workspace_dir = vim.fn.stdpath('data') .. '/site/java/workspace-root/' .. project_name
-os.execute("mkdir " .. workspace_dir)
-
--- Main Config
 local config = {
   -- The command that starts the language server
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
     --
   cmd = {
-    '/home/apechinsky/.asdf/installs/java/adoptopenjdk-17.0.5+8/bin/java',
+    '/home/apechinsky/opt/jdk-19/bin/java',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -74,7 +70,7 @@ local config = {
     '-Dlog.level=ALL',
     -- '-javaagent:' .. lombok_path,
     '-Xms1g',
-    '--add-modules=ALL-SYSTEM',
+    -- '--add-modules=ALL-SYSTEM',
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
@@ -92,7 +88,7 @@ local config = {
   -- for a list of options
   settings = {
     java = {
-      home = '/home/apechinsky/.asdf/installs/java/adoptopenjdk-17.0.5+8/',
+      home = '/home/apechinsky/opt/jdk-17',
       eclipse = {
         downloadSources = true,
       },
@@ -101,15 +97,19 @@ local config = {
         runtimes = {
           {
             name = "JavaSE-19",
-            path = "/home/apechinsky/.asdf/installs/java/adoptopenjdk-19.0.1+10/",
+            path = "/home/apechinsky/opt/jdk-19",
+          },
+          {
+            name = "JavaSE-18",
+            path = "/home/apechinsky/opt/jdk-18",
           },
           {
             name = "JavaSE-17",
-            path = "/home/apechinsky/.asdf/installs/java/adoptopenjdk-17.0.5+8/",
+            path = "/home/apechinsky/opt/jdk-17",
           },
           {
             name = "JavaSE-11",
-            path = "/home/apechinsky/.asdf/installs/java/adoptopenjdk-11.0.14+101/",
+            path = "/home/apechinsky/opt/jdk-11",
           }
         }
       },
