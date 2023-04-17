@@ -1,3 +1,31 @@
+local utils = require('anton.utils')
+
+local function getProjectNameFromSettingsGradle(settingsFile)
+    if vim.fn.filereadable(settings_file) then
+        return utils.getProperty(settingsFile, 'rootProject.name')
+    end
+end
+
+local function getProjectName(rootDir)
+    local projectName = getProjectNameFromSettingsGradle(rootDir .. '/settings.gradle')
+
+    if projectName ~= nil then
+        return projectName
+    end
+
+    return vim.fn.fnamemodify(rootDir, ':p:h:t')
+end
+
+local function prepareWorkspaceDir(rootDir)
+    local workspaceDir = rootDir .. '/build/jdtls'
+    os.execute("mkdir -p " .. workspaceDir)
+    return workspaceDir
+end
+
+local function findRootDir()
+    return require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew" })
+end
+
 vim.opt_local.suffixes:append({ '.java' })
 
 vim.opt_local.makeprg = 'javac %'
@@ -17,10 +45,8 @@ vim.opt_local.colorcolumn = { 80, 130 }
 -- vim.api.nvim_set_hl(0, 'ColorColumn', { bg = red })
 vim.cmd("highlight ColorColumn ctermbg=darkgray")
 
+
 -- Java Language Server configuration.
--- Locations:
--- 'nvim/ftplugin/java.lua'.
--- 'nvim/lang-servers/intellij-java-google-style.xml'
 
 local jdtls_ok, jdtls = pcall(require, "jdtls")
 if not jdtls_ok then
@@ -34,28 +60,15 @@ local path_to_lsp_server = jdtls_path .. "/config_linux"
 local path_to_plugins = jdtls_path .. "/plugins/"
 local path_to_jar = path_to_plugins .. "org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"
 local lombok_path = path_to_plugins .. "lombok.jar"
+local root_dir = findRootDir()
 
-local root_markers = { ".git", "mvnw", "gradlew" }
-local root_dir = require("jdtls.setup").find_root(root_markers)
-if root_dir == nil or root_dir == "" then
+if root_dir == nil then
   return
 end
 
-local function getProjectNameFromSettingsGradle(settingsFile)
-    if vim.fn.filereadable(settings_file) then
-        return require('anton.utils').getProperty(settingsFile, 'rootProject.name')
-    end
-end
+local project_name = getProjectName(root_dir)
 
-local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
-
-local gradle_settings = root_dir .. '/settings.gradle'
-if vim.fn.filereadable(gradle_settings) then
-    project_name = require('anton.utils').getProperty(gradle_settings, 'rootProject.name')
-end
-
-local workspace_dir = root_dir .. '/build/jdtls'
-os.execute("mkdir -p " .. workspace_dir)
+local workspace_dir = prepareWorkspaceDir(root_dir)
 
 local config = {
   -- The command that starts the language server
