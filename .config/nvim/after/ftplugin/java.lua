@@ -144,12 +144,17 @@ local config = {
         "java.util.Objects.requireNonNull",
         "java.util.Objects.requireNonNullElse",
         "org.mockito.Mockito.*",
+        "org.slf4j.Logger",
+        "org.slf4j.LoggerFactory",
+        "org.srplib.contract.Argument",
+        "org.srplib.contract.Assert"
       },
       importOrder = {
         "java",
         "javax",
         "com",
-        "org"
+        "org",
+        "net",
       },
     },
     extendedClientCapabilities = extendedClientCapabilities,
