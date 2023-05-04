@@ -59,7 +59,7 @@ local jdtls_path = vim.fn.stdpath('data') .. "/mason/packages/jdtls"
 local path_to_lsp_server = jdtls_path .. "/config_linux"
 local path_to_plugins = jdtls_path .. "/plugins/"
 local path_to_jar = path_to_plugins .. "org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"
-local lombok_path = path_to_plugins .. "lombok.jar"
+local lombok_path = jdtls_path .. "/lombok.jar"
 local root_dir = findRootDir()
 
 if root_dir == nil then
@@ -81,7 +81,7 @@ local config = {
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
     '-Dlog.protocol=true',
     '-Dlog.level=ALL',
-    -- '-javaagent:' .. lombok_path,
+    '-javaagent:' .. lombok_path,
     '-Xms1g',
     -- '--add-modules=ALL-SYSTEM',
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
@@ -141,7 +141,8 @@ local config = {
       format = {
         enabled = true,
         settings = {
-          url = vim.fn.stdpath("config") .. "/tools/intellij-java-google-style.xml",
+          -- url = vim.fn.stdpath("config") .. "/tools/intellij-java-google-style.xml",
+          url = vim.fn.stdpath("config") .. "/tools/eclipse-java-google-style.xml",
           profile = "GoogleStyle",
         },
       },
