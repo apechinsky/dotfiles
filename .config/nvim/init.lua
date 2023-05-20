@@ -11,8 +11,8 @@ end
 
 myconfig = require("anton.config")
 
-require("anton.keymaps")
 require("anton.functions")
+require("anton.keymaps")
 require("anton.options")
 require("anton.colors")
 require("anton.plugins.comment")

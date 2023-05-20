@@ -48,12 +48,6 @@ vim.cmd("highlight ColorColumn ctermbg=darkgray")
 
 -- Java Language Server configuration.
 
-local jdtls_ok, jdtls = pcall(require, "jdtls")
-if not jdtls_ok then
-  vim.notify "JDTLS not found, install with `:LspInstall jdtls`"
-  return
-end
-
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local jdtls_path = vim.fn.stdpath('data') .. "/mason/packages/jdtls"
 local path_to_lsp_server = jdtls_path .. "/config_linux"
@@ -75,7 +69,7 @@ local config = {
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
     --
   cmd = {
-    '/home/apechinsky/opt/jdk-19/bin/java',
+    '/home/apechinsky/opt/jdk-17/bin/java',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -146,44 +140,43 @@ local config = {
           profile = "GoogleStyle",
         },
       },
-
-    },
-    signatureHelp = { enabled = true },
-    completion = {
-      favoriteStaticMembers = {
-        "org.hamcrest.MatcherAssert.assertThat",
-        "org.hamcrest.Matchers.*",
-        "org.hamcrest.CoreMatchers.*",
-        "org.junit.jupiter.api.Assertions.*",
-        "java.util.Objects.requireNonNull",
-        "java.util.Objects.requireNonNullElse",
-        "org.mockito.Mockito.*",
-        "org.slf4j.Logger",
-        "org.slf4j.LoggerFactory",
-        "org.srplib.contract.Argument",
-        "org.srplib.contract.Assert"
+      signatureHelp = { enabled = true },
+      completion = {
+        favoriteStaticMembers = {
+          "org.hamcrest.MatcherAssert.assertThat",
+          "org.hamcrest.Matchers.*",
+          "org.hamcrest.CoreMatchers.*",
+          "org.junit.jupiter.api.Assertions.*",
+          "java.util.Objects.requireNonNull",
+          "java.util.Objects.requireNonNullElse",
+          "org.mockito.Mockito.*",
+          "org.slf4j.Logger",
+          "org.slf4j.LoggerFactory",
+          "org.srplib.contract.Argument",
+          "org.srplib.contract.Assert"
+        },
+        importOrder = {
+          "java",
+          "javax",
+          "com",
+          "org",
+          "net",
+        },
       },
-      importOrder = {
-        "java",
-        "javax",
-        "com",
-        "org",
-        "net",
+      sources = {
+        organizeImports = {
+          starThreshold = 9999,
+          staticStarThreshold = 9999,
+        },
+      },
+      codeGeneration = {
+        toString = {
+          template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
+        },
+        useBlocks = true,
       },
     },
     extendedClientCapabilities = extendedClientCapabilities,
-    sources = {
-      organizeImports = {
-        starThreshold = 9999,
-        staticStarThreshold = 9999,
-      },
-    },
-    codeGeneration = {
-      toString = {
-        template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
-      },
-      useBlocks = true,
-    },
   },
 
   flags = {
@@ -195,19 +188,23 @@ local config = {
 }
 
 config['on_attach'] = function(client, bufnr)
-  require'keymaps'.map_java_keys(bufnr);
-  require "lsp_signature".on_attach({
-    bind = true, -- This is mandatory, otherwise border config won't get registered.
-    floating_window_above_cur_line = false,
-    padding = '',
-    handler_opts = {
-      border = "rounded"
-    }
-  }, bufnr)
+    require("keymaps").map_java_keys(bufnr);
+    require("lsp_signature").on_attach({
+        bind = true, -- This is mandatory, otherwise border config won't get registered.
+        floating_window_above_cur_line = false,
+        padding = '',
+        handler_opts = {
+            border = "rounded"
+        }
+    }, bufnr)
 end
 
--- This starts a new client & server,
--- or attaches to an existing client & server depending on the `root_dir`.
-require('jdtls').start_or_attach(config)
 
+local jdtls_status, jdtls = pcall(require, "jdtls")
+if not jdtls_status then
+  vim.notify "JDTLS not found, install with `:LspInstall jdtls`"
+  return
+end
+
+jdtls.start_or_attach(config)
 

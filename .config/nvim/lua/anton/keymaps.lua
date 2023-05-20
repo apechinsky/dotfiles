@@ -8,10 +8,10 @@ vim.keymap.set('n', '*', '*N')
 -- vim.keymap.set('n', "<leader>-", "<C-x>")
 
 -- nvim-tree
-vim.keymap.set('n', "<C-n>", ":NvimTreeToggle<CR>")
+vim.keymap.set('n', "<C-n>", vim.cmd.NvimTreeToggle, { desc = 'NvimTree Toggle' })
 
 -- toggle undotree
-vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = 'Toggle undo tree' })
 
 -- telescope
 local builtin = require('telescope.builtin')
@@ -26,7 +26,7 @@ vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[F]ind recently op
 
 -- translate shell
 vim.g.trans_default_direction = ":ru"
-vim.keymap.set('n', '<leader>d', vim.cmd.Trans)
+vim.keymap.set('n', '<leader>d', vim.cmd.Trans, { desc = 'Translate' })
 
 -- open vim terminal
 vim.keymap.set('n', '<leader>tt', ":split term://zsh<CR>")
@@ -40,10 +40,10 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 -- Replace buffer content with clipboard
 -- gg - goto top, "_d - delete to null register to prevent (this keeps cliboard untouched)
 -- p - paste
-vim.keymap.set('n', '<leader>p', 'gg"_dGp<CR>')
+vim.keymap.set('n', '<leader>p', 'gg"_dGp<CR>', { desc = 'Replace buffer with clipboard'})
 
 -- swap true/false values
-vim.keymap.set('n', '<leader>s', ':call SwapBool()<CR>');
+vim.keymap.set('n', '<leader>s', ':call SwapBool()<CR>', { desc = 'Swap true/false' });
 
 -- format XML
 vim.keymap.set('n', '<F6>', ':call FormatXml()<CR>');

@@ -50,8 +50,9 @@ end
 
 
 local servers = {
-
-    -- jdtls = {},
+    jdtls = {
+        disabled = true
+    },
     awk_ls = {},
     bashls = {},
     cssls = {},
@@ -88,11 +89,14 @@ require("mason").setup()
 local mason_lspconfig = require('mason-lspconfig')
 
 mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
+  -- ensure_installed = vim.tbl_keys(servers),
 }
 
 mason_lspconfig.setup_handlers {
     function(server_name)
+        if (servers[server_name].disabled) then
+            return
+        end
         require('lspconfig')[server_name].setup {
             capabilities = capabilities,
             on_attach = on_attach,
@@ -115,6 +119,8 @@ require("mason-null-ls").setup({
 })
 
 local null_ls = require("null-ls")
+
+vim.lsp.set_log_level 'debug'
 
 null_ls.setup({
     debug = true,
@@ -147,4 +153,5 @@ null_ls.setup({
     },
     on_attach = on_attach
 })
+
 

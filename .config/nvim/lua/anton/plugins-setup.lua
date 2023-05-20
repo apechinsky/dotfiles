@@ -92,6 +92,8 @@ return require('packer').startup(function(use)
     -- use("onsails/lspkind.nvim") 
     use 'mfussenegger/nvim-jdtls'
 
+    use 'vim-test/vim-test'
+
     -- treesitter
     use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate'})
     use('nvim-treesitter/playground')
@@ -118,6 +120,19 @@ return require('packer').startup(function(use)
     use 'windwp/nvim-autopairs'
 
     use 'folke/neodev.nvim'
+
+    use {
+      "folke/which-key.nvim",
+      config = function()
+        vim.o.timeout = true
+        vim.o.timeoutlen = 500
+        require("which-key").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end
+    }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
