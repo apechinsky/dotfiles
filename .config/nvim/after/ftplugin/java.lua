@@ -1,7 +1,7 @@
 local utils = require('anton.utils')
 
 local function getProjectNameFromSettingsGradle(settingsFile)
-    if vim.fn.filereadable(settings_file) then
+    if vim.fn.filereadable(settingsFile) then
         return utils.getProperty(settingsFile, 'rootProject.name')
     end
 end
@@ -64,31 +64,33 @@ local project_name = getProjectName(root_dir)
 
 local workspace_dir = prepareWorkspaceDir(root_dir)
 
+vim.diagnostic.enable()
+
 local config = {
   -- The command that starts the language server
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
     --
-  cmd = {
-    '/home/apechinsky/opt/jdk-17/bin/java',
-    '-Declipse.application=org.eclipse.jdt.ls.core.id1',
-    '-Dosgi.bundles.defaultStartLevel=4',
-    '-Declipse.product=org.eclipse.jdt.ls.core.product',
-    '-Dlog.protocol=true',
-    '-Dlog.level=ALL',
-    '-javaagent:' .. lombok_path,
-    '-Xms1g',
-    -- '--add-modules=ALL-SYSTEM',
-    '--add-opens', 'java.base/java.util=ALL-UNNAMED',
-    '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+    cmd = {
+        '/home/apechinsky/opt/jdk-17/bin/java',
+        '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+        '-Dosgi.bundles.defaultStartLevel=4',
+        '-Declipse.product=org.eclipse.jdt.ls.core.product',
+        '-Dlog.protocol=true',
+        '-Dlog.level=ALL',
+        -- '-javaagent:' .. lombok_path,
+        '-Xms1g',
+        -- '--add-modules=ALL-SYSTEM',
+        '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+        '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
-    '-jar', path_to_jar,
-    '-configuration', path_to_lsp_server,
-    '-data', workspace_dir,
-  },
+        '-jar', path_to_jar,
+        '-configuration', path_to_lsp_server,
+        '-data', workspace_dir,
+    },
 
-  -- This is the default if not provided, you can remove it. Or adjust as needed.
-  -- One dedicated LSP server & client will be started per unique root_dir
-  root_dir = root_dir,
+    -- This is the default if not provided, you can remove it. Or adjust as needed.
+    -- One dedicated LSP server & client will be started per unique root_dir
+    root_dir = root_dir,
 
   -- Here you can configure eclipse.jdt.ls specific settings
   -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
@@ -188,7 +190,9 @@ local config = {
 }
 
 config['on_attach'] = function(client, bufnr)
-    require("keymaps").map_java_keys(bufnr);
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    require('anton.keymaps').lsp_keymap(bufopts)
+
     require("lsp_signature").on_attach({
         bind = true, -- This is mandatory, otherwise border config won't get registered.
         floating_window_above_cur_line = false,
@@ -200,11 +204,5 @@ config['on_attach'] = function(client, bufnr)
 end
 
 
-local jdtls_status, jdtls = pcall(require, "jdtls")
-if not jdtls_status then
-  vim.notify "JDTLS not found, install with `:LspInstall jdtls`"
-  return
-end
-
-jdtls.start_or_attach(config)
+require("jdtls").start_or_attach(config)
 

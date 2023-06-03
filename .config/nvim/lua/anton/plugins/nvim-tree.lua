@@ -10,5 +10,13 @@ end
 -- vim.g.loaded_netrwPlugin = 1
 
 require('nvim-tree').setup({
-      sync_root_with_cwd = false
+    sync_root_with_cwd = false,
+
+    view = {
+        width = 40,
+    },
+
+    filters = {
+      dotfiles = false,
+    },
 })

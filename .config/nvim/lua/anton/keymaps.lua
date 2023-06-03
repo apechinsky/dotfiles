@@ -1,3 +1,5 @@
+local M = {}
+
 vim.g.mapleader = " "
 vim.g.maploacalleader = vim.g.mapleader
 
@@ -9,6 +11,7 @@ vim.keymap.set('n', '*', '*N')
 
 -- nvim-tree
 vim.keymap.set('n', "<C-n>", vim.cmd.NvimTreeToggle, { desc = 'NvimTree Toggle' })
+vim.keymap.set('n', "<Leader>nf", vim.cmd.NvimTreeFindFile, { desc = 'NvimTree Find current file' })
 
 -- toggle undotree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = 'Toggle undo tree' })
@@ -61,3 +64,23 @@ vim.keymap.set({"i", "s"}, "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", op
 -- vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv")
 -- vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv")
 
+M.lsp_keymap = function(bufopts)
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+    vim.keymap.set('n', 'gR', require('telescope.builtin').lsp_references, bufopts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set('n', '<leader>wl', function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, bufopts)
+    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('n', '<leader>fm', function()
+        vim.lsp.buf.format { async = true }
+    end, bufopts)
+end
+
+return M
