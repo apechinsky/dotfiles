@@ -1,4 +1,5 @@
 local utils = require('anton.utils')
+local jdtls = require("jdtls")
 
 local function getProjectNameFromSettingsGradle(settingsFile)
     if vim.fn.filereadable(settingsFile) then
@@ -16,14 +17,15 @@ local function getProjectName(rootDir)
     return vim.fn.fnamemodify(rootDir, ':p:h:t')
 end
 
-local function prepareWorkspaceDir(rootDir)
-    local workspaceDir = rootDir .. '/build/jdtls'
-    os.execute("mkdir -p " .. workspaceDir)
-    return workspaceDir
+-- Return workspace directory
+--  Should be unique per project
+--  Should not be within project root
+local function getWorkspaceDir(projectName)
+    return vim.fn.stdpath('data') .. '/jdtls/' .. projectName
 end
 
 local function findRootDir()
-    return require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew" })
+    return jdtls.setup.find_root({ ".git", "mvnw", "gradlew" })
 end
 
 vim.opt_local.suffixes:append({ '.java' })
@@ -45,15 +47,9 @@ vim.opt_local.colorcolumn = { 80, 130 }
 -- vim.api.nvim_set_hl(0, 'ColorColumn', { bg = red })
 vim.cmd("highlight ColorColumn ctermbg=darkgray")
 
-
 -- Java Language Server configuration.
+local jdtls_home = vim.fn.stdpath('data') .. "/mason/packages/jdtls"
 
--- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
-local jdtls_path = vim.fn.stdpath('data') .. "/mason/packages/jdtls"
-local path_to_lsp_server = jdtls_path .. "/config_linux"
-local path_to_plugins = jdtls_path .. "/plugins/"
-local path_to_jar = path_to_plugins .. "org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"
-local lombok_path = jdtls_path .. "/lombok.jar"
 local root_dir = findRootDir()
 
 if root_dir == nil then
@@ -62,9 +58,13 @@ end
 
 local project_name = getProjectName(root_dir)
 
-local workspace_dir = prepareWorkspaceDir(root_dir)
+local workspace_dir = getWorkspaceDir(project_name)
 
 vim.diagnostic.enable()
+
+-- is this needed???
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 local config = {
   -- The command that starts the language server
@@ -77,14 +77,14 @@ local config = {
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
         '-Dlog.protocol=true',
         '-Dlog.level=ALL',
-        -- '-javaagent:' .. lombok_path,
+        '-javaagent:' .. jdtls_home .. "/lombok.jar",
         '-Xms1g',
         -- '--add-modules=ALL-SYSTEM',
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
-        '-jar', path_to_jar,
-        '-configuration', path_to_lsp_server,
+        '-jar',  jdtls_home .. "/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
+        '-configuration', jdtls_home .. "/config_linux",
         '-data', workspace_dir,
     },
 
@@ -92,106 +92,122 @@ local config = {
     -- One dedicated LSP server & client will be started per unique root_dir
     root_dir = root_dir,
 
-  -- Here you can configure eclipse.jdt.ls specific settings
-  -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
-  -- for a list of options
-  settings = {
-    java = {
-      home = '/home/apechinsky/opt/jdk-17',
-      eclipse = {
-        downloadSources = true,
-      },
-      configuration = {
-        updateBuildConfiguration = "interactive",
-        runtimes = {
-          {
-            name = "JavaSE-19",
-            path = "/home/apechinsky/opt/jdk-19",
-          },
-          {
-            name = "JavaSE-18",
-            path = "/home/apechinsky/opt/jdk-18",
-          },
-          {
-            name = "JavaSE-17",
-            path = "/home/apechinsky/opt/jdk-17",
-          },
-          {
-            name = "JavaSE-11",
-            path = "/home/apechinsky/opt/jdk-11",
-          }
-        }
-      },
-      maven = {
-        downloadSources = true,
-      },
-      implementationsCodeLens = {
-        enabled = true,
-      },
-      referencesCodeLens = {
-        enabled = true,
-      },
-      references = {
-        includeDecompiledSources = true,
-      },
-      format = {
-        enabled = true,
-        settings = {
-          -- url = vim.fn.stdpath("config") .. "/tools/intellij-java-google-style.xml",
-          url = vim.fn.stdpath("config") .. "/tools/eclipse-java-google-style.xml",
-          profile = "GoogleStyle",
+    -- Here you can configure eclipse.jdt.ls specific settings
+    -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+    -- for a list of options
+    settings = {
+        java = {
+            home = '/home/apechinsky/opt/jdk-17',
+            eclipse = {
+                downloadSources = true,
+            },
+            configuration = {
+                updateBuildConfiguration = "interactive",
+                runtimes = {
+                    {
+                        name = "JavaSE-19",
+                        path = "/home/apechinsky/opt/jdk-19",
+                    },
+                    {
+                        name = "JavaSE-18",
+                        path = "/home/apechinsky/opt/jdk-18",
+                    },
+                    {
+                        name = "JavaSE-17",
+                        path = "/home/apechinsky/opt/jdk-17",
+                    },
+                    {
+                        name = "JavaSE-11",
+                        path = "/home/apechinsky/opt/jdk-11",
+                    }
+                }
+            },
+            maven = {
+                downloadSources = true,
+            },
+            implementationsCodeLens = {
+                enabled = true,
+            },
+            referencesCodeLens = {
+                enabled = true,
+            },
+            references = {
+                includeDecompiledSources = true,
+            },
+            format = {
+                enabled = true,
+                settings = {
+                    -- url = vim.fn.stdpath("config") .. "/tools/intellij-java-google-style.xml",
+                    url = vim.fn.stdpath("config") .. "/tools/eclipse-java-google-style.xml",
+                    profile = "GoogleStyle",
+                },
+            },
+            signatureHelp = { enabled = true },
+            completion = {
+                favoriteStaticMembers = {
+                    "org.hamcrest.MatcherAssert.assertThat",
+                    "org.hamcrest.Matchers.*",
+                    "org.hamcrest.CoreMatchers.*",
+                    "org.junit.jupiter.api.Assertions.*",
+                    "java.util.Objects.requireNonNull",
+                    "java.util.Objects.requireNonNullElse",
+                    "org.mockito.Mockito.*",
+                    "org.slf4j.Logger",
+                    "org.slf4j.LoggerFactory",
+                    "org.srplib.contract.Argument",
+                    "org.srplib.contract.Assert"
+                },
+                importOrder = {
+                    "java",
+                    "javax",
+                    "com",
+                    "org",
+                    "net",
+                },
+            },
+            sources = {
+                organizeImports = {
+                    starThreshold = 9999,
+                    staticStarThreshold = 9999,
+                },
+            },
+            codeGeneration = {
+                toString = {
+                    template = "${object.className} [${member.name()}: ${member.value}, ${otherMembers}]",
+                },
+                useBlocks = true,
+            },
         },
-      },
-      signatureHelp = { enabled = true },
-      completion = {
-        favoriteStaticMembers = {
-          "org.hamcrest.MatcherAssert.assertThat",
-          "org.hamcrest.Matchers.*",
-          "org.hamcrest.CoreMatchers.*",
-          "org.junit.jupiter.api.Assertions.*",
-          "java.util.Objects.requireNonNull",
-          "java.util.Objects.requireNonNullElse",
-          "org.mockito.Mockito.*",
-          "org.slf4j.Logger",
-          "org.slf4j.LoggerFactory",
-          "org.srplib.contract.Argument",
-          "org.srplib.contract.Assert"
-        },
-        importOrder = {
-          "java",
-          "javax",
-          "com",
-          "org",
-          "net",
-        },
-      },
-      sources = {
-        organizeImports = {
-          starThreshold = 9999,
-          staticStarThreshold = 9999,
-        },
-      },
-      codeGeneration = {
-        toString = {
-          template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
-        },
-        useBlocks = true,
-      },
+        -- not sure this is needed
+        -- capabilities = capabilities,
+        -- not sure this is needed
+        -- extendedClientCapabilities = extendedClientCapabilities,
     },
-    extendedClientCapabilities = extendedClientCapabilities,
-  },
 
-  flags = {
-    allow_incremental_sync = true,
-  },
-  init_options = {
-    bundles = {},
-  },
+    flags = {
+        allow_incremental_sync = true,
+    },
+    init_options = {
+        bundles = {},
+    },
 }
 
-config['on_attach'] = function(client, bufnr)
+config.on_attach = function(client, bufnr)
+    jdtls.setup.add_commands()
+
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     require('anton.keymaps').lsp_keymap(bufopts)
+
+  -- jdtls extension keymep
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+    vim.keymap.set("n", "<leader>oi", jdtls.organize_imports, { desc = "Organize imports" } )
+    vim.keymap.set("n", "<leader>vc", jdtls.test_class, { desc = "Test class (DAP)" } )
+    vim.keymap.set("n", "<leader>vm", jdtls.test_nearest_method, { desc = "Test method (DAP)"})
+    vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, { desc = "Extract variable"})
+    vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, { desc = "Extract constant"})
+    vim.keymap.set("v", "<leader>em", function() 
+        jdtls.extract_method(true)
+    end, { desc = "Extract method" })
 
     require("lsp_signature").on_attach({
         bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -203,6 +219,5 @@ config['on_attach'] = function(client, bufnr)
     }, bufnr)
 end
 
-
-require("jdtls").start_or_attach(config)
+jdtls.start_or_attach(config)
 
