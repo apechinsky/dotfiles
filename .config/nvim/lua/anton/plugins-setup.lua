@@ -93,6 +93,8 @@ return require('packer').startup(function(use)
     -- -- vs-code like icons for autocompletion
     -- use("onsails/lspkind.nvim") 
     use 'mfussenegger/nvim-jdtls'
+    use 'mfussenegger/nvim-dap'
+    use 'rcarriga/cmp-dap'
 
     use 'vim-test/vim-test'
 

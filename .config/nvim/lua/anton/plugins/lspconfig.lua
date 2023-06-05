@@ -40,6 +40,7 @@ local servers = {
     cssls = {},
     dockerls = {},
     gradle_ls = {},
+    groovyls = {},
     grammarly = {},
     html = {},
     jsonls = {},
@@ -50,7 +51,7 @@ local servers = {
 
     lua_ls = {
         Lua = {
-            -- workspace = { checkThirdParty = false },
+            workspace = { checkThirdParty = false },
             -- telemetry = { enable = false },
             diagnostics = {
                 globals = { 'vim' }
@@ -76,7 +77,11 @@ mason_lspconfig.setup {
 
 mason_lspconfig.setup_handlers {
     function(server_name)
-        if (servers[server_name].disabled) then
+        if servers[server_name] == null then
+            print("Language server '" .. server_name .. "' is note defined in 'servers' collection. Skip.")
+            return
+        end
+        if servers[server_name].disabled then
             return
         end
         require('lspconfig')[server_name].setup {
@@ -111,11 +116,11 @@ null_ls.setup({
         -- Anything not supported by mason.
 
         null_ls.builtins.diagnostics.yamllint.with({
-            extra_args = { "-c", myconfig.tools('yamllint.yaml') }
+            extra_args = { "-c", xdg.tools('yamllint.yaml') }
         }),
 
         null_ls.builtins.formatting.yamlfmt.with({
-            extra_args = { "--conf", myconfig.tools('yamlfmt.yaml') }
+            extra_args = { "--conf", xdg.tools('yamlfmt.yaml') }
         }),
 
         null_ls.builtins.formatting.jq.with({
@@ -123,7 +128,7 @@ null_ls.setup({
         }),
 
         null_ls.builtins.diagnostics.markdownlint.with({
-            extra_args = { "--config", myconfig.tools("markdownlint.yaml") },
+            extra_args = { "--config", xdg.tools("markdownlint.yaml") },
         }),
 
         null_ls.builtins.formatting.xmllint.with({
