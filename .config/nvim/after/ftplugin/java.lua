@@ -1,8 +1,9 @@
 local utils = require('anton.utils')
 local jdtls = require("jdtls")
+local HOME = os.getenv('HOME')
 
 local function getProjectNameFromSettingsGradle(settingsFile)
-    if vim.fn.filereadable(settingsFile) then
+    if vim.fn.filereadable(settingsFile) ~= 0 then
         return utils.getProperty(settingsFile, 'rootProject.name')
     end
 end
@@ -21,11 +22,15 @@ end
 --  Should be unique per project
 --  Should not be within project root
 local function getWorkspaceDir(projectName)
-    return vim.fn.stdpath('data') .. '/jdtls/' .. projectName
+    return xdg.data('jdtls/' .. projectName)
 end
 
-local function findRootDir()
-    return jdtls.setup.find_root({ ".git", "mvnw", "gradlew" })
+local function findBuildSystemRoot()
+    return jdtls.setup.find_root({ "mvnw", "gradlew" })
+end
+
+local function getCurrentFileDir()
+    return vim.fn.expand('%:p:h')
 end
 
 vim.opt_local.suffixes:append({ '.java' })
@@ -38,8 +43,8 @@ vim.api.nvim_buf_set_keymap(0, 'n', '<F9>', ':wall<CR>:make<CR>', { noremap = tr
 vim.api.nvim_buf_set_keymap(0, 'n', '<F10>', ':wall<CR>:!jbang %<CR>', { noremap = true })
 
 vim.opt_local.tags:append({
-    "/home/apechinsky/ctags/libs/java-libs.tags",
-    "/home/apechinsky/ctags/libs/jdk-1.8.0.tags"
+    HOME .. "/ctags/libs/java-libs.tags",
+    HOME .. "/ctags/libs/jdk-1.8.0.tags"
 })
 
 vim.opt_local.colorcolumn = { 80, 130 }
@@ -48,17 +53,15 @@ vim.opt_local.colorcolumn = { 80, 130 }
 vim.cmd("highlight ColorColumn ctermbg=darkgray")
 
 -- Java Language Server configuration.
-local jdtls_home = vim.fn.stdpath('data') .. "/mason/packages/jdtls"
+local jdtls_home = xdg.data('mason/packages/jdtls')
 
-local root_dir = findRootDir()
-
-if root_dir == nil then
-  return
-end
-
+local root_dir = findBuildSystemRoot() or getCurrentFileDir()
 local project_name = getProjectName(root_dir)
-
 local workspace_dir = getWorkspaceDir(project_name)
+
+-- print("root_dir: " .. root_dir)
+-- print("project_name: " .. project_name)
+-- print("workspace_dir: " .. workspace_dir)
 
 vim.diagnostic.enable()
 
@@ -71,20 +74,21 @@ local config = {
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
     --
     cmd = {
-        '/home/apechinsky/opt/jdk-17/bin/java',
+        HOME .. '/opt/jdk-17/bin/java',
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
         '-Dlog.protocol=true',
         '-Dlog.level=ALL',
-        '-javaagent:' .. jdtls_home .. "/lombok.jar",
+        '-javaagent:' .. xdg.subpath(jdtls_home, 'lombok.jar'),
         '-Xms1g',
         -- '--add-modules=ALL-SYSTEM',
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
-
-        '-jar',  jdtls_home .. "/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
-        '-configuration', jdtls_home .. "/config_linux",
+        -- '-jar', vim.fn.glob(jdtls_home .. '/plugins/org.eclipse.equinox.launcher_*.jar')
+        -- '-jar',  xdg.subpath(jdtls_home, 'plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+        '-jar',  vim.fn.glob(xdg.subpath(jdtls_home, 'plugins/org.eclipse.equinox.launcher_*.jar')),
+        '-configuration', xdg.subpath(jdtls_home, "config_linux"),
         '-data', workspace_dir,
     },
 
@@ -97,7 +101,7 @@ local config = {
     -- for a list of options
     settings = {
         java = {
-            home = '/home/apechinsky/opt/jdk-17',
+            home = HOME .. '/opt/jdk-17',
             eclipse = {
                 downloadSources = true,
             },
@@ -106,19 +110,19 @@ local config = {
                 runtimes = {
                     {
                         name = "JavaSE-19",
-                        path = "/home/apechinsky/opt/jdk-19",
+                        path = HOME .. "/opt/jdk-19",
                     },
                     {
                         name = "JavaSE-18",
-                        path = "/home/apechinsky/opt/jdk-18",
+                        path = HOME .. "/opt/jdk-18",
                     },
                     {
                         name = "JavaSE-17",
-                        path = "/home/apechinsky/opt/jdk-17",
+                        path = HOME .. "/opt/jdk-17",
                     },
                     {
                         name = "JavaSE-11",
-                        path = "/home/apechinsky/opt/jdk-11",
+                        path = HOME .. "/opt/jdk-11",
                     }
                 }
             },
@@ -138,7 +142,7 @@ local config = {
                 enabled = true,
                 settings = {
                     -- url = vim.fn.stdpath("config") .. "/tools/intellij-java-google-style.xml",
-                    url = vim.fn.stdpath("config") .. "/tools/eclipse-java-google-style.xml",
+                    url = xdg.config('/tools/eclipse-java-google-style.xml'),
                     profile = "GoogleStyle",
                 },
             },
