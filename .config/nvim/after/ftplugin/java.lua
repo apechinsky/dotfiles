@@ -54,6 +54,7 @@ vim.cmd("highlight ColorColumn ctermbg=darkgray")
 
 -- Java Language Server configuration.
 local jdtls_home = xdg.data('mason/packages/jdtls')
+local java_debug_adapter_home = xdg.data('mason/packages/java-debug-adapter')
 
 local root_dir = findBuildSystemRoot() or getCurrentFileDir()
 local project_name = getProjectName(root_dir)
@@ -80,15 +81,16 @@ local config = {
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
         '-Dlog.protocol=true',
         '-Dlog.level=ALL',
-        '-javaagent:' .. xdg.subpath(jdtls_home, 'lombok.jar'),
+        '-javaagent:' .. vim.fn.glob(xdg.config('java/lombok-*.jar')),
+        -- '-javaagent:' .. vim.fn.glob(xdg.config('java/springloaded-*.jar')),
         '-Xms1g',
         -- '--add-modules=ALL-SYSTEM',
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
         -- '-jar', vim.fn.glob(jdtls_home .. '/plugins/org.eclipse.equinox.launcher_*.jar')
-        -- '-jar',  xdg.subpath(jdtls_home, 'plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
-        '-jar',  vim.fn.glob(xdg.subpath(jdtls_home, 'plugins/org.eclipse.equinox.launcher_*.jar')),
-        '-configuration', xdg.subpath(jdtls_home, "config_linux"),
+        -- '-jar',  utils.subpath(jdtls_home, 'plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+        '-jar',  vim.fn.glob(utils.subpath(jdtls_home, 'plugins/org.eclipse.equinox.launcher_*.jar')),
+        '-configuration', utils.subpath(jdtls_home, "config_linux"),
         '-data', workspace_dir,
     },
 
@@ -192,15 +194,19 @@ local config = {
         allow_incremental_sync = true,
     },
     init_options = {
-        bundles = {},
+        bundles = {
+            vim.fn.glob(utils.subpath(HOME, 'java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar'))
+        },
     },
 }
 
 config.on_attach = function(client, bufnr)
     jdtls.setup.add_commands()
+    jdtls.setup_dap({ hotcodereplace = 'auto' })
 
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     require('anton.keymaps').lsp_keymap(bufopts)
+    require('anton.keymaps').java_keymap(bufopts)
 
   -- jdtls extension keymep
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)

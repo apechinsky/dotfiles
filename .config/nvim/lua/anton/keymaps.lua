@@ -56,13 +56,28 @@ vim.keymap.set('n', '<F2>', ':call ToggleLineNumbers()<CR>')
 
 
 -- luasnip mappings
+local luasnip = require('luasnip')
 local opts = { noremap = true, silent = true }
-vim.keymap.set({"i", "s"}, "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
-vim.keymap.set({"i", "s"}, "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
+-- vim.keymap.set({"i", "s"}, "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
+-- vim.keymap.set({"i", "s"}, "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
+
+vim.keymap.set({"i", "s"}, "<tab>", function()
+    if luasnip.expand_or_jumpable() then luasnip.expand_or_jump() end
+end, opts)
+
+vim.keymap.set({"i", "s"}, "<S-tab>", function()
+    if luasnip.jumpable(-1) then luasnip.jump(-1) end
+end, opts)
+
+vim.keymap.set({"i", "s"}, "<c-e>", function()
+    if luasnip.choice_active() then luasnip.change_choice(1) end
+end, opts)
 
 -- move selection up and down
 -- vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv")
 -- vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv")
+
+local vimutils = require('anton.utils')
 
 M.lsp_keymap = function(bufopts)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
@@ -82,5 +97,21 @@ M.lsp_keymap = function(bufopts)
     end, bufopts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 end
+
+M.java_keymap = function(bufopts)
+    vim.keymap.set('n', '<leader>tm', function ()
+        require('anton.java.gradle').run_java_test_method()
+    end, vimutils.bufopts(bufopts, 'Run current test method'))
+
+    vim.keymap.set('n', '<leader>tc', function ()
+        require('anton.java.gradle').run_java_test_class()
+    end, vimutils.bufopts(bufopts, 'Run current test class'))
+end
+
+require("which-key").register({
+  t = {
+    name = "Test",
+  },
+})
 
 return M
