@@ -69,13 +69,13 @@ vim.diagnostic.enable()
 -- is this needed???
 -- local capabilities = vim.lsp.protocol.make_client_capabilities()
 -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
+--
 local config = {
   -- The command that starts the language server
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
     --
     cmd = {
-        HOME .. '/opt/jdk-17/bin/java',
+        utils.subpath(HOME, 'opt/jdk-17/bin/java'),
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -83,7 +83,7 @@ local config = {
         '-Dlog.level=ALL',
         '-javaagent:' .. vim.fn.glob(xdg.config('java/lombok-*.jar')),
         -- '-javaagent:' .. vim.fn.glob(xdg.config('java/springloaded-*.jar')),
-        '-Xms1g',
+        '-Xms2g',
         -- '--add-modules=ALL-SYSTEM',
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
@@ -100,8 +100,9 @@ local config = {
 
     -- Here you can configure eclipse.jdt.ls specific settings
     -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
-    -- for a list of options
     settings = {
+
+        -- see JavaConfiguration class
         java = {
             home = HOME .. '/opt/jdk-17',
             eclipse = {
@@ -112,21 +113,26 @@ local config = {
                 runtimes = {
                     {
                         name = "JavaSE-19",
-                        path = HOME .. "/opt/jdk-19",
+                        path = utils.subpath(HOME, "/opt/jdk-19"),
                     },
                     {
                         name = "JavaSE-18",
-                        path = HOME .. "/opt/jdk-18",
+                        path = utils.subpath(HOME, "/opt/jdk-18"),
                     },
                     {
                         name = "JavaSE-17",
-                        path = HOME .. "/opt/jdk-17",
+                        path = utils.subpath(HOME, "/opt/jdk-17"),
                     },
                     {
                         name = "JavaSE-11",
-                        path = HOME .. "/opt/jdk-11",
+                        path = utils.subpath(HOME, "/opt/jdk-11"),
                     }
                 }
+            },
+            jdt = {
+                ls = {
+                    lombokSupport = true,
+                },
             },
             maven = {
                 downloadSources = true,
@@ -147,6 +153,24 @@ local config = {
                     url = xdg.config('/tools/eclipse-java-google-style.xml'),
                     profile = "GoogleStyle",
                 },
+            },
+            trace = {
+                server = 'verbose',
+            },
+            import = {
+                gradle = {
+                    enabled = true,
+                },
+                maven = {
+                    enabled = true,
+                },
+                exclusions = {
+                    "**/node_modules/**",
+                    "**/.metadata/**",
+                    "**/archetype-resources/**",
+                    "**/META-INF/maven/**",
+                    "/**/test/**",
+                 },
             },
             signatureHelp = { enabled = true },
             completion = {

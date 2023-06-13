@@ -58,20 +58,30 @@ vim.keymap.set('n', '<F2>', ':call ToggleLineNumbers()<CR>')
 -- luasnip mappings
 local luasnip = require('luasnip')
 local opts = { noremap = true, silent = true }
--- vim.keymap.set({"i", "s"}, "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
--- vim.keymap.set({"i", "s"}, "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
 
-vim.keymap.set({"i", "s"}, "<tab>", function()
-    if luasnip.expand_or_jumpable() then luasnip.expand_or_jump() end
-end, opts)
+-- vim.keymap.set({"s"}, "<tab>", function()
+--     if luasnip.expand_or_jumpable() then luasnip.expand_or_jump() end
+-- end, opts)
+--
+-- vim.keymap.set({"i", "s"}, "<S-tab>", function()
+--     if luasnip.jumpable(-1) then luasnip.jump(-1) end
+-- end, opts)
+--
+-- vim.keymap.set({"i", "s"}, "<c-e>", function()
+--     if luasnip.choice_active() then luasnip.change_choice(1) end
+-- end, opts)
+vim.cmd ([[
+    imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+    " -1 for jumping backwards.
+    inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
 
-vim.keymap.set({"i", "s"}, "<S-tab>", function()
-    if luasnip.jumpable(-1) then luasnip.jump(-1) end
-end, opts)
+    snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+    snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
 
-vim.keymap.set({"i", "s"}, "<c-e>", function()
-    if luasnip.choice_active() then luasnip.change_choice(1) end
-end, opts)
+    " For changing choices in choiceNodes (not strictly necessary for a basic setup).
+    imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+    smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+]])
 
 -- move selection up and down
 -- vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv")
