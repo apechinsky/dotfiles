@@ -87,8 +87,6 @@ local config = {
         -- '--add-modules=ALL-SYSTEM',
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
-        -- '-jar', vim.fn.glob(jdtls_home .. '/plugins/org.eclipse.equinox.launcher_*.jar')
-        -- '-jar',  utils.subpath(jdtls_home, 'plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
         '-jar',  vim.fn.glob(utils.subpath(jdtls_home, 'plugins/org.eclipse.equinox.launcher_*.jar')),
         '-configuration', utils.subpath(jdtls_home, "config_linux"),
         '-data', workspace_dir,

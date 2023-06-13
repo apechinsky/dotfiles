@@ -5,16 +5,21 @@ return {
         '}'})
     ),
 
-    s("logd", {
-        t({'private static final Logger LOGGER = LoggerFactory.getLogger('}),
+    s("measure", {
+        t({ 'long start = System.currentTimeMillis();', ''}),
         i(1),
-        t({');'}),
+        t({'', 'System.out.printf("Time: %d %n", System.currentTimeMillis() - start);'}),
     }),
 
-    s("triggerj", {
-        t({'value: ('}),
-        i(1),
-        t({') copy:'}),
-        i(1),
+    s("logd", {
+        -- Declare SLF4J logger with current class
+        t({'private static final Logger LOGGER = LoggerFactory.getLogger('}),
+
+        f(function()
+            local class = require('anton.java.utils').get_current_class()
+            return tostring(class) .. '.class'
+        end, {}),
+
+        t({');'}),
     }),
 }

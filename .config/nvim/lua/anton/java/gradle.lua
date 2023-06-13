@@ -7,7 +7,8 @@ local utils = require('anton.utils')
 local java_utils = require('anton.java.utils')
 
 function M.get_test_runner(tests)
-    return 'gradlew -i test ' ..
+    local executable = vim.fn.filereadable('csbuild') and "csbuild" or "gradlew"
+    return executable .. ' -i test ' ..
         utils.format_if_present(' --tests=%s ', tests)
 end
 
