@@ -110,11 +110,11 @@ end
 
 M.java_keymap = function(bufopts)
     vim.keymap.set('n', '<leader>tm', function ()
-        require('anton.java.gradle').run_java_test_method()
+        require('anton.java.gradle').find():run_java_test_method()
     end, vimutils.bufopts(bufopts, 'Run current test method'))
 
     vim.keymap.set('n', '<leader>tc', function ()
-        require('anton.java.gradle').run_java_test_class()
+        require('anton.java.gradle').find():run_java_test_class()
     end, vimutils.bufopts(bufopts, 'Run current test class'))
 end
 

@@ -86,16 +86,18 @@ function M.get_current_package()
 end
 
 function M.get_current_class_full()
-  local package = M.get_current_package()
-  local class = M.get_current_class()
-  return package and class and package .. '.' .. class
+    local package = M.get_current_package()
+    local class = M.get_current_class()
+    return package and class and package .. '.' .. class
 end
 
 function M.get_current_method_full(delimiter)
-  delimiter = delimiter or '.'
-  local class_name = M.get_current_class_full()
-  local method_name = M.get_current_method()
-  return class_name and method_name and class_name .. delimiter .. method_name
+    delimiter = delimiter or '.'
+    local class_name = M.get_current_class_full()
+    local method_name = M.get_current_method()
+    return class_name and method_name and class_name .. delimiter .. method_name
 end
+
+
 
 return M

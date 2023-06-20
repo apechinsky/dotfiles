@@ -1,7 +1,7 @@
 -- LSP configuration
 
 -- disable diagnostics by default
-vim.diagnostic.disable()
+-- vim.diagnostic.disable()
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 

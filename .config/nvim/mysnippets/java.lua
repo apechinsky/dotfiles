@@ -22,4 +22,15 @@ return {
 
         t({');'}),
     }),
+
+    s("testdoc", {
+        t({'Тест класса {@'}),
+
+        f(function()
+            local class = require('anton.java.utils').get_current_class()
+            return tostring(class)
+        end, {}),
+
+        t({'}'}),
+    })
 }

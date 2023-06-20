@@ -1,37 +1,6 @@
+local HOME = os.getenv('HOME')
 local utils = require('anton.utils')
 local jdtls = require("jdtls")
-local HOME = os.getenv('HOME')
-
-local function getProjectNameFromSettingsGradle(settingsFile)
-    if vim.fn.filereadable(settingsFile) ~= 0 then
-        return utils.getProperty(settingsFile, 'rootProject.name')
-    end
-end
-
-local function getProjectName(rootDir)
-    local projectName = getProjectNameFromSettingsGradle(rootDir .. '/settings.gradle')
-
-    if projectName ~= nil then
-        return projectName
-    end
-
-    return vim.fn.fnamemodify(rootDir, ':p:h:t')
-end
-
--- Return workspace directory
---  Should be unique per project
---  Should not be within project root
-local function getWorkspaceDir(projectName)
-    return xdg.data('jdtls/' .. projectName)
-end
-
-local function findBuildSystemRoot()
-    return jdtls.setup.find_root({ "mvnw", "gradlew" })
-end
-
-local function getCurrentFileDir()
-    return vim.fn.expand('%:p:h')
-end
 
 vim.opt_local.suffixes:append({ '.java' })
 
@@ -52,19 +21,26 @@ vim.opt_local.colorcolumn = { 80, 130 }
 -- vim.api.nvim_set_hl(0, 'ColorColumn', { bg = red })
 vim.cmd("highlight ColorColumn ctermbg=darkgray")
 
+
+-- Return workspace directory
+--  Should be unique per project
+--  Should not be within project root
+local function getWorkspaceDir(projectName)
+    return xdg.data('jdtls/' .. projectName)
+end
+
 -- Java Language Server configuration.
 local jdtls_home = xdg.data('mason/packages/jdtls')
 local java_debug_adapter_home = xdg.data('mason/packages/java-debug-adapter')
 
-local root_dir = findBuildSystemRoot() or getCurrentFileDir()
-local project_name = getProjectName(root_dir)
-local workspace_dir = getWorkspaceDir(project_name)
+local project = require('anton.java.gradle').find(utils.get_current_file())
+    or require('anton.java.single-file-roject').get(utils.get_current_file())
 
--- print("root_dir: " .. root_dir)
--- print("project_name: " .. project_name)
--- print("workspace_dir: " .. workspace_dir)
+-- local root_dir = project:get_root_dir()
+local workspace_dir = getWorkspaceDir(project:get_name())
 
-vim.diagnostic.enable()
+-- TODO: enabling diagnostics here causes strange errors when navigating between java files
+-- vim.diagnostic.enable()
 
 -- is this needed???
 -- local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -75,7 +51,7 @@ local config = {
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
     --
     cmd = {
-        utils.subpath(HOME, 'opt/jdk-17/bin/java'),
+        utils.child(HOME, 'opt/jdk-17/bin/java'),
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -87,14 +63,14 @@ local config = {
         -- '--add-modules=ALL-SYSTEM',
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
-        '-jar',  vim.fn.glob(utils.subpath(jdtls_home, 'plugins/org.eclipse.equinox.launcher_*.jar')),
-        '-configuration', utils.subpath(jdtls_home, "config_linux"),
+        '-jar',  vim.fn.glob(utils.child(jdtls_home, 'plugins/org.eclipse.equinox.launcher_*.jar')),
+        '-configuration', utils.child(jdtls_home, "config_linux"),
         '-data', workspace_dir,
     },
 
     -- This is the default if not provided, you can remove it. Or adjust as needed.
     -- One dedicated LSP server & client will be started per unique root_dir
-    root_dir = root_dir,
+    root_dir = project:get_root_dir(),
 
     -- Here you can configure eclipse.jdt.ls specific settings
     -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
@@ -110,21 +86,21 @@ local config = {
                 updateBuildConfiguration = "interactive",
                 runtimes = {
                     {
+                        name = "JavaSE-11",
+                        path = utils.child(HOME, "/opt/jdk-11"),
+                    },
+                    {
                         name = "JavaSE-19",
-                        path = utils.subpath(HOME, "/opt/jdk-19"),
+                        path = utils.child(HOME, "/opt/jdk-19"),
                     },
                     {
                         name = "JavaSE-18",
-                        path = utils.subpath(HOME, "/opt/jdk-18"),
+                        path = utils.child(HOME, "/opt/jdk-18"),
                     },
                     {
                         name = "JavaSE-17",
-                        path = utils.subpath(HOME, "/opt/jdk-17"),
+                        path = utils.child(HOME, "/opt/jdk-17"),
                     },
-                    {
-                        name = "JavaSE-11",
-                        path = utils.subpath(HOME, "/opt/jdk-11"),
-                    }
                 }
             },
             jdt = {
@@ -217,7 +193,7 @@ local config = {
     },
     init_options = {
         bundles = {
-            vim.fn.glob(utils.subpath(HOME, 'java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar'))
+            vim.fn.glob(utils.child(HOME, 'java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar'))
         },
     },
 }

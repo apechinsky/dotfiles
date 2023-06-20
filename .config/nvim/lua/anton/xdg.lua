@@ -7,19 +7,19 @@ local M = {}
 local utils = require('anton.utils')
 
 function M.config(sub)
-    return utils.subpath(vim.fn.stdpath('config'), sub)
+    return utils.child(vim.fn.stdpath('config'), sub)
 end
 
 function M.data(sub)
-    return utils.subpath(vim.fn.stdpath('data'), sub)
+    return utils.child(vim.fn.stdpath('data'), sub)
 end
 
 function M.cache(sub)
-    return utils.subpath(vim.fn.stdpath('cache'), sub)
+    return utils.child(vim.fn.stdpath('cache'), sub)
 end
 
 function M.tools(sub)
-    return utils.subpath(M.config('tools'), sub)
+    return utils.child(M.config('tools'), sub)
 end
 
 return M
