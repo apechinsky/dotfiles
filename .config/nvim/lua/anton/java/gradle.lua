@@ -143,6 +143,9 @@ end
 
 local M = {}
 
+--
+-- Find gradle project and return Gradle class instance
+--
 function M.find(start_file)
     local root_dir = utils.find_any({ gradlew }, start_file)
     return root_dir and Gradle:new(root_dir) or nil

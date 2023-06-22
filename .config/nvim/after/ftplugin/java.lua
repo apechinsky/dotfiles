@@ -34,7 +34,7 @@ local jdtls_home = xdg.data('mason/packages/jdtls')
 local java_debug_adapter_home = xdg.data('mason/packages/java-debug-adapter')
 
 local project = require('anton.java.gradle').find(utils.get_current_file())
-    or require('anton.java.single-file-roject').get(utils.get_current_file())
+    or require('anton.java.single-file-project').get(utils.get_current_file())
 
 -- local root_dir = project:get_root_dir()
 local workspace_dir = getWorkspaceDir(project:get_name())
@@ -121,10 +121,10 @@ local config = {
                 includeDecompiledSources = true,
             },
             format = {
-                enabled = true,
+                enabled = false,
                 settings = {
                     -- url = vim.fn.stdpath("config") .. "/tools/intellij-java-google-style.xml",
-                    url = xdg.config('/tools/eclipse-java-google-style.xml'),
+                    url = xdg.config('/tools/eclipse-my.xml'),
                     profile = "GoogleStyle",
                 },
             },
@@ -163,10 +163,19 @@ local config = {
                 },
                 importOrder = {
                     "java",
+                    "#java",
+                    "\n",
                     "javax",
-                    "com",
+                    "#javax",
+                    "\\n",
                     "org",
+                    "#org",
                     "net",
+                    "#net",
+                    "com",
+                    "#com",
+                    "by",
+                    "#by"
                 },
             },
             sources = {
