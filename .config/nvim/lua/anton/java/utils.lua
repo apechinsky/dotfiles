@@ -56,6 +56,29 @@ function M.get_current_method()
     return vim.treesitter.get_node_text(method_name, 0)
 end
 
+function M.get_current_method_parameters()
+    local current_node = vim.treesitter.get_node()
+    if not current_node then return nil end
+
+    local method = M.find_parent(current_node, M.by_type('method_declaration'))
+    if not method then return nil end
+
+    local parameters = M.find_child(method, M.by_type('formal_parameters'))
+    if not parameters then return nil end
+
+    local result = {}
+
+    for i = 0, parameters:child_count() - 1 do
+        local parameter = parameters:child(i)
+        local parameter_name = M.find_child(parameter, M.by_type('identifier'))
+        if parameter_name then
+            table.insert(result, vim.treesitter.get_node_text(parameter_name, 0))
+        end
+    end
+
+    return result
+end
+
 function M.get_current_class()
     local current_node = vim.treesitter.get_node()
     if not current_node then return nil end

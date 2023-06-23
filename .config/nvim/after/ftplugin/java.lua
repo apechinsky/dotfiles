@@ -121,11 +121,11 @@ local config = {
                 includeDecompiledSources = true,
             },
             format = {
-                enabled = false,
+                enabled = true,
                 settings = {
                     -- url = vim.fn.stdpath("config") .. "/tools/intellij-java-google-style.xml",
                     url = xdg.config('/tools/eclipse-my.xml'),
-                    profile = "GoogleStyle",
+                    profile = "eclipse-my",
                 },
             },
             trace = {
@@ -162,20 +162,14 @@ local config = {
                     "org.srplib.contract.Assert"
                 },
                 importOrder = {
-                    "java",
-                    "#java",
-                    "\n",
-                    "javax",
-                    "#javax",
-                    "\\n",
-                    "org",
-                    "#org",
-                    "net",
-                    "#net",
-                    "com",
-                    "#com",
-                    "by",
-                    "#by"
+                    "java", "#java",
+                    "javax", "#javax",
+                    "org", "#org",
+                    "net", "#net",
+                    "com", "#com",
+                    "by", "#by",
+                    "ru", "#ru",
+                    "", "#",
                 },
             },
             sources = {
