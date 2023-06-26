@@ -89,6 +89,29 @@ function M.child(path, sub)
     return result
 end
 
+-- 
+-- Finds value in table
+--
+-- @param t table
+-- @param value value to seardh
+-- @return index of found value or null
+--
+function M.find(t, value)
+    for index, item in ipairs(t) do
+        if item == value then
+            return index
+        end
+    end
+end
+
+--
+-- Return file scheme if any
+--
+function M.get_scheme(file)
+    local index = file:find(':', 1, true)
+    return index and file:sub(1, index) or nil
+end
+
 function M.get_current_file()
     return vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
 end

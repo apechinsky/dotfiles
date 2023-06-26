@@ -1,6 +1,20 @@
+
 local HOME = os.getenv('HOME')
 local utils = require('anton.utils')
 local jdtls = require("jdtls")
+
+local function is_java_buffer()
+    local scheme = utils.get_scheme(utils.get_current_file())
+    return not scheme or scheme == 'file'
+end
+
+-- Exit if this ftplugin is activated for non java buffers
+-- E.g.  git fugitive plugin creates a buffer named fugitive://xxxx.java
+-- So it causes vim to activate this ftplugin and LSP server returns an error:
+-- IllegalArgumentException: URI has an authority component
+if not is_java_buffer() then
+    return
+end
 
 vim.opt_local.suffixes:append({ '.java' })
 
@@ -202,6 +216,7 @@ local config = {
 }
 
 config.on_attach = function(client, bufnr)
+
     jdtls.setup.add_commands()
     jdtls.setup_dap({ hotcodereplace = 'auto' })
 
@@ -229,6 +244,7 @@ config.on_attach = function(client, bufnr)
         }
     }, bufnr)
 end
+
 
 jdtls.start_or_attach(config)
 

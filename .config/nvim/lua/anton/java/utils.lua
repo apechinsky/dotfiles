@@ -92,6 +92,11 @@ function M.get_current_class()
     return vim.treesitter.get_node_text(class_name, 0)
 end
 
+function M.get_current_class_from_file()
+    local current_file = require('anton.utils').get_current_file()
+    return vim.fn.fnamemodify(current_file, ':t:r')
+end
+
 function M.get_current_package()
     local current_node = vim.treesitter.get_node()
     if not current_node then return nil end
