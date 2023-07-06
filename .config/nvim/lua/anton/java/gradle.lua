@@ -16,6 +16,12 @@ function Gradle:new(root_dir)
 
     local instance = setmetatable({}, self)
     instance.root_dir = root_dir
+
+    instance.settings_file = utils.child(instance.root_dir, 'settings.gradle')
+
+    instance.name = utils.get_property(instance.settings_file, 'rootProject.name')
+    assert(instance.name, "Can not obtain project name from " .. instance.settings_file)
+
     return instance
 end
 
@@ -24,11 +30,11 @@ function Gradle:get_root_dir()
 end
 
 function Gradle:get_name()
-    return utils.get_property(self:get_settings_file(), 'rootProject.name')
+    return self.name
 end
 
 function Gradle:get_settings_file()
-    return utils.child(self.root_dir, 'settings.gradle')
+    return self.settings_file
 end
 
 function Gradle:get_modules()
@@ -73,9 +79,9 @@ function Gradle:executable()
 end
 
 function Gradle:dump()
-    print("Gradle [" ..
-        "name: " .. self:get_name() ..
-        ", root: " .. self:get_root_dir() ..
+    print("Gradle project [" ..
+        "name: " .. (self:get_name() or "nil") ..
+        ", root: " .. (self:get_root_dir() or "nil") ..
         ", modules: [" .. table.concat(self:get_modules(), ', ') .. "]" ..
         "]")
 end

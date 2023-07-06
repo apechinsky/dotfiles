@@ -19,6 +19,13 @@ function Project:get_name()
     return utils.get_dir_name(self.root_dir)
 end
 
+function Project:dump()
+    print("Single file project [" ..
+        "name: " .. (self:get_name() or "nil") ..
+        ", root: " .. (self:get_root_dir() or "nil") ..
+        "]")
+end
+
 local M = {}
 
 function M.get(start_file)
