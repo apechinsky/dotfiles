@@ -26,6 +26,12 @@ vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagno
 vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[F]ind current [W]ord' })
 vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[F]ind recently opened files' })
 
+require("which-key").register({
+    f = {
+        name = "Find files, etc.",
+    },
+}, { prefix = "<leader>" })
+
 
 -- translate shell
 vim.g.trans_default_direction = ":ru"
@@ -43,7 +49,7 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 -- Replace buffer content with clipboard
 -- gg - goto top, "_d - delete to null register to prevent (this keeps cliboard untouched)
 -- p - paste
-vim.keymap.set('n', '<leader>p', 'gg"_dGp<CR>', { desc = 'Replace buffer with clipboard'})
+vim.keymap.set('n', '<leader>p', 'gg"_dGp<CR>', { desc = 'Replace buffer with clipboard' })
 
 -- swap true/false values
 vim.keymap.set('n', '<leader>s', ':call SwapBool()<CR>', { desc = 'Swap true/false' });
@@ -70,8 +76,8 @@ local opts = { noremap = true, silent = true }
 -- vim.keymap.set({"i", "s"}, "<c-e>", function()
 --     if luasnip.choice_active() then luasnip.change_choice(1) end
 -- end, opts)
-vim.cmd ([[
-    imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+vim.cmd([[
+    imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
     " -1 for jumping backwards.
     inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
 
@@ -108,20 +114,26 @@ M.lsp_keymap = function(bufopts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
 end
 
+require("which-key").register({
+    g = {
+        name = "LSP keys",
+    },
+}, { prefix = "<leader>" })
+
 M.java_keymap = function(bufopts)
-    vim.keymap.set('n', '<leader>tm', function ()
+    vim.keymap.set('n', '<leader>tm', function()
         require('anton.java.gradle').find():run_java_test_method()
     end, vimutils.bufopts(bufopts, 'Run current test method'))
 
-    vim.keymap.set('n', '<leader>tc', function ()
+    vim.keymap.set('n', '<leader>tc', function()
         require('anton.java.gradle').find():run_java_test_class()
     end, vimutils.bufopts(bufopts, 'Run current test class'))
 end
 
 require("which-key").register({
-  t = {
-    name = "Test",
-  },
-})
+    t = {
+        name = "terminal",
+    },
+}, { prefix = "<leader>" })
 
 return M
