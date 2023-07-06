@@ -218,7 +218,6 @@ local config = {
 
 config.on_attach = function(client, bufnr)
 
-    jdtls.setup.add_commands()
     jdtls.setup_dap({ hotcodereplace = 'auto' })
 
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -232,7 +231,7 @@ config.on_attach = function(client, bufnr)
     vim.keymap.set("n", "<leader>vm", jdtls.test_nearest_method, { desc = "Test method (DAP)"})
     vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, { desc = "Extract variable"})
     vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, { desc = "Extract constant"})
-    vim.keymap.set("v", "<leader>em", function() 
+    vim.keymap.set("v", "<leader>em", function()
         jdtls.extract_method(true)
     end, { desc = "Extract method" })
 

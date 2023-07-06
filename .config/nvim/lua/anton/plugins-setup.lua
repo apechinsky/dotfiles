@@ -19,6 +19,10 @@ return require('packer').startup(function(use)
     -- plugin manager manages itself
     use 'wbthomason/packer.nvim'
 
+    use_rocks {
+        {'srplib', '0.4.0'}
+    }
+
     -- colorscheme
     use 'morhetz/gruvbox'
 
