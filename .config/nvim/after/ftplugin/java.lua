@@ -51,6 +51,7 @@ local project = require('anton.java.gradle').find(utils.get_current_file())
     or require('anton.java.single-file-project').get(utils.get_current_file())
 
 -- local root_dir = project:get_root_dir()
+
 local workspace_dir = getWorkspaceDir(project:get_name())
 
 -- TODO: enabling diagnostics here causes strange errors when navigating between java files

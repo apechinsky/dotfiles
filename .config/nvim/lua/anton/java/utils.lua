@@ -3,6 +3,19 @@
 --
 local M = {}
 
+function M.by_or(...)
+    local predicates = { ... }
+    return function(node)
+        for _, predicate in ipairs(predicates) do
+            if predicate(node) then
+                return true
+            end
+        end
+        return false
+    end
+
+end
+
 --
 -- Returns function-predicate checking if TSNode type equals to specified value
 --
@@ -47,7 +60,7 @@ function M.get_current_method()
     local current_node = vim.treesitter.get_node()
     if not current_node then return nil end
 
-    local method = M.find_parent(current_node, M.by_type('method_declaration'))
+    local method = M.find_parent(current_node, M.by_or(M.by_type('method_declaration'), M.by_type('constructor_declaration')))
     if not method then return nil end
 
     local method_name = M.find_child(method, M.by_type('identifier'))

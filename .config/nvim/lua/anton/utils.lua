@@ -23,7 +23,7 @@ end
 -- return value from "key='value'" expression
 --
 function M.get_value(keyValue)
-    for k, v in string.gmatch(keyValue, "(%w+)%s*=%s*[\'\"](%w+)[\'\"]%s*") do
+    for k, v in string.gmatch(keyValue, "(%w+)%s*=%s*[\'\"](.+)[\'\"]%s*") do
         if k ~= nil then
             return v
         end
