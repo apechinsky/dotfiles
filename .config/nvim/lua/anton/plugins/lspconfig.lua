@@ -35,6 +35,7 @@ local servers = {
     jdtls = {
         disabled = true
     },
+    arduino_language_server = {},
     awk_ls = {},
     bashls = {},
     cssls = {},
@@ -84,7 +85,7 @@ mason_lspconfig.setup {
 mason_lspconfig.setup_handlers {
     function(server_name)
         if servers[server_name] == null then
-            print("Language server '" .. server_name .. "' is note defined in 'servers' collection. Skip.")
+            print("Language server '" .. server_name .. "' is not defined in 'servers' collection. Skip.")
             return
         end
         if servers[server_name].disabled then

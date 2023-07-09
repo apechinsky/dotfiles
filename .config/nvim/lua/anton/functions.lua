@@ -17,8 +17,7 @@ function! SwapBool ()
     endif
   endif
 endfunction
-]],
-true)
+]])
 
 --
 -- Format XML. TODO: port to lua
@@ -52,8 +51,7 @@ function! FormatXml()
     " restore the filetype
     exe "set ft=" . l:origft
 endfunction
-]],
-true)
+]])
 
 --
 -- Toggle line numbers. TODO: port to lua
@@ -68,8 +66,7 @@ function! ToggleLineNumbers()
         set relativenumber
     endif
 endfunction
-]],
-true)
+]])
 
 
 vim.cmd([[
