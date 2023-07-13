@@ -60,6 +60,9 @@ vim.keymap.set('n', '<F6>', ':call FormatXml()<CR>');
 -- toggle line numbers
 vim.keymap.set('n', '<F2>', ':call ToggleLineNumbers()<CR>')
 
+-- vim.api.nvim_buf_set_keymap(0, 'n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { noremap = true })
+vim.keymap.set('n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { desc = 'Save and :make' })
+
 
 -- luasnip mappings
 local luasnip = require('luasnip')
@@ -96,6 +99,7 @@ vim.cmd([[
 local vimutils = require('anton.utils')
 
 M.lsp_keymap = function(bufopts)
+
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)

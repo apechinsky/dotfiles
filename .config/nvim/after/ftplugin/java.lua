@@ -18,12 +18,12 @@ end
 
 vim.opt_local.suffixes:append({ '.java' })
 
-vim.opt_local.makeprg = 'javac %'
+vim.opt_local.makeprg = 'jbang %'
 
-vim.api.nvim_buf_set_keymap(0, 'n', '<F9>', ':wall<CR>:make<CR>', { noremap = true })
-
--- vim.keymap.set('n', '<F10>', ":wall<CR>:make<CR>:!java %:r<CR>")
-vim.api.nvim_buf_set_keymap(0, 'n', '<F10>', ':wall<CR>:!jbang %<CR>', { noremap = true })
+-- vim.api.nvim_buf_set_keymap(0, 'n', '<F9>', ':wall<CR>:make<CR>', { noremap = true })
+--
+-- -- vim.keymap.set('n', '<F10>', ":wall<CR>:make<CR>:!java %:r<CR>")
+-- vim.api.nvim_buf_set_keymap(0, 'n', '<F10>', ':wall<CR>:!jbang %<CR>', { noremap = true })
 
 vim.opt_local.tags:append({
     HOME .. "/ctags/libs/java-libs.tags",
