@@ -36,6 +36,7 @@ local servers = {
         disabled = true
     },
     arduino_language_server = {},
+    clangd = {},
     awk_ls = {},
     bashls = {},
     cssls = {},

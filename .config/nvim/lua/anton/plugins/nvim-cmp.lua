@@ -20,6 +20,21 @@ cmp.setup({
         -- completion = cmp.config.window.bordered(),
         -- documentation = cmp.config.window.bordered(),
     },
+    view = {
+        entries = "custom"
+    },
+    formatting = {
+        format = function(entry, vim_item)
+            vim_item.menu = ({
+                buffer = "[buffer]",
+                nvim_lsp = "[lsp]",
+                luasnip = "[snip]",
+                nvim_lua = "[lua]",
+            })[entry.source.name]
+
+            return vim_item
+        end
+    },
     mapping = cmp.mapping.preset.insert({
         ["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
         ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
@@ -67,4 +82,3 @@ cmp.setup.cmdline(':', {
         { name = 'cmdline' }
     })
 })
-
