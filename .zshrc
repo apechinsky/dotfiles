@@ -152,6 +152,8 @@ source $HOME/work/qulix/alfabank/products/products.sh
 source $HOME/work/qulix/alfabank/getcard/getcard.sh
 source $HOME/work/qulix/alfabank/cards/cards.sh
 
+source $HOME/work/qulix/infinbank/infinbank.sh
+
 #
 # Git-Checkout-Branch
 # Choose and checkout remote/local git branch.
