@@ -46,34 +46,6 @@ vim.opt.path:append("**")
 -- yank (copy/cut) to system clipboard
 vim.opt.clipboard:append("unnamedplus")
 
--- explicity configure clipboard program
--- without this VIM sources clipboard.vim which consumes too much time
--- to figure out clipboard program
-vim.g.clipboard = {
-    name = "xsel",
-    copy = {
-        ["+"] = "xsel --nodetach -i -b",
-        ["*"] = "xsel --nodetach -i -p"
-    },
-    paste = {
-        ["+"] = "xsel  -o -b",
-        ["*"] = "xsel  -o -b"
-    },
-    cache_enabled = 1
-}
--- the same as above but for xclip instead of xsel
---  let g:clipboard = {
---           \   'name': 'xclip-custom',
---           \   'copy': {
---           \      '+': 'xclip -quiet -i -selection clipboard',
---           \      '*': 'xclip -quiet -i -selection primary',
---           \    },
---           \   'paste': {
---           \      '+': 'xclip -o -selection clipboard',
---           \      '*': 'xclip -o -selection primary',
---           \   },
---           \ }
-
 -- Make it possible to use vim navigation keys in normal mode when russian kb layout is active
 vim.opt.langmap = "ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>"
 
