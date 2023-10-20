@@ -64,6 +64,10 @@ vim.keymap.set('n', '<F3>', ':call ToggleRelativeLineNumbers()<CR>')
 -- vim.api.nvim_buf_set_keymap(0, 'n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { noremap = true })
 vim.keymap.set('n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { desc = 'Save and :make' })
 
+vim.keymap.set('n', '<leader>yp', function()
+    vim.fn.setreg('+', vim.fn.expand('%:p'))
+end, { desc = 'Yank current file path to clipboard (+ register)' })
+
 
 -- luasnip mappings
 local luasnip = require('luasnip')
