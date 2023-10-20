@@ -59,6 +59,7 @@ vim.keymap.set('n', '<F6>', ':call FormatXml()<CR>');
 
 -- toggle line numbers
 vim.keymap.set('n', '<F2>', ':call ToggleLineNumbers()<CR>')
+vim.keymap.set('n', '<F3>', ':call ToggleRelativeLineNumbers()<CR>')
 
 -- vim.api.nvim_buf_set_keymap(0, 'n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { noremap = true })
 vim.keymap.set('n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { desc = 'Save and :make' })

@@ -68,6 +68,16 @@ function! ToggleLineNumbers()
 endfunction
 ]])
 
+vim.cmd([[
+function! ToggleRelativeLineNumbers()
+    if &relativenumber == 1
+        set norelativenumber
+    else
+        set relativenumber
+    endif
+endfunction
+]])
+
 
 vim.cmd([[
 function! MakeTags()
