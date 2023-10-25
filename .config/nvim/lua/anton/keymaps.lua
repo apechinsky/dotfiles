@@ -3,6 +3,8 @@ local M = {}
 vim.g.mapleader = " "
 vim.g.maploacalleader = vim.g.mapleader
 
+local vimutils = require('anton.utils')
+
 -- Do not jump to next occurence on *
 vim.keymap.set('n', '*', '*N')
 
@@ -12,6 +14,12 @@ vim.keymap.set('n', '*', '*N')
 -- nvim-tree
 vim.keymap.set('n', "<C-n>", vim.cmd.NvimTreeToggle, { desc = 'NvimTree Toggle' })
 vim.keymap.set('n', "<Leader>nf", vim.cmd.NvimTreeFindFile, { desc = 'NvimTree Find current file' })
+
+-- open current file in git web ui.
+-- Define web ui root with 'git config remote.origin.webui'
+vim.keymap.set('n', '<leader>go', function()
+    require('anton.git').open_git_webui_current()
+end, { desc = 'Open current file in Git web UI (remote.origin.webui)'} )
 
 -- toggle undotree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = 'Toggle undo tree' })
@@ -101,7 +109,6 @@ vim.cmd([[
 -- vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv")
 -- vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv")
 
-local vimutils = require('anton.utils')
 
 M.lsp_keymap = function(bufopts)
 
