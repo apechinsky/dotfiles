@@ -94,7 +94,7 @@ config.cmd = {
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
     '-Dlog.protocol=true',
     '-Dlog.level=ALL',
-    -- '-javaagent:' .. vim.fn.glob(xdg.config('java/lombok-*.jar')),
+    '-javaagent:' .. vim.fn.glob(xdg.config('java/lombok-*.jar')),
     -- '-javaagent:' .. vim.fn.glob(xdg.config('java/springloaded-*.jar')),
     '-Xms4g',
     '--add-modules=ALL-SYSTEM',
@@ -223,7 +223,7 @@ config.on_attach = function(client, bufnr)
     -- jdtls should apply this command automatically but no idea why it don't
     jdtls.setup.add_commands()
 
-    jdtls.setup_dap({ hotcodereplace = 'auto' })
+    -- jdtls.setup_dap({ hotcodereplace = 'auto' })
 
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     require('anton.keymaps').lsp_keymap(bufopts)
