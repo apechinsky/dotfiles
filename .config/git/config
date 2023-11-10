@@ -1,0 +1,27 @@
+[user]
+	name = apechinsky
+	email = apechinsky@qulix.com
+[github]
+	user = apechinsky
+	token = 4b3ded1f9413675bd8e22b6e38359c00
+[i18n]
+	logOutputEncoding = utf-8
+[alias]
+	statuss = status --short --branch
+	stashh = stash --include-untracked
+[http]
+	sslVerify = false
+[pager]
+	diff = true
+	log = true
+[init]
+	defaultBranch = master
+[core]
+	quotePath = false
+	pager = less -FX
+[pull]
+	rebase = false
+[credential]
+	helper = store
+[diff]
+	tool = nvimdiff
