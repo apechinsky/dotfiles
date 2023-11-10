@@ -87,6 +87,16 @@ hints:
         key: H
         mods: Control|Shift
 
+    # github projects similar to namespace/repo
+    - regex: "\\w+/\\w+"
+      action: Copy
+      mouse:
+        enabled: true
+        mods: None
+      binding:
+        key: G
+        mods: Control|Shift
+
 debug:
   # Display the time it takes to redraw each frame.
   render_timer: false
