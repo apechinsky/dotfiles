@@ -11,6 +11,13 @@ local csbuild = 'csbuild'
 
 local Gradle = {}
 
+
+--
+-- Constructor
+--
+-- @param root_dir gradle project root directory
+-- @throw error if settings.gradle is not found in root_dir
+--
 function Gradle:new(root_dir)
     self.__index = self
 
@@ -25,18 +32,22 @@ function Gradle:new(root_dir)
     return instance
 end
 
+-- Returns root dir that was passed to constructor
 function Gradle:get_root_dir()
     return self.root_dir
 end
 
+-- Returns gradle project name from settings.gradle
 function Gradle:get_name()
     return self.name
 end
 
+-- Returns settings.gradle file
 function Gradle:get_settings_file()
     return self.settings_file
 end
 
+-- Returns a list of gradle modules (settings.gradle based)
 function Gradle:get_modules()
     local modules = {}
 
@@ -49,31 +60,39 @@ function Gradle:get_modules()
     return modules
 end
 
+-- Tests if gradle projects is multimodule
 function Gradle:is_multimodule()
     return #self:get_modules() > 0
 end
 
+-- Returns absolute file name from project relative file name
 function Gradle:relative(file)
     return utils.child(self.root_dir, file)
 end
 
+-- Returns absolute file name from project relative file name
+-- The same as #relative(file)
 function Gradle:file(file)
     return utils.child(self.root_dir, file)
 end
 
+-- Returns absolute file name or nil if file does not exist
 function Gradle:fileIfExists(file)
     local rootFile = self:file(file)
     return vim.fn.filereadable(rootFile) ~= 0 and rootFile or nil
 end
 
+-- Returns 'csbuild' file
 function Gradle:csbuild()
     return self:fileIfExists(csbuild)
 end
 
+-- Returns 'gradlew' file
 function Gradle:gradlew()
     return self:fileIfExists(gradlew)
 end
 
+-- Returns project executable script 'csbuild' or 'gradlew'
 function Gradle:executable()
     return self:csbuild() or self:gradlew()
 end
@@ -86,10 +105,14 @@ function Gradle:dump()
         "]")
 end
 
+-- Returns working directory independent gradle run command.
 function Gradle:get_run_command()
     return self:executable() .. ' --project-dir ' .. self.root_dir
 end
 
+-- Returns module name of specified file
+--
+-- @param absolute file name
 function Gradle:get_module(file)
     local Path = require('plenary.path')
     local path = Path:new(file)
@@ -109,6 +132,11 @@ function Gradle:get_module(file)
     end
 end
 
+-- Returns gradle run command for specified module and filter.
+--
+-- @param module name
+-- @test_filter gradle test run filter
+--
 function Gradle:get_test_runner(module, test_filter)
     return self:get_run_command() ..
         " -i " ..
@@ -117,6 +145,9 @@ function Gradle:get_test_runner(module, test_filter)
         utils.format_if_present(' --tests %s ', test_filter)
 end
 
+--
+-- Returns gradle run command for current java test method.
+--
 function Gradle:run_java_test_method()
     local module = self:get_module(utils.get_current_file())
     local method = java_utils.get_current_method_full()
@@ -127,6 +158,9 @@ function Gradle:run_java_test_method()
     end
 end
 
+--
+-- Returns gradle run command for current java test class.
+--
 function Gradle:run_java_test_class()
     local module = self:get_module(utils.get_current_file())
     local class = java_utils.get_current_class_full()
