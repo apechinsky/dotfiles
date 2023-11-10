@@ -88,7 +88,7 @@ hints:
         mods: Control|Shift
 
     # github projects similar to namespace/repo
-    - regex: "\\w+/\\w+"
+    - regex: "[-@\\w]+/[-@\\w]+"
       action: Copy
       mouse:
         enabled: true
