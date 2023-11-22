@@ -115,7 +115,7 @@ require("mason-null-ls").setup({
 
 local null_ls = require("null-ls")
 
-vim.lsp.set_log_level 'debug'
+vim.lsp.set_log_level 'WARN'
 
 null_ls.setup({
     debug = true,
