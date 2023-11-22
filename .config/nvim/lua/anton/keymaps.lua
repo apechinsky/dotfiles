@@ -15,7 +15,9 @@ vim.keymap.set('n', '*', '*N')
 vim.keymap.set('n', "<C-n>", vim.cmd.NvimTreeToggle, { desc = 'NvimTree Toggle' })
 vim.keymap.set('n', "<Leader>nf", vim.cmd.NvimTreeFindFile, { desc = 'NvimTree Find current file' })
 
--- open current file in git web ui.
+vim.keymap.set('n', "<Leader>cw", ":%s/\\s\\+$//g<CR>", { desc = 'Remove tailing whitespaces' })
+
+-- Open current file in git web ui.
 -- Define web ui root with 'git config remote.origin.webui'
 vim.keymap.set('n', '<leader>go', function()
     require('anton.git').open_git_webui_current()
