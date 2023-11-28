@@ -1,0 +1,11 @@
+.dotfiles
+
+# Gradle build directory
+build
+
+# Eclipse and its Java LSP generated files
+.project
+.settings
+.classpath
+.factorypath
+bin/
