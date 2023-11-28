@@ -1,0 +1,9 @@
+---
+
+formatter:
+  type: basic
+  indent: 2
+  include_document_start: false
+  retain_line_breaks: true
+  max_line_length: 0
+  indentless_array: false

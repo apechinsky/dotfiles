@@ -3,8 +3,9 @@
 -- Encapsulates Gradle specific methods.
 --
 
-local utils = require('anton.utils')
+local utils = require('anton.core.utils')
 local java_utils = require('anton.java.utils')
+local Path = require('plenary.path')
 
 local gradlew = 'gradlew'
 local csbuild = 'csbuild'
@@ -114,7 +115,6 @@ end
 --
 -- @param absolute file name
 function Gradle:get_module(file)
-    local Path = require('plenary.path')
     local path = Path:new(file)
 
     local relative = path:make_relative(self:get_root_dir())

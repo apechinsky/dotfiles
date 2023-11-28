@@ -1,7 +1,9 @@
--- autoparis
--- https://github.com/windwp/nvim-autopairs
+-- autoadd parenthesis/brackets/braces
+return {
+    'windwp/nvim-autopairs',
 
-require('nvim-autopairs').setup({
-    disable_filetype = { "TelescopePrompt" },
-})
+    opts = {
+        disable_filetype = { "TelescopePrompt" },
+    }
 
+}

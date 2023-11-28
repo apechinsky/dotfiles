@@ -1,5 +1,5 @@
 
-local utils = require('anton.utils')
+local utils = require('anton.core.utils')
 
 local Project = {}
 
