@@ -1,22 +1,15 @@
-local setup, nvimtree = pcall(require, "nvim-tree")
+return {
+    'nvim-tree/nvim-tree.lua',
 
-if not setup then
-    print "warning: nvim-tree plugin not found!"
-    return
-end
+    opts = {
+        sync_root_with_cwd = false,
 
--- disable netrw
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
+        view = {
+            width = 40,
+        },
 
-require('nvim-tree').setup({
-    sync_root_with_cwd = false,
-
-    view = {
-        width = 40,
-    },
-
-    filters = {
-      dotfiles = false,
-    },
-})
+        filters = {
+          dotfiles = false,
+        },
+    }
+}

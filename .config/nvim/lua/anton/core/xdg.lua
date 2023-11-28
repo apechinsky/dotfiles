@@ -4,7 +4,7 @@
 
 local M = {}
 
-local utils = require('anton.utils')
+local utils = require('anton.core.utils')
 
 function M.config(sub)
     return utils.child(vim.fn.stdpath('config'), sub)

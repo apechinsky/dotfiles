@@ -1,5 +1,4 @@
 -- configure colorschemes
-
 --
 -- Fix 'habamax' colorscheme colors
 -- habamax is good colorscheme but has some minor deficiencies need to be fixed

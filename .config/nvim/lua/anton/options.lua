@@ -1,3 +1,6 @@
+vim.g.mapleader = " "
+vim.g.maploacalleader = vim.g.mapleader
+
 -- disable mouse
 vim.opt.mouse = ""
 

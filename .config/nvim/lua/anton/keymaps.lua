@@ -1,15 +1,11 @@
+local vimutils = require('anton.core.utils')
+
 local M = {}
 
-vim.g.mapleader = " "
-vim.g.maploacalleader = vim.g.mapleader
-
-local vimutils = require('anton.utils')
+local opts = { noremap = true, silent = true }
 
 -- Do not jump to next occurence on *
 vim.keymap.set('n', '*', '*N')
-
--- vim.keymap.set('n', "<leader>+", "<C-a>")
--- vim.keymap.set('n', "<leader>-", "<C-x>")
 
 -- nvim-tree
 vim.keymap.set('n', "<C-n>", vim.cmd.NvimTreeToggle, { desc = 'NvimTree Toggle' })
@@ -18,28 +14,11 @@ vim.keymap.set('n', "<Leader>nf", vim.cmd.NvimTreeFindFile, { desc = 'NvimTree F
 -- open current file in git web ui.
 -- Define web ui root with 'git config remote.origin.webui'
 vim.keymap.set('n', '<leader>go', function()
-    require('anton.git').open_git_webui_current()
+    require('anton.core.git').open_git_webui_current()
 end, { desc = 'Open current file in Git web UI (remote.origin.webui)'} )
 
 -- toggle undotree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = 'Toggle undo tree' })
-
--- telescope
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[F]ind [F]iles' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[F]ind [B]uffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
-vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
-vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[F]ind current [W]ord' })
-vim.keymap.set('n', '<leader>fo', builtin.oldfiles, { desc = '[F]ind recently opened files' })
-
-require("which-key").register({
-    f = {
-        name = "Find files, etc.",
-    },
-}, { prefix = "<leader>" })
-
 
 -- translate shell
 vim.g.trans_default_direction = ":ru"
@@ -51,8 +30,9 @@ vim.keymap.set('n', '<leader>tt', ":split term://zsh<CR>")
 -- exit from insert mode in terminal with Esc
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
--- Copy current file path to clipboard
--- vim.keymap.set('n', '<leader>c', ':let @+ = expand("%:p")<CR>')
+vim.keymap.set('n', '<leader>yp', function()
+    vim.fn.setreg('+', vim.fn.expand('%:p'))
+end, { desc = 'Yank current file path to clipboard (+ register)' })
 
 -- Replace buffer content with clipboard
 -- gg - goto top, "_d - delete to null register to prevent (this keeps cliboard untouched)
@@ -72,26 +52,22 @@ vim.keymap.set('n', '<F3>', ':call ToggleRelativeLineNumbers()<CR>')
 -- vim.api.nvim_buf_set_keymap(0, 'n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { noremap = true })
 vim.keymap.set('n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { desc = 'Save and :make' })
 
-vim.keymap.set('n', '<leader>yp', function()
-    vim.fn.setreg('+', vim.fn.expand('%:p'))
-end, { desc = 'Yank current file path to clipboard (+ register)' })
-
 
 -- luasnip mappings
 local luasnip = require('luasnip')
-local opts = { noremap = true, silent = true }
 
--- vim.keymap.set({"s"}, "<tab>", function()
---     if luasnip.expand_or_jumpable() then luasnip.expand_or_jump() end
--- end, opts)
---
--- vim.keymap.set({"i", "s"}, "<S-tab>", function()
---     if luasnip.jumpable(-1) then luasnip.jump(-1) end
--- end, opts)
---
--- vim.keymap.set({"i", "s"}, "<c-e>", function()
---     if luasnip.choice_active() then luasnip.change_choice(1) end
--- end, opts)
+vim.keymap.set({"s"}, "<tab>", function()
+    if luasnip.expand_or_jumpable() then luasnip.expand_or_jump() end
+end, opts)
+
+vim.keymap.set({"i", "s"}, "<S-tab>", function()
+    if luasnip.jumpable(-1) then luasnip.jump(-1) end
+end, opts)
+
+vim.keymap.set({"i", "s"}, "<c-e>", function()
+    if luasnip.choice_active() then luasnip.change_choice(1) end
+end, opts)
+
 vim.cmd([[
     imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
     " -1 for jumping backwards.
@@ -109,9 +85,19 @@ vim.cmd([[
 -- vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv")
 -- vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv")
 
+-- disable diagnostics by default
+-- vim.diagnostic.disable()
+
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+
+vim.keymap.set('n', '<leader>de', vim.diagnostic.enable, opts)
+vim.keymap.set('n', '<leader>dd', vim.diagnostic.disable, opts)
+vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 
 M.lsp_keymap = function(bufopts)
-
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
@@ -136,7 +122,7 @@ require("which-key").register({
     },
 }, { prefix = "<leader>" })
 
-M.java_keymap = function(bufopts)
+M.java_keymap = function(jdtls, bufopts)
     vim.keymap.set('n', '<leader>tm', function()
         require('anton.java.gradle').find():run_java_test_method()
     end, vimutils.bufopts(bufopts, 'Run current test method'))
@@ -144,6 +130,12 @@ M.java_keymap = function(bufopts)
     vim.keymap.set('n', '<leader>tc', function()
         require('anton.java.gradle').find():run_java_test_class()
     end, vimutils.bufopts(bufopts, 'Run current test class'))
+
+    vim.keymap.set("n", "<leader>oi", jdtls.organize_imports, { desc = "Organize imports" } )
+    vim.keymap.set("n", "<leader>vc", jdtls.test_class, { desc = "Test class (DAP)" } )
+    vim.keymap.set("n", "<leader>vm", jdtls.test_nearest_method, { desc = "Test method (DAP)"})
+    vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, { desc = "Extract variable"})
+    vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, { desc = "Extract constant"})
 end
 
 require("which-key").register({

@@ -1,6 +1,6 @@
-
 local HOME = os.getenv('HOME')
-local utils = require('anton.utils')
+local utils = require('anton.core.utils')
+local xdg = require("anton.core.xdg")
 local jdtls = require("jdtls")
 
 local function is_java_buffer()
@@ -65,7 +65,6 @@ local extendedClientCapabilities = jdtls.extendedClientCapabilities;
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true;
 
 local config = {
-    -- One dedicated LSP server & client will be started per unique root_dir
     root_dir = project:get_root_dir(),
 
     -- Here you can configure eclipse.jdt.ls specific settings
@@ -78,7 +77,7 @@ local config = {
     init_options = {
         extendedClientCapabilities = extendedClientCapabilities,
         bundles = {
-            vim.fn.glob(utils.child(HOME, 'java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar'))
+            -- vim.fn.glob(utils.child(HOME, 'java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar'))
         },
     },
 
@@ -218,38 +217,21 @@ config.settings = {
     },
 }
 
-config.on_attach = function(client, bufnr)
-
-    -- jdtls should apply this command automatically but no idea why it don't
-    jdtls.setup.add_commands()
-
+local function on_attach_delegate(_, bufnr)
     -- jdtls.setup_dap({ hotcodereplace = 'auto' })
 
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
+
     require('anton.keymaps').lsp_keymap(bufopts)
-    require('anton.keymaps').java_keymap(bufopts)
-
-  -- jdtls extension keymep
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set("n", "<leader>oi", jdtls.organize_imports, { desc = "Organize imports" } )
-    vim.keymap.set("n", "<leader>vc", jdtls.test_class, { desc = "Test class (DAP)" } )
-    vim.keymap.set("n", "<leader>vm", jdtls.test_nearest_method, { desc = "Test method (DAP)"})
-    vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, { desc = "Extract variable"})
-    vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, { desc = "Extract constant"})
-    vim.keymap.set("v", "<leader>em", function()
-        jdtls.extract_method(true)
-    end, { desc = "Extract method" })
-
-    require("lsp_signature").on_attach({
-        bind = true, -- This is mandatory, otherwise border config won't get registered.
-        floating_window_above_cur_line = false,
-        padding = '',
-        handler_opts = {
-            border = "rounded"
-        }
-    }, bufnr)
+    require('anton.keymaps').java_keymap(jdtls, bufopts)
 end
 
+config.on_attach = function(client, bufnr)
+    local res, err = pcall(on_attach_delegate, client, bufnr)
+    if not res then
+        vim.notify("Error: " .. err)
+    end
+end
 
 jdtls.start_or_attach(config)
 

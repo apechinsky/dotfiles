@@ -106,7 +106,7 @@ function M.get_current_class()
 end
 
 function M.get_current_class_from_file()
-    local current_file = require('anton.utils').get_current_file()
+    local current_file = require('anton.core.utils').get_current_file()
     return vim.fn.fnamemodify(current_file, ':t:r')
 end
 

@@ -5,7 +5,7 @@
 --   To enable this feature you should specify webui root URL in 'webui_git_property'
 --   git configuration property.
 
-local utils = require('anton.utils')
+local utils = require('anton.core.utils')
 local Path = require('plenary.path')
 
 local M = {}
@@ -75,6 +75,7 @@ function M.git_webui_current()
     if webui_root == nil or webui_root == '' then
         return nil
     end
+
     local current_file_path = Path:new(utils.get_current_file())
     local current_file_relative = current_file_path:make_relative(M.find_git_root())
 
