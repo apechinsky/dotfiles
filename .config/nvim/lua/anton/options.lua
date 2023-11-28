@@ -62,3 +62,17 @@ vim.cmd("set list listchars=tab:>·,trail:◦")
 
 vim.opt.thesaurus:append(os.getenv("HOME") .. "/.config/nvim/thesaurus/thesaurus.txt")
 
+-- specify clipboard program
+-- fix clipboard.vim startup problem: https://www.reddit.com/r/neovim/comments/uqa947/clipboard_setup_startuptime/
+vim.g.clipboard = {
+    name = "xsel",
+    copy = {
+        ["+"] = "xsel --nodetach -i -b",
+        ["*"] = "xsel --nodetach -i -p",
+    },
+    paste = {
+        ["+"] = "xsel -b",
+        ["*"] = "xsel -p",
+    },
+    cache_enabled = 1,
+}
