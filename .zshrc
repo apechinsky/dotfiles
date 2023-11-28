@@ -147,12 +147,11 @@ bindkey -s '^V' 'feh --keep-zoom-vp --quiet \n'
 source $HOME/bin/tagged-commands.sh
 source $HOME/work/qulix/alfabank/alfabank.sh
 source $HOME/work/qulix/alfabank/acquiring/acquiring.sh
+source $HOME/work/qulix/alfabank/csm/csm.sh
 source $HOME/work/qulix/alfabank/deposits/deposits.sh
 source $HOME/work/qulix/alfabank/products/products.sh
 source $HOME/work/qulix/alfabank/getcard/getcard.sh
 source $HOME/work/qulix/alfabank/cards/cards.sh
-
-source $HOME/work/qulix/infinbank/infinbank.sh
 
 #
 # Git-Checkout-Branch
