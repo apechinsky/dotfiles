@@ -15,17 +15,21 @@ return {
             json = { 'prettier' },
             yaml = { 'prettier' },
             markdown = { 'prettier' },
+            sh = { 'shfmt' },
         },
 
         -- Customize formatters
         formatters = {
-            -- shfmt = {
-            --     prepend_args = { "-i", "2" },
-            -- },
+            shfmt = {
+                prepend_args = { "-i", "4" },
+            },
         },
     },
 
-    config = function()
+    init = function()
+        -- If you want the formatexpr, here is the place to set it
+        -- vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+
         vim.keymap.set({ 'n', 'v' }, '<leader>fp', function()
             require('conform').format({
                 lsp_fallback = true,
@@ -33,11 +37,6 @@ return {
                 timeout_ms = 500
             })
         end, { desc = 'Format file or selection' })
-    end,
-
-    init = function()
-        -- If you want the formatexpr, here is the place to set it
-        -- vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
     end,
 }
 
