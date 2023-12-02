@@ -5,5 +5,10 @@ return {
         'neovim/nvim-lspconfig',
     },
 
-    opts = {}
+    opts = {
+        library = {
+            plugins = { "nvim-dap-ui" },
+            types = true
+        },
+    }
 }

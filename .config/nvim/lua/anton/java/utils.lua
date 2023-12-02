@@ -26,7 +26,7 @@ function M.by_type(type)
 end
 
 --
--- Finds an ancestor of the given 'node' that conforms 
+-- Finds an ancestor of the given treesitter 'node' that conforms
 -- to the specified predicate.
 --
 -- @param node starting node

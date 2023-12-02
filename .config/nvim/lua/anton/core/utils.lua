@@ -105,6 +105,36 @@ function M.find(t, value)
 end
 
 --
+-- Add all items of the second table to the first one
+--
+-- @param t1 first table
+-- @param t2 second table
+-- @return t1
+--
+function M.add(t1, t2)
+    for i=1, #t2 do
+        t1[#t1+1] = t2[i]
+    end
+    return t1
+end
+
+--
+-- Concatenate two tables
+--
+-- @param t1 first table
+-- @param t2 second table
+-- @return new table
+--
+function M.concat(t1, t2)
+    local result = {}
+
+    M.add(result, t1)
+    M.add(result, t2)
+
+    return result
+end
+
+--
 -- Return file scheme if any
 --
 function M.get_scheme(file)
@@ -150,6 +180,16 @@ function M.find_any(markers, bufname)
         end
         dirname = getparent(dirname)
     end
+end
+
+--
+-- Returns list of files specifie by glob pattern
+--
+-- @param glob pattern
+-- @return list of files
+--
+function M.get_files(pattern)
+    return vim.split(vim.fn.glob(pattern, true), "\n")
 end
 
 --

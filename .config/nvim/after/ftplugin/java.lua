@@ -2,6 +2,7 @@ local HOME = os.getenv('HOME')
 local utils = require('anton.core.utils')
 local xdg = require("anton.core.xdg")
 local jdtls = require("jdtls")
+local mason = require('mason-registry')
 
 local function is_java_buffer()
     local scheme = utils.get_scheme(utils.get_current_file())
@@ -44,8 +45,22 @@ local function getWorkspaceDir(projectName)
 end
 
 -- Java Language Server configuration.
-local jdtls_home = xdg.data('mason/packages/jdtls')
-local java_debug_adapter_home = xdg.data('mason/packages/java-debug-adapter')
+local jdtls_home = mason.get_package('jdtls'):get_install_path()
+local java_debug_adapter_home = mason.get_package('java-debug-adapter'):get_install_path()
+
+-- WARNING! Mason registry contains buggy java-test plugin version: 0.39.0
+-- So we clone newest version (0.40.1), build it and use until registry is fixed
+-- WARNING! After building the plugin, create 'extension' dir and move 'server' dir into it.
+-- This is needed because mason package contains 'extesion' dir.
+-- local java_test_adapter_home = mason.get_package('java-test'):get_install_path()
+local java_test_adapter_home = xdg.config('java/vscode-java-test')
+
+local java_debug_adapter_libs =
+    utils.get_files(utils.child(java_debug_adapter_home, 'extension/server/com.microsoft.java.debug.plugin-*.jar'))
+local java_test_adapter_libs =
+    utils.get_files(utils.child(java_test_adapter_home, 'extension/server/*.jar'))
+local bundles = utils.concat(java_debug_adapter_libs, java_test_adapter_libs)
+
 
 local project = require('anton.java.gradle').find(utils.get_current_file())
     or require('anton.java.single-file-project').get(utils.get_current_file())
@@ -74,11 +89,10 @@ local config = {
         allow_incremental_sync = true,
     },
 
+
     init_options = {
         extendedClientCapabilities = extendedClientCapabilities,
-        bundles = {
-            vim.fn.glob(utils.child(java_debug_adapter_home, 'extension/server/com.microsoft.java.debug.plugin-*.jar'), 1)
-        },
+        bundles = bundles,
     },
 
     capabilities = capabilities,
@@ -218,8 +232,6 @@ config.settings = {
 }
 
 local function on_attach_delegate(_, bufnr)
-    -- jdtls.setup_dap({ hotcodereplace = 'auto' })
-
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
     require('anton.keymaps').lsp_keymap(bufopts)
@@ -232,6 +244,19 @@ config.on_attach = function(client, bufnr)
         vim.notify("Error: " .. err)
     end
 end
+
+
+local dap = require('dap')
+
+dap.configurations.java = {
+    {
+        type = 'java',
+        request = 'launch',
+        name = 'Debug (Attach)',
+        hostName = 'localhost',
+        port = 5005,
+    },
+}
 
 jdtls.start_or_attach(config)
 

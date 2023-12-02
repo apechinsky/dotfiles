@@ -5,12 +5,12 @@ local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    -- local bufopts = { noremap = true, silent = true, buffer = bufnr }
-    -- require('anton.keymaps').lsp_keymap(bufopts)
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    require('anton.keymaps').lsp_keymap(bufopts)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 --
 local servers = {
     jdtls = {

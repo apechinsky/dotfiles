@@ -141,6 +141,24 @@ M.java_keymap = function(jdtls, bufopts)
     vim.keymap.set("v", "<leader>em", jdtls.extract_method, { desc = "Extract method"})
 end
 
+M.dap_keymap = function(dap, bufopts)
+    vim.keymap.set('n', '<F7>', function()
+        dap.step_into()
+    end, vimutils.bufopts(bufopts, 'Debug. Step into.'))
+
+    vim.keymap.set('n', '<F8>', function()
+        dap.step_over()
+    end, vimutils.bufopts(bufopts, 'Debug. Step over.'))
+
+    vim.keymap.set('n', '<F9>', function()
+        dap.continue()
+    end, vimutils.bufopts(bufopts, 'Debug. Continue.'))
+
+    vim.keymap.set('n', '<F32>', function()
+        dap.toggle_breakpoint()
+    end, vimutils.bufopts(bufopts, 'Debug. Toggle breakpoint.'))
+end
+
 require("which-key").register({
     t = {
         name = "terminal",
