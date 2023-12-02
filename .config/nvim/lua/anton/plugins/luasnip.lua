@@ -1,6 +1,9 @@
 return {
     'L3MON4D3/LuaSnip',
-    "rafamadriz/friendly-snippets",
+
+    dependencies = {
+        "rafamadriz/friendly-snippets",
+    },
 
     config = function ()
         -- load lua snippets

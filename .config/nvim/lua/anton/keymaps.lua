@@ -138,6 +138,7 @@ M.java_keymap = function(jdtls, bufopts)
     vim.keymap.set("n", "<leader>vm", jdtls.test_nearest_method, { desc = "Test method (DAP)"})
     vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, { desc = "Extract variable"})
     vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, { desc = "Extract constant"})
+    vim.keymap.set("v", "<leader>em", jdtls.extract_method, { desc = "Extract method"})
 end
 
 require("which-key").register({

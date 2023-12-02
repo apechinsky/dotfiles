@@ -77,7 +77,7 @@ local config = {
     init_options = {
         extendedClientCapabilities = extendedClientCapabilities,
         bundles = {
-            -- vim.fn.glob(utils.child(HOME, 'java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar'))
+            vim.fn.glob(utils.child(java_debug_adapter_home, 'extension/server/com.microsoft.java.debug.plugin-*.jar'), 1)
         },
     },
 
