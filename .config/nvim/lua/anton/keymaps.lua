@@ -55,33 +55,33 @@ vim.keymap.set('n', '<F3>', ':call ToggleRelativeLineNumbers()<CR>')
 vim.keymap.set('n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { desc = 'Save and :make' })
 
 
--- luasnip mappings
-local luasnip = require('luasnip')
+M.luasnip_keymap = function(luasnip)
 
-vim.keymap.set({"s"}, "<tab>", function()
-    if luasnip.expand_or_jumpable() then luasnip.expand_or_jump() end
-end, opts)
+    vim.keymap.set({"s"}, "<tab>", function()
+        if luasnip.expand_or_jumpable() then luasnip.expand_or_jump() end
+    end, opts)
 
-vim.keymap.set({"i", "s"}, "<S-tab>", function()
-    if luasnip.jumpable(-1) then luasnip.jump(-1) end
-end, opts)
+    vim.keymap.set({"i", "s"}, "<S-tab>", function()
+        if luasnip.jumpable(-1) then luasnip.jump(-1) end
+    end, opts)
 
-vim.keymap.set({"i", "s"}, "<c-e>", function()
-    if luasnip.choice_active() then luasnip.change_choice(1) end
-end, opts)
+    vim.keymap.set({"i", "s"}, "<c-e>", function()
+        if luasnip.choice_active() then luasnip.change_choice(1) end
+    end, opts)
 
-vim.cmd([[
-    imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
-    " -1 for jumping backwards.
-    inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+    vim.cmd([[
+        imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
+        " -1 for jumping backwards.
+        inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
 
-    snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
-    snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+        snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+        snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
 
-    " For changing choices in choiceNodes (not strictly necessary for a basic setup).
-    imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-    smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-]])
+        " For changing choices in choiceNodes (not strictly necessary for a basic setup).
+        imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+        smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+    ]])
+end
 
 -- move selection up and down
 -- vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv")

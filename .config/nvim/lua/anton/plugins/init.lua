@@ -9,6 +9,5 @@ return {
     'echuraev/translate-shell.vim',
     'mfussenegger/nvim-jdtls',
     'nvim-tree/nvim-web-devicons',
-    -- 'mfussenegger/nvim-dap'
-    -- 'rcarriga/cmp-dap'
+    "rafamadriz/friendly-snippets",
 }

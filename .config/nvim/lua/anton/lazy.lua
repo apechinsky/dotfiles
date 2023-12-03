@@ -19,3 +19,4 @@ require("lazy").setup({
     { import = "anton.plugins" },
     { import = "anton.plugins.lsp" }
 })
+
