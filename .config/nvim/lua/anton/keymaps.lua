@@ -126,11 +126,13 @@ require("which-key").register({
 
 M.java_keymap = function(jdtls, bufopts)
     vim.keymap.set('n', '<leader>tm', function()
-        require('anton.java.gradle').find():run_java_test_method()
+        -- require('anton.java.gradle').find():run_java_test_method()
+        jdtls.test_nearest_method()
     end, vimutils.bufopts(bufopts, 'Run current test method'))
 
     vim.keymap.set('n', '<leader>tc', function()
-        require('anton.java.gradle').find():run_java_test_class()
+        -- require('anton.java.gradle').find():run_java_test_class()
+        jdtls.test_class()
     end, vimutils.bufopts(bufopts, 'Run current test class'))
 
     vim.keymap.set("n", "<leader>oi", jdtls.organize_imports, { desc = "Organize imports" } )
