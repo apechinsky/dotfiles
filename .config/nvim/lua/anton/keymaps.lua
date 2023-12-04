@@ -17,7 +17,7 @@ vim.keymap.set('n', "<Leader>cw", ":%s/\\s\\+$//g<CR>", { desc = 'Remove tailing
 -- Define web ui root with 'git config remote.origin.webui'
 vim.keymap.set('n', '<leader>go', function()
     require('anton.core.git').open_git_webui_current()
-end, { desc = 'Open current file in Git web UI (remote.origin.webui)'} )
+end, { desc = 'Open current file in Git web UI (remote.origin.webui)' })
 
 -- toggle undotree
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = 'Toggle undo tree' })
@@ -56,31 +56,30 @@ vim.keymap.set('n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { desc = 'Save and :ma
 
 
 M.luasnip_keymap = function(luasnip)
-
-    vim.keymap.set({"s"}, "<tab>", function()
+    vim.keymap.set({ "s" }, "<tab>", function()
         if luasnip.expand_or_jumpable() then luasnip.expand_or_jump() end
     end, opts)
 
-    vim.keymap.set({"i", "s"}, "<S-tab>", function()
+    vim.keymap.set({ "i", "s" }, "<S-tab>", function()
         if luasnip.jumpable(-1) then luasnip.jump(-1) end
     end, opts)
 
-    vim.keymap.set({"i", "s"}, "<c-e>", function()
+    vim.keymap.set({ "i", "s" }, "<c-e>", function()
         if luasnip.choice_active() then luasnip.change_choice(1) end
     end, opts)
 
-    vim.cmd([[
-        imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
-        " -1 for jumping backwards.
-        inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
-
-        snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
-        snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
-
-        " For changing choices in choiceNodes (not strictly necessary for a basic setup).
-        imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-        smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
-    ]])
+    -- vim.cmd([[
+    --     imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
+    --     " -1 for jumping backwards.
+    --     inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
+    --
+    --     snoremap <silent> <Tab> <cmd>lua require('luasnip').jump(1)<Cr>
+    --     snoremap <silent> <S-Tab> <cmd>lua require('luasnip').jump(-1)<Cr>
+    --
+    --     " For changing choices in choiceNodes (not strictly necessary for a basic setup).
+    --     imap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+    --     smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-E>'
+    -- ]])
 end
 
 -- move selection up and down
@@ -91,13 +90,23 @@ end
 -- vim.diagnostic.disable()
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-
 vim.keymap.set('n', '<leader>de', vim.diagnostic.enable, opts)
 vim.keymap.set('n', '<leader>dd', vim.diagnostic.disable, opts)
 vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+
+M.telescope_keymap = function(telescope)
+    vim.keymap.set('n', '<leader>ff', telescope.find_files, { desc = '[F]ind [F]iles' })
+    vim.keymap.set('n', '<leader>fg', telescope.live_grep, { desc = '[F]ind by [G]rep' })
+    vim.keymap.set('n', '<leader>fb', telescope.buffers, { desc = '[F]ind [B]uffers' })
+    vim.keymap.set('n', '<leader>fh', telescope.help_tags, { desc = '[F]ind [H]elp' })
+    vim.keymap.set('n', '<leader>fd', telescope.diagnostics, { desc = '[F]ind [D]iagnostics' })
+    vim.keymap.set('n', '<leader>fw', telescope.grep_string, { desc = '[F]ind current [W]ord' })
+    vim.keymap.set('n', '<leader>fo', telescope.oldfiles, { desc = '[F]ind recently opened files' })
+end
+
 
 M.lsp_keymap = function(bufopts)
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
@@ -114,33 +123,33 @@ M.lsp_keymap = function(bufopts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<leader>fm', function()
         vim.lsp.buf.format { async = true }
-    end, bufopts)
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-end
+    end, vimutils.bufopts(bufopts, 'ForMat code'))
 
-require("which-key").register({
-    g = {
-        name = "LSP keys",
-    },
-}, { prefix = "<leader>" })
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action,
+        vimutils.bufopts(bufopts, 'Code Actions'))
+end
 
 M.java_keymap = function(jdtls, bufopts)
     vim.keymap.set('n', '<leader>tm', function()
+        -- run test via gradle --test=xxxx command
         -- require('anton.java.gradle').find():run_java_test_method()
+        -- run test via ava-test plugin
         jdtls.test_nearest_method()
     end, vimutils.bufopts(bufopts, 'Run current test method'))
 
     vim.keymap.set('n', '<leader>tc', function()
+        -- run test via gradle --test=xxxx command
         -- require('anton.java.gradle').find():run_java_test_class()
+        -- run test via ava-test plugin
         jdtls.test_class()
     end, vimutils.bufopts(bufopts, 'Run current test class'))
 
-    vim.keymap.set("n", "<leader>oi", jdtls.organize_imports, { desc = "Organize imports" } )
-    vim.keymap.set("n", "<leader>vc", jdtls.test_class, { desc = "Test class (DAP)" } )
-    vim.keymap.set("n", "<leader>vm", jdtls.test_nearest_method, { desc = "Test method (DAP)"})
-    vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, { desc = "Extract variable"})
-    vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, { desc = "Extract constant"})
-    vim.keymap.set("v", "<leader>em", jdtls.extract_method, { desc = "Extract method"})
+    vim.keymap.set("n", "<leader>oi", jdtls.organize_imports, { desc = "Organize imports" })
+    vim.keymap.set("n", "<leader>vc", jdtls.test_class, { desc = "Test class (DAP)" })
+    vim.keymap.set("n", "<leader>vm", jdtls.test_nearest_method, { desc = "Test method (DAP)" })
+    vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, { desc = "Extract variable" })
+    vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, { desc = "Extract constant" })
+    vim.keymap.set("v", "<leader>em", jdtls.extract_method, { desc = "Extract method" })
 end
 
 M.dap_keymap = function(dap, bufopts)
@@ -158,13 +167,14 @@ M.dap_keymap = function(dap, bufopts)
 
     vim.keymap.set('n', '<F32>', function()
         dap.toggle_breakpoint()
-    end, vimutils.bufopts(bufopts, 'Debug. Toggle breakpoint.'))
+    end, vimutils.bufopts(bufopts, 'Debug. Toggle breakpoint <Ctrl-F8>.'))
 end
 
 require("which-key").register({
-    t = {
-        name = "terminal",
-    },
+    f = { name = "Find files", },
+    g = { name = "LSP keys", },
+    t = { name = "Terminal", },
 }, { prefix = "<leader>" })
+
 
 return M

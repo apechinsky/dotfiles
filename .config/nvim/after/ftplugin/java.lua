@@ -134,16 +134,16 @@ config.settings = {
                     path = utils.child(HOME, "/opt/jdk-11"),
                 },
                 {
-                    name = "JavaSE-19",
-                    path = utils.child(HOME, "/opt/jdk-19"),
+                    name = "JavaSE-17",
+                    path = utils.child(HOME, "/opt/jdk-17"),
                 },
                 {
                     name = "JavaSE-18",
                     path = utils.child(HOME, "/opt/jdk-18"),
                 },
                 {
-                    name = "JavaSE-17",
-                    path = utils.child(HOME, "/opt/jdk-17"),
+                    name = "JavaSE-19",
+                    path = utils.child(HOME, "/opt/jdk-19"),
                 },
             }
         },
