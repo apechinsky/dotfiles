@@ -67,6 +67,8 @@ function Gradle:is_multimodule()
 end
 
 -- Returns absolute file name from project relative file name
+--
+-- @param file an arbitrary file name
 function Gradle:relative(file)
     return utils.child(self.root_dir, file)
 end
@@ -111,9 +113,10 @@ function Gradle:get_run_command()
     return self:executable() .. ' --project-dir ' .. self.root_dir
 end
 
--- Returns module name of specified file
+-- Get module name of specified file
 --
 -- @param absolute file name
+-- @return module name
 function Gradle:get_module(file)
     local path = Path:new(file)
 
@@ -131,6 +134,42 @@ function Gradle:get_module(file)
         end
     end
 end
+
+function Gradle:is_test_class(class)
+    return class:match('Test$') ~= nil
+end
+
+function Gradle:get_test_class(class)
+    assert(self:is_test_class(class), 'Class ' .. class .. ' is a test class!')
+    return class .. 'Test'
+end
+
+function Gradle:get_tested_class(class)
+    assert(not self:is_test_class(class), 'Class ' .. class .. ' is not a test class!')
+    return class:sub(1, #class - #('Test'))
+end
+
+-- Work in progress: make a method to switch between class and it's test class
+-- function Gradle:toggle_test_class()
+--     local current_file = require('anton.core.utils').get_current_file()
+--     local current_class = utils.get_current_class_full()
+--
+--     local next_class = self:is_test_class(class)
+--         and self:get_tested_class(class)
+--         or self:get_test_class(class)
+--
+--     local next_class_file = self:get_class_file(next_class)
+--     if not files.exists(next_class_file) then
+--         self:create_test_class(next_class_file)
+--         
+--     end
+-- end
+--
+-- function Gradle:goto_class(class)
+--     
+-- end
+
+
 
 -- Returns gradle run command for specified module and filter.
 --

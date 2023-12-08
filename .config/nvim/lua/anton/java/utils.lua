@@ -13,11 +13,10 @@ function M.by_or(...)
         end
         return false
     end
-
 end
 
 --
--- Returns function-predicate checking if TSNode type equals to specified value
+-- Returns function-predicate checking if treesitter node type equals to specified value
 --
 function M.by_type(type)
     return function(node)
@@ -26,7 +25,7 @@ function M.by_type(type)
 end
 
 --
--- Finds an ancestor of the given treesitter 'node' that conforms
+-- Finds an ancestor of the given treesitter node that conforms
 -- to the specified predicate.
 --
 -- @param node starting node
@@ -42,7 +41,7 @@ function M.find_parent(node, predicate)
 end
 
 --
--- Finds a child of the given 'node' that conforms to the 
+-- Finds a child of the given 'node' that conforms to the
 -- specified predicate.
 --
 -- @param node starting node
@@ -56,11 +55,15 @@ function M.find_child(node, predicate)
     end
 end
 
+--
+-- Returns current method name.
+--
 function M.get_current_method()
     local current_node = vim.treesitter.get_node()
     if not current_node then return nil end
 
-    local method = M.find_parent(current_node, M.by_or(M.by_type('method_declaration'), M.by_type('constructor_declaration')))
+    local method = M.find_parent(current_node,
+        M.by_or(M.by_type('method_declaration'), M.by_type('constructor_declaration')))
     if not method then return nil end
 
     local method_name = M.find_child(method, M.by_type('identifier'))
@@ -69,15 +72,43 @@ function M.get_current_method()
     return vim.treesitter.get_node_text(method_name, 0)
 end
 
+--
+-- Returns current full method name.
+-- Full method name includes full class name and a method name.
+--
+-- @delimiter delimiter between class name and method name (default: '.')
+--
+function M.get_current_method_full(delimiter)
+    delimiter = delimiter or '.'
+    local class_name = M.get_current_class_full()
+    local method_name = M.get_current_method()
+    return class_name and method_name and class_name .. delimiter .. method_name
+end
+
+--
+-- Returns current method parameters
+--
+-- @return a table with parameter names
+--
 function M.get_current_method_parameters()
     local current_node = vim.treesitter.get_node()
-    if not current_node then return nil end
+    if not current_node then
+        vim.notify("Current treesitter node not found!")
+        return nil
+    end
 
-    local method = M.find_parent(current_node, M.by_type('method_declaration'))
-    if not method then return nil end
+    local method = M.find_parent(current_node,
+        M.by_or(M.by_type('method_declaration'), M.by_type('constructor_declaration')))
+    if not method then
+        vim.notify("Current method not found!")
+        return nil
+    end
 
     local parameters = M.find_child(method, M.by_type('formal_parameters'))
-    if not parameters then return nil end
+    if not parameters then
+        vim.notify("Parameters are not found!")
+        return nil
+    end
 
     local result = {}
 
@@ -92,6 +123,9 @@ function M.get_current_method_parameters()
     return result
 end
 
+--
+-- Returns current simple class name
+--
 function M.get_current_class()
     local current_node = vim.treesitter.get_node()
     if not current_node then return nil end
@@ -105,11 +139,29 @@ function M.get_current_class()
     return vim.treesitter.get_node_text(class_name, 0)
 end
 
+--
+-- Returns current full class name
+--
+function M.get_current_class_full()
+    local package = M.get_current_package()
+    local class = M.get_current_class()
+    return package and class and package .. '.' .. class
+end
+
+--
+-- Returns current full class name.
+--
+-- An alternative to get_current_class_full() but name is
+-- inferred from filename.
+--
 function M.get_current_class_from_file()
     local current_file = require('anton.core.utils').get_current_file()
     return vim.fn.fnamemodify(current_file, ':t:r')
 end
 
+--
+-- Return current package name.
+--
 function M.get_current_package()
     local current_node = vim.treesitter.get_node()
     if not current_node then return nil end
@@ -125,20 +177,5 @@ function M.get_current_package()
 
     return vim.treesitter.get_node_text(child, 0)
 end
-
-function M.get_current_class_full()
-    local package = M.get_current_package()
-    local class = M.get_current_class()
-    return package and class and package .. '.' .. class
-end
-
-function M.get_current_method_full(delimiter)
-    delimiter = delimiter or '.'
-    local class_name = M.get_current_class_full()
-    local method_name = M.get_current_method()
-    return class_name and method_name and class_name .. delimiter .. method_name
-end
-
-
 
 return M

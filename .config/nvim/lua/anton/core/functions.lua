@@ -87,9 +87,10 @@ endfunction
 true)
 
 
-function x509decode()
+function X509decode()
     -- :%!openssl x509 -noout -inform PEM -fingerprint
     vim.cmd([[
         :%!openssl x509 -text -nameopt=utf8 -inform PEM
     ]])
 end
+

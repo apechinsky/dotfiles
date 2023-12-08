@@ -71,25 +71,22 @@ function M.trim_left_slash(path)
     return M.trim_left(path, '/')
 end
 
--- function M.child(path, sub)
---     local result = path
---     if sub then
---         result = M.trim_right_slash(result) .. '/' .. M.trim_left_slash(sub)
---     end
---     return result
--- end
-
 --
--- Deprecated. Use child(path, sub)
+-- Composes path using base path and subpath
+--
+-- @param path base path
+-- @param sub subpath (nillable).
+-- @return combined path (path/sub).
+--  If sub is nil or empty, returns 'path'
 function M.child(path, sub)
     local result = path
-    if sub then
+    if sub ~= nil and sub ~= '' then
         result = M.trim_right_slash(result) .. '/' .. M.trim_left_slash(sub)
     end
     return result
 end
 
--- 
+--
 -- Finds value in table
 --
 -- @param t table
@@ -119,17 +116,17 @@ function M.add(t1, t2)
 end
 
 --
--- Concatenate two tables
+-- Concatenate tables
 --
--- @param t1 first table
--- @param t2 second table
+-- @param vararg of tables
 -- @return new table
 --
-function M.concat(t1, t2)
+function M.concat(...)
     local result = {}
 
-    M.add(result, t1)
-    M.add(result, t2)
+    for _, table in ipairs({...}) do
+        M.add(result, table)
+    end
 
     return result
 end

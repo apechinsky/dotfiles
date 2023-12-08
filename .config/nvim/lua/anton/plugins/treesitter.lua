@@ -26,7 +26,8 @@ return {
             "typescript",
             "json",
             "yaml",
-            "ruby"
+            "ruby",
+            "http"
         },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
