@@ -39,7 +39,8 @@ end, { desc = 'Yank current file path to clipboard (+ register)' })
 -- Replace buffer content with clipboard
 -- gg - goto top, "_d - delete to null register to prevent (this keeps cliboard untouched)
 -- p - paste
-vim.keymap.set('n', '<leader>p', 'gg"_dGp<CR>', { desc = 'Replace buffer with clipboard' })
+vim.keymap.set('n', '<leader>bp', 'gg"_dGp<CR>', { desc = 'Replace buffer with clipboard' })
+vim.keymap.set('n', '<leader>by', ':%y<CR>', { desc = 'Yank entire buffer' })
 
 -- swap true/false values
 vim.keymap.set('n', '<leader>s', ':call SwapBool()<CR>', { desc = 'Swap true/false' });
