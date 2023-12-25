@@ -78,18 +78,31 @@ function! ToggleRelativeLineNumbers()
 endfunction
 ]])
 
-
 vim.cmd([[
 function! MakeTags()
     ctags -R --exclude='**/node_modules' --exclude='**/build' .
 endfunction
-]],
-true)
+]])
 
-
-function x509decode()
-    -- :%!openssl x509 -noout -inform PEM -fingerprint
+function X509decode()
     vim.cmd([[
         :%!openssl x509 -text -nameopt=utf8 -inform PEM
     ]])
 end
+vim.api.nvim_create_user_command('X509decode', function(_) X509decode() end, {})
+
+--
+-- Parses out xml-rsponse and xml-request from Sring-ws log record, format
+-- xml messages and copy them to separate buffers
+-- log record format: '... Received response [xml-response] for request [xml-request]'
+--
+vim.cmd([[
+command! WsLog :normal 0/Received response/<CR>:normal f[<CR>"byi[:normal f[<CR>"ayi[:new<CR>"ap<F6>GG0:new<CR>"bp<F6>GG0
+]])
+
+-- Not yet ready! An attempt to reproduce previous 'WsLog' command in Lua
+function WsLogLua()
+    vim.cmd('execute "0/Received response/\\<CR>"')
+end
+vim.api.nvim_create_user_command('WS', function(_) WsLogLua() end, {})
+
