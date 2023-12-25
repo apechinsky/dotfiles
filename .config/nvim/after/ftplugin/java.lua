@@ -54,12 +54,20 @@ local java_debug_adapter_home = mason.get_package('java-debug-adapter'):get_inst
 -- This is needed because mason package contains 'extesion' dir.
 -- local java_test_adapter_home = mason.get_package('java-test'):get_install_path()
 local java_test_adapter_home = xdg.config('java/vscode-java-test')
+local java_decompiler_home = xdg.config('java/vscode-java-decompiler')
 
 local java_debug_adapter_libs =
     utils.get_files(utils.child(java_debug_adapter_home, 'extension/server/com.microsoft.java.debug.plugin-*.jar'))
 local java_test_adapter_libs =
     utils.get_files(utils.child(java_test_adapter_home, 'extension/server/*.jar'))
-local bundles = utils.concat(java_debug_adapter_libs, java_test_adapter_libs)
+local java_decompiler_libs =
+    utils.get_files(utils.child(java_decompiler_home, 'extension/server/*.jar'))
+
+local bundles = utils.concat(
+    java_debug_adapter_libs,
+    java_test_adapter_libs,
+    java_decompiler_libs
+)
 
 
 local project = require('anton.java.gradle').find(utils.get_current_file())
@@ -113,7 +121,7 @@ config.cmd = {
     '--add-modules=ALL-SYSTEM',
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
-    '-jar',  vim.fn.glob(utils.child(jdtls_home, 'plugins/org.eclipse.equinox.launcher_*.jar')),
+    '-jar', vim.fn.glob(utils.child(jdtls_home, 'plugins/org.eclipse.equinox.launcher_*.jar')),
     '-configuration', utils.child(jdtls_home, "config_linux"),
     '-data', workspace_dir,
 }
@@ -188,9 +196,11 @@ config.settings = {
                 "**/archetype-resources/**",
                 "**/META-INF/maven/**",
                 "/**/test/**",
-             },
+            },
         },
-        signatureHelp = { enabled = true },
+        signatureHelp = {
+            enabled = true
+        },
         completion = {
             favoriteStaticMembers = {
                 "org.hamcrest.MatcherAssert.assertThat",
@@ -259,4 +269,3 @@ dap.configurations.java = {
 }
 
 jdtls.start_or_attach(config)
-
