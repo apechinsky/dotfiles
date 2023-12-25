@@ -98,7 +98,7 @@ vim.api.nvim_create_user_command('X509decode', function(_) X509decode() end, {})
 -- log record format: '... Received response [xml-response] for request [xml-request]'
 --
 vim.cmd([[
-command! WsLog :normal 0/Received response/<CR>:normal f[<CR>"byi[:normal f[<CR>"ayi[:new<CR>"ap<F6>GG0:new<CR>"bp<F6>GG0
+command! WsLog :normal 0/Received response/<CR>:normal f[<CR>"byi[:normal f[<CR>"ayi[:tabnew<CR>"ap<F6>GG0:new<CR>"bp<F6>GG0
 ]])
 
 -- Not yet ready! An attempt to reproduce previous 'WsLog' command in Lua
