@@ -56,5 +56,31 @@ return {
             end
             return result
         end, {}),
-    })
+    }),
+
+    s({
+        trig = "jbangclass",
+        descr = "JBang class template",
+    },
+    {
+        t({
+            '//usr/bin/env jbang "$0" "$@" ; exit $?',
+            '',
+            '//JAVA 11',
+            '',
+            '//REPOS mavencentral,qulix=https://cs-repo.qulix.com/repository/public,qulixsnapshot=https://cs-repo.qulix.com/repository/public-snapshots',
+            '',
+            '//DEPS com.qulix.testkit:testkit-selenium:0.9.0',
+            '',
+            'class Tool {',
+            '    public static void main(String[] args) {',
+            '',
+        }),
+        i(1),
+        t({
+            '',
+            '    }',
+            '}',
+        }),
+    }),
 }

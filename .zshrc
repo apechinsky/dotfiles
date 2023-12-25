@@ -131,6 +131,8 @@ cdg() {
 
         if [[ "${dest_dir:0:4}" == 'EDIT' ]]; then
             $(eval echo "$EDITOR ${dest_dir:5}")
+        elif [[ "${dest_dir:0:4}" == 'OPEN' ]]; then
+            $(eval echo "xdg-open ${dest_dir:5}")
         elif [[ $dest_dir != '' ]]; then
             cd $(eval echo "${dest_dir}")
         fi

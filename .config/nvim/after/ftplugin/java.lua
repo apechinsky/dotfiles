@@ -63,10 +63,17 @@ local java_test_adapter_libs =
 local java_decompiler_libs =
     utils.get_files(utils.child(java_decompiler_home, 'extension/server/*.jar'))
 
+-- 2023-12-09 Experimental
+local jbang_adapter_home = xdg.config('java/jbang-eclipse')
+local jbang_adapter_libs =
+    utils.get_files(utils.child(jbang_adapter_home, 'target/*.jar'))
+
+
 local bundles = utils.concat(
     java_debug_adapter_libs,
     java_test_adapter_libs,
     java_decompiler_libs
+    -- jbang_adapter_libs
 )
 
 
