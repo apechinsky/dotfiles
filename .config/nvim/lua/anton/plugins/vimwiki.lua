@@ -3,29 +3,40 @@ return {
     'vimwiki/vimwiki',
 
     init = function ()
-        vim.api.nvim_exec([[
+        -- Do not shorten URLs
+        vim.g.vimwiki_url_maxsave = 0
 
-        let wiki_personal = {}
-        let wiki_personal.path = '~/Dropbox/vimwiki/personal'
-        let wiki_personal.path_html = '~/Dropbox/vimwiki/personal/html'
-        let wiki_personal.syntax = 'markdown'
-        let wiki_personal.ext = '.md'
-        let wiki_personal.auto_tags = 1
+        -- Enable temporary wiki
+        vim.g.vimwiki_global_ext = 1
+        vim.g.vimwiki_ext2syntax = {
+            ['.wiki'] = 'default',
+            ['.mwiki'] = 'markdown',
+        }
 
-        let wiki_work = {}
-        let wiki_work.path = '~/Dropbox/vimwiki/work'
-        let wiki_work.path_html = '~/Dropbox/vimwiki/work/html'
-        let wiki_work.syntax = 'markdown'
-        let wiki_work.ext = '.md'
-        let wiki_work.auto_tags = 1
+        local personal = {
+            path = '~/Dropbox/vimwiki/personal',
+            path_html = '~/Dropbox/vimwiki/personal/html',
+            syntax = 'markdown',
+            ext = '.md',
+            auto_tags = 1,
+        }
 
-        let g:vimwiki_list = [wiki_work, wiki_personal]
-        let g:vimwiki_global_ext = 0
+        local work = {
+            path = '~/Dropbox/vimwiki/work',
+            path_html = '~/Dropbox/vimwiki/work/html',
+            syntax = 'markdown',
+            ext = '.md',
+            auto_tags = 1,
+        }
 
-        " Do not shorten URLs
-        let g:vimwiki_url_maxsave = 0
+        local test = {
+            path = '~/Dropbox/vimwiki/test',
+            path_html = '~/Dropbox/vimwiki/test/html',
+            syntax = 'default',
+            ext = '.wiki',
+            auto_tags = 1,
+        }
 
-        ]],
-        true)
+        vim.g.vimwiki_list = { work, personal, test }
     end
 }
