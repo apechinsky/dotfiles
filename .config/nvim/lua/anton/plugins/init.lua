@@ -3,7 +3,6 @@ return {
     'tpope/vim-surround',
     'tpope/vim-unimpaired',
     'mbbill/undotree',
-    'christoomey/vim-tmux-navigator',
     'morhetz/gruvbox',
     'ap/vim-css-color',
     'echuraev/translate-shell.vim',
