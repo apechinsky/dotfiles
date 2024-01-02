@@ -1,3 +1,6 @@
+-- Seamless navigation between VIM windows and TMUX panes
+-- using CTRL-hjkl
+
 return {
     "christoomey/vim-tmux-navigator",
     cmd = {

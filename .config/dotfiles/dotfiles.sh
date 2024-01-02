@@ -23,7 +23,7 @@ dotfiles() {
 #
 dotfiles-add() {
     dotfiles status -s | \
-        sed -e "s|^.\{3\}|$HOME/|" | \
+        sed -e "s|^.\{3\}|$PWD/|" | \
         fzf --multi --preview "bat {} --color=always" | \
         xargs git --git-dir="$dotfilesGitDir" --work-tree="$HOME" add
 }
