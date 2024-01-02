@@ -1,8 +1,8 @@
 return {
     s("trigger", {
-        t({"After expanding, the cursor is here ->"}), i(1),
-        t({"", "After jumping forward once, cursor is here ->"}), i(2),
-        t({"", "After jumping once more, the snippet is exited there ->"}), i(0),
+        t({"after expanding, the cursor is here ->"}), i(1),
+        t({"", "after jumping forward once, cursor is here ->"}), i(2),
+        t({"", "after jumping once more, the snippet is exited there ->"}), i(0),
     }),
 
     -- choice node demo
@@ -15,7 +15,7 @@ return {
     }),
 
     s("trigger-function", {
-        t({"Enter text"}), i(1),
+        t({"enter text"}), i(1),
         t({" duplicate: "}),
         f(function(args, parent, user_args) 
             return '[args: ' .. args[1][1] .. " user_args: " .. user_args .. ']'
