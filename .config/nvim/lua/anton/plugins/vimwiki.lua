@@ -29,6 +29,14 @@ return {
             auto_tags = 1,
         }
 
+        local electronics = {
+            path = '~/Dropbox/vimwiki/electronics',
+            path_html = '~/Dropbox/vimwiki/electronics/html',
+            syntax = 'markdown',
+            ext = '.md',
+            auto_tags = 1,
+        }
+
         local test = {
             path = '~/Dropbox/vimwiki/test',
             path_html = '~/Dropbox/vimwiki/test/html',
@@ -37,6 +45,6 @@ return {
             auto_tags = 1,
         }
 
-        vim.g.vimwiki_list = { work, personal, test }
+        vim.g.vimwiki_list = { work, personal, electronics, test }
     end
 }
