@@ -107,7 +107,7 @@ return {
                     option = {
                         -- ignore because in a large project typing command like 'vimgrep test **/*' 
                         -- causes recursive search and is too slow
-                        ignore_cmds = { 'vimgrep' }
+                        ignore_cmds = { 'vimgrep', 'args' }
                     }
                 }
             }
