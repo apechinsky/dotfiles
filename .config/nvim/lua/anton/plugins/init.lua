@@ -8,5 +8,6 @@ return {
     'echuraev/translate-shell.vim',
     'mfussenegger/nvim-jdtls',
     'nvim-tree/nvim-web-devicons',
-    "rafamadriz/friendly-snippets",
+    'rafamadriz/friendly-snippets',
+    {'rcarriga/nvim-notify', config = true},
 }

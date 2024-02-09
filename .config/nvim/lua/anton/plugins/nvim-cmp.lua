@@ -1,7 +1,7 @@
 return {
     'hrsh7th/nvim-cmp',
 
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
 
     dependencies = {
         'neovim/nvim-lspconfig',
@@ -16,7 +16,8 @@ return {
 
     config = function ()
         local cmp = require("cmp")
-        local luasnip = require("luasnip")
+
+        cmp.register_source('my', require('anton.my-cmp-source'))
 
         -- load relative to the directory of $MYVIMRC
         require("luasnip.loaders.from_lua").load({ paths = "./mysnippets" })
@@ -29,16 +30,17 @@ return {
             },
             snippet = {
                 expand = function(args)
-                    luasnip.lsp_expand(args.body)
+                    require("luasnip").lsp_expand(args.body)
                 end,
             },
-            sources = cmp.config.sources({
+            sources = {
                 { name = 'nvim_lsp' },
                 { name = 'nvim_lua' },
                 { name = 'luasnip' },
                 { name = 'buffer' },
                 { name = "path" },
-            }),
+                { name = "my" },
+            },
             -- window = {
             --     completion = cmp.config.window.bordered(),
             --     documentation = cmp.config.window.bordered(),
@@ -56,6 +58,7 @@ return {
                         nvim_lsp = "[lsp]",
                         luasnip = "[snip]",
                         nvim_lua = "[lua]",
+                        my = "[my]",
                     })[entry.source.name]
 
                     return vim_item
@@ -85,27 +88,29 @@ return {
         })
 
         -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-        cmp.setup.cmdline({ '/', '?' }, {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = {
-                { name = 'buffer' }
-            }
-        })
+        -- cmp.setup.cmdline({ '/', '?' }, {
+        --     mapping = cmp.mapping.preset.cmdline(),
+        --     sources = {
+        --         { name = 'buffer' }
+        --     }
+        -- })
 
         -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
         cmp.setup.cmdline(':', {
             mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
+            sources = {
+                { name = 'nvim_lua' },
+                { name = 'buffer' },
                 { name = 'path' },
                 {
                     name = 'cmdline',
                     option = {
                         -- ignore because in a large project typing command like 'vimgrep test **/*' 
                         -- causes recursive search and is too slow
-                        ignore_cmds = { 'vimgrep' }
+                        ignore_cmds = { 'vimgrep', 'args' }
                     }
                 }
-            })
+            }
         })
     end
 }
