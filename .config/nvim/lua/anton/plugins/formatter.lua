@@ -15,7 +15,8 @@ return {
             json = { 'prettier' },
             yaml = { 'prettier' },
             markdown = { 'prettier' },
-            sh = { 'shfmt' },
+            sh = { 'prettier' },
+            -- sh = { 'shfmt' },
         },
 
         -- Customize formatters

@@ -83,4 +83,21 @@ return {
             '}',
         }),
     }),
+
+    s({
+        trig = "testmethod",
+        descr = "JUnit test method",
+    },
+    {
+        t({
+            '@Test',
+            'void name() throws Exception {',
+            '',
+        }),
+        i(1),
+        t({
+            '',
+            '}',
+        }),
+    }),
 }

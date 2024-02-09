@@ -27,7 +27,8 @@ return {
             "json",
             "yaml",
             "ruby",
-            "http"
+            "http",
+            "pkl"
         },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)

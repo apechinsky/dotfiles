@@ -193,7 +193,7 @@ end
 -- Returns new instance of bufopts with specified 'desc'
 -- 
 function M.bufopts(bufopts, desc)
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+    -- local bufopts = { noremap = true, silent = true, buffer = bufnr }
     return {
         noremap = bufopts.noremap,
         silent = bufopts.silent,

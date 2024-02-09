@@ -4,42 +4,30 @@ local xdg = require("anton.core.xdg")
 local jdtls = require("jdtls")
 local mason = require('mason-registry')
 
-local function is_java_buffer()
-    local scheme = utils.get_scheme(utils.get_current_file())
-    return not scheme or scheme == 'file'
-end
-
 -- Exit if this ftplugin is activated for non java buffers
 -- E.g.  git fugitive plugin creates a buffer named fugitive://xxxx.java
 -- So it causes vim to activate this ftplugin and LSP server returns an error:
 -- IllegalArgumentException: URI has an authority component
-if not is_java_buffer() then
+local scheme = utils.get_scheme(utils.get_current_file())
+if scheme and scheme ~= 'file' then
     return
 end
 
+vim.opt_local.colorcolumn = { 80, 130 }
 vim.opt_local.suffixes:append({ '.java' })
-
 vim.opt_local.makeprg = 'jbang %'
-
--- vim.api.nvim_buf_set_keymap(0, 'n', '<F9>', ':wall<CR>:make<CR>', { noremap = true })
---
--- -- vim.keymap.set('n', '<F10>', ":wall<CR>:make<CR>:!java %:r<CR>")
--- vim.api.nvim_buf_set_keymap(0, 'n', '<F10>', ':wall<CR>:!jbang %<CR>', { noremap = true })
 
 vim.opt_local.tags:append({
     HOME .. "/ctags/libs/java-libs.tags",
     HOME .. "/ctags/libs/jdk-1.8.0.tags"
 })
 
-vim.opt_local.colorcolumn = { 80, 130 }
-
--- vim.api.nvim_set_hl(0, 'ColorColumn', { bg = red })
 vim.cmd("highlight ColorColumn ctermbg=darkgray")
 
 
 -- Return workspace directory
---  Should be unique per project
---  Should not be within project root
+--  * Should be unique per project
+--  * Should NOT be within project root
 local function getWorkspaceDir(projectName)
     return xdg.data('jdtls/' .. projectName)
 end
@@ -48,12 +36,7 @@ end
 local jdtls_home = mason.get_package('jdtls'):get_install_path()
 local java_debug_adapter_home = mason.get_package('java-debug-adapter'):get_install_path()
 
--- WARNING! Mason registry contains buggy java-test plugin version: 0.39.0
--- So we clone newest version (0.40.1), build it and use until registry is fixed
--- WARNING! After building the plugin, create 'extension' dir and move 'server' dir into it.
--- This is needed because mason package contains 'extesion' dir.
--- local java_test_adapter_home = mason.get_package('java-test'):get_install_path()
-local java_test_adapter_home = xdg.config('java/vscode-java-test')
+local java_test_adapter_home = mason.get_package('java-test'):get_install_path()
 local java_decompiler_home = xdg.config('java/vscode-java-decompiler')
 
 local java_debug_adapter_libs =
