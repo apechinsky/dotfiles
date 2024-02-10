@@ -20,6 +20,10 @@ local servers = {
         disabled = true
     },
 
+    clangd = {
+
+    },
+
     lua_ls = {
         Lua = {
             runtime = {
@@ -55,6 +59,7 @@ return {
             "bashls",
             "jsonls",
             "yamlls",
+            "clangd",
         },
 
         handlers = {

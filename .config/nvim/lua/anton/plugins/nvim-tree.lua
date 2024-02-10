@@ -9,7 +9,7 @@ return {
         },
 
         filters = {
-          dotfiles = false,
+          dotfiles = true,
         },
     }
 }
