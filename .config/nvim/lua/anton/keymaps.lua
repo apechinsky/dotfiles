@@ -152,7 +152,7 @@ M.java_keymap = function(jdtls, bufopts)
     vim.keymap.set("n", "<leader>vm", jdtls.test_nearest_method, { desc = "Test method (DAP)" })
     vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, { desc = "Extract variable" })
     vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, { desc = "Extract constant" })
-    vim.keymap.set("v", "<leader>em", jdtls.extract_method, { desc = "Extract method" })
+    vim.keymap.set({"n", "v"}, "<leader>em", jdtls.extract_method, { desc = "Extract method" })
 end
 
 M.dap_keymap = function(dap, bufopts)
@@ -168,9 +168,35 @@ M.dap_keymap = function(dap, bufopts)
         dap.continue()
     end, vimutils.bufopts(bufopts, 'Debug. Continue.'))
 
+    vim.keymap.set('n', '<F10>', vim.cmd.DapToggleRepl, vimutils.bufopts(bufopts, 'Debug. REPL.'))
+
     vim.keymap.set('n', '<F32>', function()
         dap.toggle_breakpoint()
     end, vimutils.bufopts(bufopts, 'Debug. Toggle breakpoint <Ctrl-F8>.'))
+
+    vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
+        require('dap.ui.widgets').hover(nil, { border = "rounded" })
+    end)
+
+    vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
+        require('dap.ui.widgets').preview()
+    end)
+
+    vim.keymap.set('n', '<Leader>df', function()
+        local widgets = require('dap.ui.widgets')
+        widgets.centered_float(widgets.frames)
+    end)
+
+    vim.keymap.set('n', '<Leader>ds', function()
+        local widgets = require('dap.ui.widgets')
+        widgets.centered_float(widgets.scopes)
+    end)
+end
+
+M.dapui_keymap = function(dapui, bufopts)
+    vim.keymap.set('n', '<F11>', function()
+        dapui.toggle()
+    end, vimutils.bufopts(bufopts, 'Debug. Toggle DAP UI'))
 end
 
 require("which-key").register({
