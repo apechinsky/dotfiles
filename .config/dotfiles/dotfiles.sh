@@ -1,7 +1,8 @@
 # Dotfiles management script
 
 # Dotfiles management is based on the following
-# https://medium.com/toutsbrasil/how-to-manage-your-dotfiles-with-git-f7aeed8adf8b
+# * https://medium.com/toutsbrasil/how-to-manage-your-dotfiles-with-git-f7aeed8adf8b
+# * https://www.atlassian.com/git/tutorials/dotfiles
 
 dotfilesHome=$(cd $(dirname $0); pwd)
 dotfilesGitDir="$dotfilesHome/git/"
@@ -17,6 +18,8 @@ dotfilesGitDir="$dotfilesHome/git/"
 dotfiles() {
     git --git-dir=$dotfilesHome/git --work-tree=$HOME "$@"
 }
+
+alias config='dotfiles'
 
 #
 # Function output modified dotfiles and allows user to select changed ones
