@@ -76,7 +76,7 @@ return {
                     ['@function.outer'] = 'V',  -- linewise
                     ['@class.outer'] = '<c-v>', -- blockwise
                 },
-                include_surrounding_whitespace = true,
+                include_surrounding_whitespace = false,
             },
 
             move = {
@@ -103,9 +103,11 @@ return {
                 enable = true,
                 swap_next = {
                     ['<leader>a'] = '@parameter.inner',
+                    ['<leader>mf'] = '@function.outer',
                 },
                 swap_previous = {
                     ['<leader>A'] = '@parameter.inner',
+                    ['<leader>MF'] = '@function.outer',
                 },
             },
         },
