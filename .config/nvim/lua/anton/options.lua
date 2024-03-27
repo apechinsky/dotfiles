@@ -4,6 +4,8 @@ vim.g.maploacalleader = vim.g.mapleader
 -- disable mouse
 vim.opt.mouse = ""
 
+vim.opt.showmode = false
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
