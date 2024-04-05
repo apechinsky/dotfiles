@@ -4,6 +4,7 @@ return {
 
     dependencies = {
         "mfussenegger/nvim-dap",
+        "nvim-neotest/nvim-nio",
     },
 
     opts = {

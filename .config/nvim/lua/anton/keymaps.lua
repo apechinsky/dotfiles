@@ -132,24 +132,24 @@ end
 
 M.java_keymap = function(jdtls, bufopts)
 
-    vim.keymap.set('n', '<leader>tm', function()
-        jdtls.test_nearest_method()
-    end, vimutils.bufopts(bufopts, 'Run current test method (via java-test)'))
+    vim.keymap.set('n', '<leader>tt', require('jdtls.tests').goto_subjects,
+        vimutils.bufopts(bufopts, 'Switch between test and subject'))
+
+    vim.keymap.set('n', '<leader>tm', jdtls.test_nearest_method,
+        vimutils.bufopts(bufopts, 'Run current test method (via java-test)'))
 
     vim.keymap.set('n', '<leader>tmm', function()
         require('anton.java.gradle').find():run_java_test_method()
     end, vimutils.bufopts(bufopts, 'Run current test method (via gradle)'))
 
-    vim.keymap.set('n', '<leader>tc', function()
-    end, vimutils.bufopts(bufopts, 'Run current test class (via java-test)'))
+    vim.keymap.set('n', '<leader>tc', jdtls.test_class,
+        vimutils.bufopts(bufopts, 'Run current test class (via java-test)'))
 
     vim.keymap.set('n', '<leader>tcc', function()
         require('anton.java.gradle').find():run_java_test_class()
     end, vimutils.bufopts(bufopts, 'Run current test class (via gradle)'))
 
     vim.keymap.set("n", "<leader>oi", jdtls.organize_imports, { desc = "Organize imports" })
-    vim.keymap.set("n", "<leader>vc", jdtls.test_class, { desc = "Test class (DAP)" })
-    vim.keymap.set("n", "<leader>vm", jdtls.test_nearest_method, { desc = "Test method (DAP)" })
     vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, { desc = "Extract variable" })
     vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, { desc = "Extract constant" })
     vim.keymap.set({"n", "v"}, "<leader>em", jdtls.extract_method, { desc = "Extract method" })
