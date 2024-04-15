@@ -4,8 +4,6 @@ vim.g.maploacalleader = vim.g.mapleader
 -- disable mouse
 vim.opt.mouse = ""
 
-vim.opt.showmode = false
-
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -52,7 +50,7 @@ vim.opt.path:append("**")
 vim.opt.clipboard:append("unnamedplus")
 
 -- Make it possible to use vim navigation keys in normal mode when russian kb layout is active
-vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
+vim.opt.langmap = "ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>"
 
 vim.opt.wildignore:append("**/node_modules/**")
 
