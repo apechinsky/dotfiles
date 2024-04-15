@@ -27,10 +27,11 @@ vim.g.trans_default_direction = ":ru"
 vim.keymap.set('n', '<leader>d', vim.cmd.Trans, { desc = 'Translate' })
 
 -- open vim terminal
-vim.keymap.set('n', '<leader>tt', ":split term://zsh<CR>")
+vim.keymap.set('n', '<leader>ot', ":split term://zsh<CR>", { desc = 'Open VIM Terminal' })
 
 -- exit from insert mode in terminal with Esc
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+
 
 vim.keymap.set('n', '<leader>yp', function()
     vim.fn.setreg('+', vim.fn.expand('%:p'))
@@ -106,6 +107,7 @@ M.telescope_keymap = function(telescope)
     vim.keymap.set('n', '<leader>fd', telescope.diagnostics, { desc = '[F]ind [D]iagnostics' })
     vim.keymap.set('n', '<leader>fw', telescope.grep_string, { desc = '[F]ind current [W]ord' })
     vim.keymap.set('n', '<leader>fo', telescope.oldfiles, { desc = '[F]ind recently opened files' })
+    vim.keymap.set('n', '<leader>fs', telescope.git_status, { desc = '[F]ind git [S]tatus files' })
 end
 
 
