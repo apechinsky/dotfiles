@@ -4,6 +4,7 @@ return {
     lazy = true,
     config = function ()
         local luasnip = require("luasnip")
-        require('anton.keymaps').luasnip_keymap(luasnip)
+        -- disable luasnip mapping since it configured via nvim-cmp
+        -- require('anton.keymaps').luasnip_keymap(luasnip)
     end
 }
