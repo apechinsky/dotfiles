@@ -181,7 +181,7 @@ function Gradle:get_test_runner(module, test_filter)
         " -i " ..
         utils.format_if_present(':%s:', module) ..
         "test " ..
-        utils.format_if_present(' --tests %s ', test_filter)
+        utils.format_if_present(' --tests %s --rerun-tasks', test_filter)
 end
 
 --
