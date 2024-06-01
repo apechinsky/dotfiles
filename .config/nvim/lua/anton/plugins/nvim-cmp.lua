@@ -21,9 +21,9 @@ return {
         cmp.register_source('my', require('anton.my-cmp-source'))
 
         -- load relative to the directory of $MYVIMRC
-        require("luasnip.loaders.from_lua").load({ paths = "./mysnippets" })
+        require("luasnip.loaders.from_lua").load({ paths = "./snippets" })
         require("luasnip.loaders.from_vscode").lazy_load()
-        require("luasnip.loaders.from_vscode").lazy_load({ paths = "./mysnippets" })
+        require("luasnip.loaders.from_vscode").lazy_load({ paths = "./snippets" })
 
         cmp.setup({
             completion = {
