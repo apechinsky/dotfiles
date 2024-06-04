@@ -9,5 +9,4 @@ return {
     'mfussenegger/nvim-jdtls',
     'nvim-tree/nvim-web-devicons',
     'rafamadriz/friendly-snippets',
-    {'rcarriga/nvim-notify', config = true},
 }
