@@ -10,7 +10,7 @@ function FixHabamaxColors()
     vim.cmd("highlight SignifySignChange ctermfg=yellow guifg=#888800 cterm=NONE gui=NONE")
 
     -- Fix match brace colors
-    vim.cmd("highlight MatchParen ctermbg=lightgreen ctermfg=black guibg=lightgreen guifg=black")
+    -- vim.cmd("highlight MatchParen ctermbg=lightgreen ctermfg=black guibg=lightgreen guifg=black")
 end
 
 vim.api.nvim_create_autocmd("ColorScheme", {

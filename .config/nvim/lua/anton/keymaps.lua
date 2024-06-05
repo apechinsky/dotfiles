@@ -56,6 +56,9 @@ vim.keymap.set('n', '<F3>', ':call ToggleRelativeLineNumbers()<CR>')
 -- vim.api.nvim_buf_set_keymap(0, 'n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { noremap = true })
 vim.keymap.set('n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { desc = 'Save and :make' })
 
+-- vim.keymap.set('n', '<leader>D', vim.cmd.DBUIToggle, { desc = 'DBUIToggle' })
+vim.keymap.set('n', '<leader>D', ':DBUIToggle<CR>', { desc = 'DBUIToggle' })
+
 
 M.luasnip_keymap = function(luasnip)
     vim.keymap.set({"i"}, "<C-K>", function() luasnip.expand() end, {silent = true})
@@ -77,8 +80,8 @@ end
 -- vim.diagnostic.disable()
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<leader>de', vim.diagnostic.enable, opts)
-vim.keymap.set('n', '<leader>dd', vim.diagnostic.disable, opts)
+vim.keymap.set('n', '<leader>de', function () vim.diagnostic.enable(true) end, opts)
+vim.keymap.set('n', '<leader>dd', function () vim.diagnostic.enable(false) end, opts)
 vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
