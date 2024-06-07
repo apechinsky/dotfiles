@@ -3,7 +3,7 @@ return {
 
     opts = {
         registries = {
-            'file:/home/apechinsky/.config/nvim/tools/my-mason-registry/',
+            -- 'file:/home/apechinsky/.config/nvim/tools/my-mason-registry/',
             'github:mason-org/mason-registry',
         },
 
