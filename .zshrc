@@ -68,6 +68,7 @@ plugins=(
     spring
     jira
     themes
+    zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
