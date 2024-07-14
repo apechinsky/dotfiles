@@ -100,4 +100,21 @@ return {
             '}',
         }),
     }),
+
+    s({
+        trig = "testsetup",
+        descr = "JUnit setUp method",
+    },
+    {
+        t({
+            '@BeforeEach',
+            'void setUp() throws Exception {',
+            '',
+        }),
+        i(1),
+        t({
+            '',
+            '}',
+        }),
+    }),
 }

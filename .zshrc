@@ -180,9 +180,12 @@ source /usr/share/fzf/key-bindings.zsh
 alias j!=jbang
 export PATH="$HOME/.jbang/bin:$PATH"
 
-
-
-
+# Source the Lazyman shell initialization for aliases and nvims selector
+# shellcheck source=.config/nvim-Lazyman/.lazymanrc
+[ -f ~/.config/nvim-Lazyman/.lazymanrc ] && source ~/.config/nvim-Lazyman/.lazymanrc
+# Source the Lazyman .nvimsbind for nvims key binding
+# shellcheck source=.config/nvim-Lazyman/.nvimsbind
+[ -f ~/.config/nvim-Lazyman/.nvimsbind ] && source ~/.config/nvim-Lazyman/.nvimsbind
 
 # CSREPO tool initialization
 [[ -d "/home/apechinsky/.csrepo/bin" ]] && export PATH="$PATH:/home/apechinsky/.csrepo/bin"
