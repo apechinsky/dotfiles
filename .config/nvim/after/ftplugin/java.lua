@@ -4,15 +4,6 @@ local xdg = require("anton.core.xdg")
 local jdtls = require("jdtls")
 local mason = require('mason-registry')
 
--- Exit if this ftplugin is activated for non java buffers
--- E.g.  git fugitive plugin creates a buffer named fugitive://xxxx.java
--- So it causes vim to activate this ftplugin and LSP server returns an error:
--- IllegalArgumentException: URI has an authority component
-local scheme = utils.get_scheme(utils.get_current_file())
-if scheme and scheme ~= 'file' then
-    return
-end
-
 vim.opt_local.colorcolumn = { 80, 130 }
 vim.opt_local.suffixes:append({ '.java' })
 vim.opt_local.makeprg = 'jbang %'
