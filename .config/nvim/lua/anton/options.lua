@@ -18,6 +18,8 @@ vim.opt.autoindent = true
 
 vim.opt.wrap = false
 
+vim.opt.suffixes:append(".class")
+
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 

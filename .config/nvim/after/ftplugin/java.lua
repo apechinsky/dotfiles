@@ -7,6 +7,7 @@ local mason = require('mason-registry')
 vim.opt_local.colorcolumn = { 80, 130 }
 vim.opt_local.suffixes:append({ '.java' })
 vim.opt_local.makeprg = 'jbang %'
+vim.opt_local.autowrite = true
 
 vim.opt_local.tags:append({
     HOME .. "/ctags/libs/java-libs.tags",
