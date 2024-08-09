@@ -58,6 +58,9 @@ vim.opt.clipboard:append("unnamedplus")
 vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
 
 vim.opt.wildignore:append("**/node_modules/**")
+vim.opt.wildignore:append("**/*.class")
+
+
 
 -- highlight tabs and trailing spaces
 -- old config. There are two commands

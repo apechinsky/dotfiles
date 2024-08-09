@@ -6,7 +6,8 @@
 return {
     'nvim-treesitter/nvim-treesitter',
 
-    tag = 'v0.9.2',
+    -- this version has the bug: vim help does not display links
+    -- tag = 'v0.9.2',
 
     event = { "BufReadPre", "BufNewFile" },
 
@@ -21,16 +22,8 @@ return {
 
     opts = {
         ensure_installed = {
-            "c",
-            "lua",
-            "java",
-            "javascript",
-            "typescript",
-            "json",
-            "yaml",
-            "ruby",
-            "http",
-            "pkl"
+            "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline",
+            "java", "javascript", "typescript", "json", "yaml", "ruby", "http",
         },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -114,8 +107,4 @@ return {
             },
         },
     },
-
-    -- config = function(_, opts)
-    --     require('nvim-treesitter.configs').setup(opts)
-    -- end
 }
