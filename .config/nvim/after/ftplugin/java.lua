@@ -26,23 +26,31 @@ end
 
 -- Java Language Server configuration.
 local jdtls_home = mason.get_package('jdtls'):get_install_path()
-local java_debug_adapter_home = mason.get_package('java-debug-adapter'):get_install_path()
 
+local java_debug_adapter_home = mason.get_package('java-debug-adapter'):get_install_path()
 local java_test_adapter_home = mason.get_package('java-test'):get_install_path()
-local java_decompiler_home = xdg.config('java/vscode-java-decompiler')
+local java_decompiler_home = mason.get_package('vscode-java-decompiler'):get_install_path()
+
+local function getBundles(pattern)
+    local files = utils.get_files(pattern)
+    if #files == 0 then
+       vim.notify("No bundles found with pattern '" .. pattern .. "'", vim.log.levels.WARN)
+    end
+end
 
 local java_debug_adapter_libs =
-    utils.get_files(utils.child(java_debug_adapter_home, 'extension/server/com.microsoft.java.debug.plugin-*.jar'))
+    getBundles(utils.child(java_debug_adapter_home, 'extension/server/com.microsoft.java.debug.plugin-*.jar'))
+
 local java_test_adapter_libs =
-    utils.get_files(utils.child(java_test_adapter_home, 'extension/server/*.jar'))
+    getBundles(utils.child(java_test_adapter_home, 'extension/server/*.jar'))
+
 local java_decompiler_libs =
-    utils.get_files(utils.child(java_decompiler_home, 'extension/server/*.jar'))
+    getBundles(utils.child(java_decompiler_home, 'server/*.jar'))
 
 -- 2023-12-09 Experimental
 local jbang_adapter_home = xdg.config('java/jbang-eclipse')
 local jbang_adapter_libs =
     utils.get_files(utils.child(jbang_adapter_home, 'target/*.jar'))
-
 
 local bundles = utils.concat(
     java_debug_adapter_libs,
