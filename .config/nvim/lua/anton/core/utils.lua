@@ -186,7 +186,11 @@ end
 -- @return list of files
 --
 function M.get_files(pattern)
-    return vim.split(vim.fn.glob(pattern, true), "\n")
+    local glob = vim.fn.glob(pattern, true)
+    if #glob == 0 then
+       return {}
+    end
+    return vim.split(glob, "\n")
 end
 
 --
