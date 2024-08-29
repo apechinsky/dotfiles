@@ -36,6 +36,7 @@ local function getBundles(pattern)
     if #files == 0 then
        vim.notify("No bundles found with pattern '" .. pattern .. "'", vim.log.levels.WARN)
     end
+    return files
 end
 
 local java_debug_adapter_libs =
@@ -46,6 +47,7 @@ local java_test_adapter_libs =
 
 local java_decompiler_libs =
     getBundles(utils.child(java_decompiler_home, 'server/*.jar'))
+
 
 -- 2023-12-09 Experimental
 local jbang_adapter_home = xdg.config('java/jbang-eclipse')
