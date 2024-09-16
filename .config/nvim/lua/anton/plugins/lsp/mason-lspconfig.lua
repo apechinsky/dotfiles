@@ -21,7 +21,9 @@ local servers = {
     },
 
     clangd = {
+    },
 
+    pyright = {
     },
 
     lua_ls = {
