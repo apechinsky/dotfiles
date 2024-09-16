@@ -149,6 +149,10 @@ config.settings = {
                     name = "JavaSE-21",
                     path = utils.child(HOME, "/opt/jdk-21"),
                 },
+                {
+                    name = "JavaSE-22",
+                    path = utils.child(HOME, "/opt/jdk-22"),
+                },
             }
         },
         jdt = {
