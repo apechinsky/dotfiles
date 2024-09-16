@@ -30,6 +30,16 @@ require("lazy").setup({
         { import = 'anton/plugins' },
         { import = "anton.plugins.lsp" }
     },
-    checker = { enabled = false },
-})
+    checker = {
+        enabled = false
+    },
 
+    -- Try to solve problem with spell language download problem
+    -- this solution restores /site to RTP
+    -- see details: https://github.com/neovim/neovim/issues/7189
+    -- performance = {
+    --     rtp = {
+    --         paths = { vim.fn.stdpath("data") .. "/site" }
+    --     }
+    -- }
+})

@@ -53,6 +53,10 @@ vim.opt.path:append("**")
 -- yank (copy/cut) to system clipboard
 vim.opt.clipboard:append("unnamedplus")
 
+-- vim.g.spellfile_URL = 'http://ftp.nluug.nl/vim/runtime/spell'
+-- vim.g.spellfile_URL = 'http://ftp.vim.org/pub/vim/runtime/spell'
+vim.opt.spelllang = "en,ru"
+
 -- Make it possible to use vim navigation keys in normal mode when russian kb layout is active
 -- vim.opt.langmap = "ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>"
 vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"
