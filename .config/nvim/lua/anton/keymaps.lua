@@ -189,12 +189,12 @@ M.dapui_keymap = function(dapui, bufopts)
     end, vimutils.bufopts(bufopts, 'Debug. Toggle DAP UI'))
 end
 
-require("which-key").register({
-    f = { name = "Find files", },
-    g = { name = "LSP keys", },
-    t = { name = "Terminal", },
-    b = { name = "Buffer operations", },
-}, { prefix = "<leader>" })
+require("which-key").add({
+    { "<leader>f", group = "Find files" },
+    { "<leader>g", group = "LSP keys" },
+    { "<leader>t", group = "Terminal" },
+    { "<leader>b", group = "Buffer operations" },
+})
 
 
 return M

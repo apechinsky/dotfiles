@@ -189,3 +189,6 @@ export PATH="$HOME/.jbang/bin:$PATH"
 
 # CSREPO tool initialization
 [[ -d "/home/apechinsky/.csrepo/bin" ]] && export PATH="$PATH:/home/apechinsky/.csrepo/bin"
+
+eval "$(zoxide init --cmd cd zsh)"
+

@@ -410,3 +410,4 @@ let g:ale_fixers = {
 \}
 
 " let g:lsc_server_commands = {'java': '/home/apechinsky/.vim/java-language-server/dist/lang_server_linux.sh'}
+

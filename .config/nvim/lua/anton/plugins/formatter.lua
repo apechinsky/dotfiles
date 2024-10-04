@@ -40,5 +40,3 @@ return {
         end, { desc = 'Format file or selection' })
     end,
 }
-
-
