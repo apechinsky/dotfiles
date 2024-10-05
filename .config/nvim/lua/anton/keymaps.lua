@@ -42,6 +42,7 @@ end, { desc = 'Yank current file path to clipboard (+ register)' })
 -- p - paste
 vim.keymap.set('n', '<leader>bp', 'gg"_dGp<CR>', { desc = 'Replace buffer with clipboard' })
 vim.keymap.set('n', '<leader>by', ':%y<CR>', { desc = 'Yank entire buffer' })
+vim.keymap.set({'n', 'v'}, '<leader>p', '"0p', { desc = 'Paste last yanked (0 register)' })
 
 -- swap true/false values
 vim.keymap.set('n', '<leader>s', ':call SwapBool()<CR>', { desc = 'Swap true/false' });
