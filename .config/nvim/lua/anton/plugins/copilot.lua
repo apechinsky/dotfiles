@@ -1,19 +1,35 @@
 return {
-    'github/copilot.vim',
-    event = "VeryLazy",
-    enabled = true,
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
 
-    config = function ()
+    opts = {
+        suggestion = {
+            auto_trigger = false,
+            keymap = {
+                accept = "<M-CR>",
+                prev = "<M-[>",
+                next = "<M-]>",
+                dismiss = "<ESC>",
+            },
+        },
+        panel = {
+            enabled = true,
+            auto_refresh = true,
+            keymap = {
+                jump_prev = "[[",
+                jump_next = "]]",
+                accept = "<CR>",
+                refresh = "gr",
+                open = "<M-p>"
+            },
+        },
+    },
+
+    init = function()
         local proxy = vim.fn.getenv('COPILOT_PROXY')
         if proxy ~= vim.NIL then
             vim.g.copilot_proxy = 'http://' .. proxy
         end
-
-        vim.g.copilot_filetypes = {
-            'md',
-            'java'
-        }
-
-        vim.cmd("Copilot disable")
-    end
+    end,
 }
