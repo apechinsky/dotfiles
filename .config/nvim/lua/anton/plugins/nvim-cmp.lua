@@ -14,11 +14,9 @@ return {
         'saadparwaiz1/cmp_luasnip',
     },
 
-    config = function ()
+    config = function()
         local cmp = require("cmp")
         local luasnip = require("luasnip")
-
-        cmp.register_source('my', require('anton.my-cmp-source'))
 
         -- load relative to the directory of $MYVIMRC
         require("luasnip.loaders.from_lua").load({ paths = "./snippets" })
@@ -121,7 +119,7 @@ return {
             })
         })
 
-        cmp.setup.filetype({'sql'}, {
+        cmp.setup.filetype({ 'sql' }, {
             sources = {
                 { name = "vim-dadbod-completion" },
                 { name = "buffer" },
@@ -129,16 +127,46 @@ return {
         })
 
         -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-        -- cmp.setup.cmdline({ '/', '?' }, {
-        --     mapping = cmp.mapping.preset.cmdline(),
-        --     sources = {
-        --         { name = 'buffer' }
-        --     }
-        -- })
+        cmp.setup.cmdline({ '/', '?' }, {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+                { name = 'buffer' },
+            }
+        })
 
         -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
         cmp.setup.cmdline(':', {
-            mapping = cmp.mapping.preset.cmdline(),
+            -- Commenting preset mapping because item
+            -- it maps Tab/S-Tab to select_next_item() and this
+            -- blocks standard vim path expansion behavior (:edit %:h<Tab>)
+            -- mapping = cmp.mapping.preset.cmdline(),
+            mapping = {
+                ['<C-n>'] = {
+                  c = function(fallback)
+                    if cmp.visible() then
+                      cmp.select_next_item()
+                    else
+                      fallback()
+                    end
+                  end,
+                },
+                ['<C-p>'] = {
+                  c = function(fallback)
+                    if cmp.visible() then
+                      cmp.select_prev_item()
+                    else
+                      fallback()
+                    end
+                  end,
+                },
+                ['<C-e>'] = {
+                  c = cmp.abort(),
+                },
+                ['<C-y>'] = {
+                  c = cmp.confirm({ select = false }),
+                },
+            },
+
             sources = {
                 { name = 'nvim_lua' },
                 { name = 'buffer' },
@@ -146,9 +174,9 @@ return {
                 {
                     name = 'cmdline',
                     option = {
-                        -- ignore because in a large project typing command like 'vimgrep test **/*' 
+                        -- ignore because in a large project typing command like 'vimgrep test **/*'
                         -- causes recursive search and is too slow
-                        ignore_cmds = { 'find', 'vimgrep', 'args', 'substitute'}
+                        ignore_cmds = { 'find', 'vimgrep', 'args', 'substitute' }
                     }
                 }
             }
