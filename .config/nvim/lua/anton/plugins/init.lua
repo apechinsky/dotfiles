@@ -10,4 +10,5 @@ return {
     'mfussenegger/nvim-jdtls',
     'nvim-tree/nvim-web-devicons',
     'rafamadriz/friendly-snippets',
+    'b0o/schemastore.nvim',
 }
