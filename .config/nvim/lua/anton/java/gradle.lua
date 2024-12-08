@@ -225,6 +225,9 @@ local M = {}
 --
 -- Find gradle project and return Gradle class instance
 --
+-- @param a file from which to find the Gradle root dir ('gradlew' file)
+-- @return an instance of Gradle class or nil if the root was not found
+--
 function M.find(start_file)
     local root_dir = utils.find_any({ gradlew }, start_file)
     return root_dir and Gradle:new(root_dir) or nil
