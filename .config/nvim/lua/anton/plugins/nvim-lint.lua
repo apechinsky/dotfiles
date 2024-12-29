@@ -10,8 +10,7 @@ return {
         local lint = require('lint')
 
         lint.linters_by_ft = {
-            asciidoc = { 'vale' },
-            markdown = { 'markdownlint', 'vale' },
+            -- markdown = { 'markdownlint', 'vale' },
             vimwiki = { 'markdownlint', 'vale' },
             -- sh = { 'shellcheck' },
         }

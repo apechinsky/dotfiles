@@ -56,6 +56,7 @@ s   View x509 certificate
     grep CERTIFICATE %d/%f || INFORM=DER
     echo $INFORM
     openssl x509 -noout -inform $INFORM -in %d/%f -fingerprint > ~/tmp/%f.txt
+    openssl x509 -noout -inform $INFORM -in %d/%f -fingerprint -sha256 >> ~/tmp/%f.txt
     openssl x509 -text -nameopt=utf8 -inform $INFORM -in %d/%f >> ~/tmp/%f.txt
     vim ~/tmp/%f.txt
     rm ~/tmp/%f.txt

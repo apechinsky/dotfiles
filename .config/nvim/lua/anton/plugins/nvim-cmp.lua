@@ -19,7 +19,7 @@ return {
         local luasnip = require("luasnip")
 
         -- load relative to the directory of $MYVIMRC
-        require("luasnip.loaders.from_lua").load({ paths = "./snippets" })
+        require("luasnip.loaders.from_lua").load({ paths = { "./snippets" } })
         require("luasnip.loaders.from_vscode").lazy_load()
         require("luasnip.loaders.from_vscode").lazy_load({ paths = "./snippets" })
 
@@ -51,6 +51,8 @@ return {
             --     }
             -- },
             formatting = {
+                fields = { 'abbr' },
+                expandable_indicator = true,
                 format = function(entry, vim_item)
                     vim_item.menu = ({
                         buffer = "[buffer]",

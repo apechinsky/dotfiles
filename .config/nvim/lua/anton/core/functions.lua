@@ -89,6 +89,7 @@ function X509decode()
     vim.cmd([[
         tabnew
         read !openssl x509 -noout -in # -inform PEM -fingerprint
+        read !openssl x509 -noout -in # -inform PEM -fingerprint -sha256
         read !openssl x509 -noout -in # -inform PEM -text -nameopt=utf8 
         normal gg
     ]])

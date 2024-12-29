@@ -3,6 +3,8 @@ return {
     cmd = "Copilot",
     event = "InsertEnter",
 
+    enabled = false,
+
     opts = {
         suggestion = {
             auto_trigger = false,
