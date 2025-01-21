@@ -197,5 +197,4 @@ require("which-key").add({
     { "<leader>b", group = "Buffer operations" },
 })
 
-
 return M

@@ -2,6 +2,8 @@
 return {
     'windwp/nvim-autopairs',
 
+    enabled = false,
+
     opts = {
         disable_filetype = { "TelescopePrompt" },
     }

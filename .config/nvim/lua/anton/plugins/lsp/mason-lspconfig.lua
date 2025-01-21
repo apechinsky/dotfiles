@@ -8,8 +8,6 @@ local on_attach = function(client, bufnr)
     require('anton.keymaps').lsp_keymap(bufopts)
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 --
 local servers = {
     jdtls = {
@@ -73,6 +71,7 @@ return {
     dependencies = {
         'williamboman/mason.nvim',
         'neovim/nvim-lspconfig',
+        'saghen/blink.cmp',
     },
 
     opts = {
@@ -90,6 +89,14 @@ return {
                 if servers[server_name] ~= nil and servers[server_name].disabled then
                     return
                 end
+
+                -- for nvim-cmp
+                -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+                -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+                -- for blink-cmp
+                local capabilities = vim.lsp.protocol.make_client_capabilities()
+                capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 
                 require('lspconfig')[server_name].setup {
                     capabilities = capabilities,
