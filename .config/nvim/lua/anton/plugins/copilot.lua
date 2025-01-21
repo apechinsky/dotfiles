@@ -3,11 +3,11 @@ return {
     cmd = "Copilot",
     event = "InsertEnter",
 
-    enabled = false,
+    enabled = true,
 
     opts = {
         suggestion = {
-            auto_trigger = false,
+            auto_trigger = true,
             keymap = {
                 accept = "<M-CR>",
                 prev = "<M-[>",
