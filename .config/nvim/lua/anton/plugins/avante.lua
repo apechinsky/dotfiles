@@ -3,7 +3,7 @@ return {
     event = "VeryLazy",
     lazy = true,
     version = false,
-    enabled = true,
+    enabled = false,
     opts = {
         -- @alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
         -- provider = "copilot",
@@ -15,7 +15,7 @@ return {
         end,
 
         debug = true,
-        provider = "openai",
+        provider = "copilot",
         auto_suggestions_provider = "copilot",
         claude = {
             endpoint = "https://api.anthropic.com",
