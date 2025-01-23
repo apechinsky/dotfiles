@@ -25,7 +25,8 @@ function Gradle:new(root_dir)
     local instance = setmetatable({}, self)
     instance.root_dir = root_dir
 
-    instance.settings_file = utils.child(instance.root_dir, 'settings.gradle')
+    instance.settings_file = instance:fileIfExists('settings.gradle')
+        or instance:fileIfExists('settings.gradle.kts')
 
     instance.name = utils.get_property(instance.settings_file, 'rootProject.name')
     assert(instance.name, "Can not obtain project name from " .. instance.settings_file)

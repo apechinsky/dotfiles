@@ -87,6 +87,22 @@ function M.child(path, sub)
 end
 
 --
+-- Finds item in table using predicate
+--
+-- @param t table
+-- @param predicate function.
+--  Function accepts table value and should return true if value matches.
+-- @return index of found value or null
+--
+function M.findPredicate(t, predicate)
+    for index, item in ipairs(t) do
+        if predicate(item) then
+            return index
+        end
+    end
+end
+
+--
 -- Finds value in table
 --
 -- @param t table
@@ -94,12 +110,11 @@ end
 -- @return index of found value or null
 --
 function M.find(t, value)
-    for index, item in ipairs(t) do
-        if item == value then
-            return index
-        end
-    end
+    M.findPredicate(t, function(item)
+        return item == value
+    end)
 end
+
 
 --
 -- Add all items of the second table to the first one
@@ -131,6 +146,28 @@ function M.concat(...)
     return result
 end
 
+--
+-- Filter table using filters.
+-- 
+-- @param t table
+-- @param filters list of substrings.
+--  If any of the substrings is found in the table value, the value is removed.
+-- @return filtered table 't'
+--
+function M.filter(t, filters)
+    for _, value in ipairs(filters) do
+        local contains = function(str)
+            return string.find(str, value, 0, true) ~= nil
+        end
+
+        local foundIndex = M.findPredicate(t, contains)
+
+        if foundIndex ~= nil then
+            table.remove(t, foundIndex)
+        end
+    end
+    return t
+end
 --
 -- Return file scheme if any
 --
