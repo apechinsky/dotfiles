@@ -3,7 +3,9 @@ return {
 
     version = '*',
 
-    dependencies = { 'L3MON4D3/LuaSnip', version = 'v2.*' },
+    dependencies = {
+        { 'L3MON4D3/LuaSnip', version = 'v2.*' },
+    },
 
     opts = {
         keymap = { preset = 'default' },
@@ -13,10 +15,10 @@ return {
             nerd_font_variant = 'mono'
         },
         snippets = {
-            -- preset = 'luasnip'
+            preset = 'luasnip'
         },
         sources = {
-            default = { 'lsp', 'path', 'luasnip', 'buffer' },
+            default = { 'lsp', 'path', 'snippets', 'buffer' },
         },
     },
 }
