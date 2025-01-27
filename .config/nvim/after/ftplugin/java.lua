@@ -44,6 +44,10 @@ local java_debug_adapter_libs =
 
 local java_test_adapter_libs =
     getBundles(utils.child(java_test_adapter_home, 'extension/server/*.jar'))
+java_test_adapter_libs = utils.filter(java_test_adapter_libs, {
+    'runner-jar-with-dependencies.jar',
+    'jacocoagent.jar'
+})
 
 local java_decompiler_libs =
     getBundles(utils.child(java_decompiler_home, 'server/*.jar'))
@@ -60,7 +64,6 @@ local bundles = utils.concat(
     java_decompiler_libs
     -- jbang_adapter_libs
 )
-
 
 local project = require('anton.java.gradle').find(utils.get_current_file())
     or require('anton.java.single-file-project').get(utils.get_current_file())

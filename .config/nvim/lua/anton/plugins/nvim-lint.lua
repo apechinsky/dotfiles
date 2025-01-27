@@ -11,7 +11,7 @@ return {
 
         lint.linters_by_ft = {
             -- markdown = { 'markdownlint', 'vale' },
-            vimwiki = { 'markdownlint', 'vale' },
+            -- vimwiki = { 'markdownlint', 'vale' },
             -- sh = { 'shellcheck' },
         }
 
