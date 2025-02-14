@@ -41,11 +41,55 @@ function M.get_config(property, default)
     return webui
 end
 
+---
+--- Trim string.
+---
+--- @param str string to trim.
+--- @return string without leading and trailing whitespaces.
+---
+function M.trim(str)
+    return str:gsub("%s+$", ""):gsub("^%s+", "")
+end
+
+---
+--- Return current branch name
+---
+function M.get_current_branch()
+    return M.trim(vim.fn.system("git branch --show-current"))
+end
+
 --
--- Obtain Git WebUI root URL
+-- Obtain Git WebUI root URL from git config (remote.origin.webui)
 --
-function M.git_webui_root()
+function M.get_config_webui_root()
     return M.get_config(webui_git_property)
+end
+
+--
+-- Detect Git WebUI root from remote URL
+--
+-- Extracts host  and path from remote URL and constructs WebUI URL.
+-- URL is constructed as 'https://<host>/<path>/blob/<branch>'
+--
+-- @return WebUI root URL
+--
+function M.detect_webui_root()
+    local gitUrl = M.get_config('remote.origin.url')
+
+    local result = nil
+
+    -- TODO: move URL parsing to separate class
+    if gitUrl:match("^git@") then
+        local _,_,host,path = gitUrl:find("git@(.+):(.+).git")
+        result = string.format("https://%s/%s/blob/%s",
+            host, path, M.get_current_branch())
+    elseif gitUrl:match("^https:") then
+        local _,_,host,path = gitUrl:find("https://(.+)/(.+).git")
+        result = string.format("https://%s/%s/blob/%s",
+            host, path, M.get_current_branch())
+    end
+
+    return result
 end
 
 --
@@ -71,7 +115,7 @@ end
 -- Returns git_webui_root if no current file.
 --
 function M.git_webui_current()
-    local webui_root = M.git_webui_root()
+    local webui_root = M.get_config_webui_root() or M.detect_webui_root()
     if webui_root == nil or webui_root == '' then
         return nil
     end
