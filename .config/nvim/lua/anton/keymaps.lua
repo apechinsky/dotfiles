@@ -60,6 +60,10 @@ vim.keymap.set('n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { desc = 'Save and :ma
 -- vim.keymap.set('n', '<leader>D', vim.cmd.DBUIToggle, { desc = 'DBUIToggle' })
 vim.keymap.set('n', '<leader>D', ':DBUIToggle<CR>', { desc = 'DBUIToggle' })
 
+vim.keymap.set('n', '<leader>cc', function ()
+    require("copilot.suggestion").toggle_auto_trigger()
+end, { desc = 'Copilot autotrigger toggle' })
+
 
 M.luasnip_keymap = function(luasnip)
     vim.keymap.set({"i"}, "<C-K>", function() luasnip.expand() end, {silent = true})
