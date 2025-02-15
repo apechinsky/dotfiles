@@ -168,8 +168,6 @@ set +o noclobber
 # prevent shell from being closed with ctrl-d
 set -o ignoreeof
 
-source /opt/asdf-vm/asdf.sh
-
 [[ -f ~/.fzf.zsh ]] && source $HOME/.fzf.zsh
 
 
@@ -179,6 +177,12 @@ source /usr/share/fzf/key-bindings.zsh
 # Add JBang to environment
 alias j!=jbang
 export PATH="$HOME/.jbang/bin:$PATH"
+
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+# append completions to fpath
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
 
 # Source the Lazyman shell initialization for aliases and nvims selector
 # shellcheck source=.config/nvim-Lazyman/.lazymanrc
