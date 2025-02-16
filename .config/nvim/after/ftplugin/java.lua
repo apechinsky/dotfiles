@@ -1,3 +1,6 @@
+-- Java LSP configuration
+-- See: Troubleshooting at the end of the file
+
 local HOME = os.getenv('HOME')
 local utils = require('anton.core.utils')
 local xdg = require("anton.core.xdg")
@@ -108,7 +111,7 @@ local config = {
 -- The command that starts the language server
 -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
 config.cmd = {
-    utils.child(HOME, 'opt/jdk-17/bin/java'),
+    utils.child(HOME, 'opt/jdk-21/bin/java'),
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -129,7 +132,7 @@ config.settings = {
 
     -- see JavaConfiguration class
     java = {
-        home = HOME .. '/opt/jdk-17',
+        home = HOME .. '/opt/jdk-21',
         eclipse = {
             downloadSources = true,
         },
@@ -276,4 +279,13 @@ dap.configurations.java = {
 }
 
 jdtls.start_or_attach(config)
+
+
+---
+-- Troubleshooting
+--
+-- Problem: jdtls exits with code X
+--
+-- Solution: Check the log file (jdtls_home/config_linux/*.log):
+-- ~/.local/share/nvim/mason/packages/jdtls/config_linux/*.log
 
