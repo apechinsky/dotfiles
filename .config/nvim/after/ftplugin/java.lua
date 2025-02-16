@@ -6,6 +6,7 @@ local utils = require('anton.core.utils')
 local xdg = require("anton.core.xdg")
 local jdtls = require("jdtls")
 local mason = require('mason-registry')
+local vscode_ext = require('anton.java.vscode')
 
 vim.opt_local.colorcolumn = { 80, 130 }
 vim.opt_local.suffixes:append({ '.java' })
@@ -30,31 +31,9 @@ end
 -- Java Language Server configuration.
 local jdtls_home = mason.get_package('jdtls'):get_install_path()
 
-local java_debug_adapter_home = mason.get_package('java-debug-adapter'):get_install_path()
-local java_test_adapter_home = mason.get_package('java-test'):get_install_path()
-local java_decompiler_home = mason.get_package('vscode-java-decompiler'):get_install_path()
-
-local function getBundles(pattern)
-    local files = utils.get_files(pattern)
-    if #files == 0 then
-       vim.notify("No bundles found with pattern '" .. pattern .. "'", vim.log.levels.WARN)
-    end
-    return files
-end
-
-local java_debug_adapter_libs =
-    getBundles(utils.child(java_debug_adapter_home, 'extension/server/com.microsoft.java.debug.plugin-*.jar'))
-
-local java_test_adapter_libs =
-    getBundles(utils.child(java_test_adapter_home, 'extension/server/*.jar'))
-java_test_adapter_libs = utils.filter(java_test_adapter_libs, {
-    'runner-jar-with-dependencies.jar',
-    'jacocoagent.jar'
-})
-
-local java_decompiler_libs =
-    getBundles(utils.child(java_decompiler_home, 'server/*.jar'))
-
+local java_debug_adapter = vscode_ext:new(mason.get_package('java-debug-adapter'):get_install_path(), 'extension')
+local java_test_adapter = vscode_ext:new(mason.get_package('java-test'):get_install_path(), 'extension')
+local java_decompiler = vscode_ext:new(mason.get_package('vscode-java-decompiler'):get_install_path())
 
 -- 2023-12-09 Experimental
 local jbang_adapter_home = xdg.config('java/jbang-eclipse')
@@ -62,9 +41,9 @@ local jbang_adapter_libs =
     utils.get_files(utils.child(jbang_adapter_home, 'target/*.jar'))
 
 local bundles = utils.concat(
-    java_debug_adapter_libs,
-    java_test_adapter_libs,
-    java_decompiler_libs
+    java_debug_adapter:bundles(),
+    java_test_adapter:bundles(),
+    java_decompiler:bundles()
     -- jbang_adapter_libs
 )
 

@@ -115,6 +115,22 @@ function M.find(t, value)
     end)
 end
 
+--
+-- Transform each item of the table using action
+--
+-- @param t table
+-- @param action function
+-- @return new table
+--
+function M.transform(t, action)
+    local result = {}
+    for _, item in ipairs(t) do
+        local value = action(item)
+        table.insert(result, value)
+    end
+    return result
+end
+
 
 --
 -- Add all items of the second table to the first one
@@ -241,6 +257,26 @@ function M.bufopts(bufopts, desc)
         buffer = bufopts.buffer,
         desc = desc
     }
+end
+
+--
+-- Returns file content
+--
+-- @param file_path path to file
+-- @return file content of nil if file does not exist
+--
+function M.load(file_path)
+    local file = io.open(file_path, 'r')
+
+    if not file then
+        return nil
+    end
+
+    local content = file:read('*all')
+
+    file:close()
+
+    return content
 end
 
 return M
