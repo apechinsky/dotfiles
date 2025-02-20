@@ -205,10 +205,10 @@ function M.get_dir_name(dir)
 end
 
 --
--- Find any of specified files starting from bufname or current 
+-- Find any of specified files or directories starting from bufname or current 
 -- buffer file and up to the FS root.
 --
--- @param markers list of file names to find
+-- @param markers list of file or directory names to find
 -- @param bufname file name. If not specified, current buffer file is used
 --
 function M.find_any(markers, bufname)
@@ -223,8 +223,8 @@ function M.find_any(markers, bufname)
 
     while getparent(dirname) ~= dirname do
         for _, marker in ipairs(markers) do
-            -- print(dirname .. "/" .. marker)
-            if vim.fn.filereadable(dirname .. "/" .. marker) ~= 0 then
+            local fullName = dirname .. "/" .. marker
+            if vim.fn.filereadable(fullName) == 1 or vim.fn.isdirectory(fullName) == 1 then
                 return dirname
             end
         end
