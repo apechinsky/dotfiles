@@ -42,7 +42,7 @@ end, { desc = 'Yank current file path to clipboard (+ register)' })
 -- p - paste
 vim.keymap.set('n', '<leader>bp', 'gg"_dGp<CR>', { desc = 'Replace buffer with clipboard' })
 vim.keymap.set('n', '<leader>by', ':%y<CR>', { desc = 'Yank entire buffer' })
-vim.keymap.set({'n', 'v'}, '<leader>p', '"0p', { desc = 'Paste last yanked (0 register)' })
+vim.keymap.set({ 'n', 'v' }, '<leader>p', '"0p', { desc = 'Paste last yanked (0 register)' })
 
 -- swap true/false values
 vim.keymap.set('n', '<leader>s', ':call SwapBool()<CR>', { desc = 'Swap true/false' });
@@ -60,21 +60,21 @@ vim.keymap.set('n', '<F10>', ':wall<CR>:make<CR>:cw<CR>', { desc = 'Save and :ma
 -- vim.keymap.set('n', '<leader>D', vim.cmd.DBUIToggle, { desc = 'DBUIToggle' })
 vim.keymap.set('n', '<leader>D', ':DBUIToggle<CR>', { desc = 'DBUIToggle' })
 
-vim.keymap.set('n', '<leader>cc', function ()
+vim.keymap.set('n', '<leader>cc', function()
     require("copilot.suggestion").toggle_auto_trigger()
 end, { desc = 'Copilot autotrigger toggle' })
 
 
 M.luasnip_keymap = function(luasnip)
-    vim.keymap.set({"i"}, "<C-K>", function() luasnip.expand() end, {silent = true})
-    vim.keymap.set({"i", "s"}, "<C-L>", function() luasnip.jump( 1) end, {silent = true})
-    vim.keymap.set({"i", "s"}, "<C-J>", function() luasnip.jump(-1) end, {silent = true})
+    vim.keymap.set({ "i" }, "<C-K>", function() luasnip.expand() end, { silent = true })
+    vim.keymap.set({ "i", "s" }, "<C-L>", function() luasnip.jump(1) end, { silent = true })
+    vim.keymap.set({ "i", "s" }, "<C-J>", function() luasnip.jump(-1) end, { silent = true })
 
-    vim.keymap.set({"i", "s"}, "<C-E>", function()
+    vim.keymap.set({ "i", "s" }, "<C-E>", function()
         if luasnip.choice_active() then
             luasnip.change_choice(1)
         end
-    end, {silent = true})
+    end, { silent = true })
 end
 
 -- move selection up and down
@@ -85,8 +85,8 @@ end
 -- vim.diagnostic.disable()
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<leader>de', function () vim.diagnostic.enable(true) end, opts)
-vim.keymap.set('n', '<leader>dd', function () vim.diagnostic.enable(false) end, opts)
+vim.keymap.set('n', '<leader>de', function() vim.diagnostic.enable(true) end, opts)
+vim.keymap.set('n', '<leader>dd', function() vim.diagnostic.enable(false) end, opts)
 vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
@@ -101,6 +101,9 @@ M.telescope_keymap = function(telescope)
     vim.keymap.set('n', '<leader>fw', telescope.grep_string, { desc = '[F]ind current [W]ord' })
     vim.keymap.set('n', '<leader>fo', telescope.oldfiles, { desc = '[F]ind recently opened files' })
     vim.keymap.set('n', '<leader>fs', telescope.git_status, { desc = '[F]ind git [S]tatus files' })
+    vim.keymap.set('n', '<leader>fm', function()
+        telescope.find_files { cwd = vim.fn.stdpath('config') }
+    end, { desc = '[F]ind vi[M] config files' })
 end
 
 
@@ -126,7 +129,6 @@ M.lsp_keymap = function(bufopts)
 end
 
 M.java_keymap = function(jdtls, bufopts)
-
     vim.keymap.set('n', '<leader>tt', require('jdtls.tests').goto_subjects,
         vimutils.bufopts(bufopts, 'Switch between test and subject'))
 
@@ -147,7 +149,7 @@ M.java_keymap = function(jdtls, bufopts)
     vim.keymap.set("n", "<leader>oi", jdtls.organize_imports, { desc = "Organize imports" })
     vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, { desc = "Extract variable" })
     vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, { desc = "Extract constant" })
-    vim.keymap.set({"n", "v"}, "<leader>em", jdtls.extract_method, { desc = "Extract method" })
+    vim.keymap.set({ "n", "v" }, "<leader>em", jdtls.extract_method, { desc = "Extract method" })
 end
 
 M.dap_keymap = function(dap, bufopts)
@@ -169,11 +171,11 @@ M.dap_keymap = function(dap, bufopts)
         dap.toggle_breakpoint()
     end, vimutils.bufopts(bufopts, 'Debug. Toggle breakpoint <Ctrl-F8>.'))
 
-    vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
+    vim.keymap.set({ 'n', 'v' }, '<Leader>dh', function()
         require('dap.ui.widgets').hover(nil, { border = "rounded" })
     end)
 
-    vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
+    vim.keymap.set({ 'n', 'v' }, '<Leader>dp', function()
         require('dap.ui.widgets').preview()
     end)
 
