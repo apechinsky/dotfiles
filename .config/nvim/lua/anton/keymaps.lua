@@ -13,8 +13,6 @@ vim.keymap.set('n', "<Leader>nf", vim.cmd.NvimTreeFindFile, { desc = 'NvimTree F
 
 vim.keymap.set('n', "<Leader>cw", ":%s/\\s\\+$//g<CR>", { desc = 'Remove tailing whitespaces' })
 
--- Open current file in git web ui.
--- Define web ui root with 'git config remote.origin.webui'
 vim.keymap.set('n', '<leader>go', function()
     require('anton.core.git').open_git_webui_current()
 end, { desc = 'Open current file in Git web UI (remote.origin.webui)' })
@@ -64,6 +62,11 @@ vim.keymap.set('n', '<leader>cc', function()
     require("copilot.suggestion").toggle_auto_trigger()
 end, { desc = 'Copilot autotrigger toggle' })
 
+vim.keymap.set('n', '<leader>x', ':.lua<CR>', { desc = 'Execute current line with lua' })
+vim.keymap.set('v', '<leader>x', ":'<,'>lua<CR>", { desc = 'Execute selection with lua' })
+
+vim.keymap.set('n', '<M-j>', ':cnext<CR>', { desc = 'Next quickfix' })
+vim.keymap.set('n', '<M-k>', ':cprev<CR>', { desc = 'Previous quickfix' })
 
 M.luasnip_keymap = function(luasnip)
     vim.keymap.set({ "i" }, "<C-K>", function() luasnip.expand() end, { silent = true })
@@ -85,12 +88,12 @@ end
 -- vim.diagnostic.disable()
 
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<leader>de', function() vim.diagnostic.enable(true) end, opts)
-vim.keymap.set('n', '<leader>dd', function() vim.diagnostic.enable(false) end, opts)
-vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<leader>de', function() vim.diagnostic.enable(true) end, { desc = 'Enable diagnostics' })
+vim.keymap.set('n', '<leader>dd', function() vim.diagnostic.enable(false) end, { desc = 'Disable diagnostics' })
+vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, { desc = 'Open diagnostics in float' })
+vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics to loclist' })
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic' })
 
 M.telescope_keymap = function(telescope)
     vim.keymap.set('n', '<leader>ff', telescope.find_files, { desc = '[F]ind [F]iles' })
