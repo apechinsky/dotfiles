@@ -25,7 +25,9 @@ vim.g.trans_default_direction = ":ru"
 vim.keymap.set('n', '<leader>d', vim.cmd.Trans, { desc = 'Translate' })
 
 -- open vim terminal
-vim.keymap.set('n', '<leader>ot', ":split term://zsh<CR>", { desc = 'Open VIM Terminal' })
+-- vim.keymap.set('n', '<leader>ot', ":split term://zsh<CR>", { desc = 'Open VIM Terminal' })
+vim.keymap.set({'n', 't'}, '<leader>tt', vim.cmd.Terminal, { desc = 'Open floating Terminal' })
+vim.keymap.set({'n', 't'}, '<leader>ot', vim.cmd.NewTerminal, { desc = 'Open new Terminal' })
 
 -- exit from insert mode in terminal with Esc
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
