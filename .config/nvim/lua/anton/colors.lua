@@ -9,6 +9,13 @@ function FixHabamaxColors()
     vim.cmd("highlight SignifySignDelete ctermfg=red    guifg=#880000 cterm=NONE gui=NONE")
     vim.cmd("highlight SignifySignChange ctermfg=yellow guifg=#888800 cterm=NONE gui=NONE")
 
+    -- Fix. Float window border is not visible since
+    -- FloatBorder -> WinSeparator -> VertSplit which use thes same color
+    -- background and foreground.
+    -- So we link VertSplit to Normal
+    vim.cmd("highlight! link VertSplit Normal")
+    vim.cmd("highlight! link NormalFloat Normal")
+
     -- Fix match brace colors
     -- vim.cmd("highlight MatchParen ctermbg=lightgreen ctermfg=black guibg=lightgreen guifg=black")
 end
