@@ -35,32 +35,68 @@ end
 --
 function M.get_property(file, key)
     for line in io.lines(file) do
-        local s, e = string.find(line, key)
+        local s, _ = string.find(line, key)
         if s ~= nil then
             return M.get_value(line)
         end
     end
 end
 
-function M.trim_right(path, char)
-    M.assert_not_empty(path, "Trim path must not be nil or empty")
-    M.assert_not_empty(char, "Trim char must not be nil or empty")
+--
+-- Remove trailing 'char' from 'str'
+--
+-- @param str string to trim (non-nil)
+-- @param char character to remove (non empty and not nil)
+-- @return trimmed string
+-- @throws error if 'str' is nil or 'char' is nil or empty
+--
+function M.trim_right(str, char)
+    assert(str ~= nil, "Argument 'str' must not be nil")
+    M.assert_not_empty(char, "Argument 'char' must not be nil or empty")
 
-    local result = path
+    if str == '' then
+        return str
+    end
+
+    local result = str
     while string.sub(result, #result, #result) == char do
         result = string.sub(result, 1, #result - 1)
     end
     return result
 end
 
-function M.trim_left(path, char)
-    M.assert_not_empty(char, "Trim char must not be nil or empty")
+--
+-- Remove leading 'char' from 'str'
+--
+-- @param str string to trim (non-nil)
+-- @param char character to remove (non empty and not nil)
+-- @return trimmed string
+-- @throws error if 'str' is nil or 'char' is nil or empty
+function M.trim_left(str, char)
+    assert(str ~= nil, "Argument 'str' must not be nil")
+    M.assert_not_empty(char, "Argument 'char' must not be nil or empty")
 
-    local result = path
+    if str == '' then
+        return str
+    end
+
+    local result = str
     while string.sub(result, 1, 1) == char do
         result = string.sub(result, 2, #result)
     end
     return result
+end
+
+--
+-- Remove trailing and leading 'char' from 'str'.
+--
+-- @param str string to trim (non-nil)
+-- @param char character to remove (non empty and not nil)
+-- @return trimmed string
+-- @throws error if 'str' is nil or 'char' is nil or empty
+--
+function M.trim(path, char)
+    return M.trim_left(M.trim_right(path, char), char)
 end
 
 function M.trim_right_slash(path)

@@ -8,6 +8,7 @@ local on_attach = function(client, bufnr)
     require('anton.keymaps').lsp_keymap(bufopts)
 end
 
+
 --
 local servers = {
     jdtls = {
@@ -62,7 +63,7 @@ local servers = {
     },
 
     groovyls = {
-    }
+    },
 }
 
 return {
