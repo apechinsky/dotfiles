@@ -9,7 +9,7 @@ return {
         -- provider = "copilot",
         -- auto_suggestions_provider = "copilot",
         --
-        on_complete = function (param)
+        on_complete = function(param)
             vim.notify("on_complete", vim.log.levels.INFO, {})
             print(vim.inspect(param))
         end,

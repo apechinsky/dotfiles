@@ -24,6 +24,7 @@ return {
         ensure_installed = {
             "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline",
             "java", "javascript", "typescript", "json", "yaml", "ruby", "http",
+            "kotlin",
         },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
