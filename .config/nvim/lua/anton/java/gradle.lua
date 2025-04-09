@@ -204,7 +204,6 @@ end
 function Gradle:run_java_test_class()
     local module = self:get_module(utils.get_current_file())
     local class = java_utils.get_current_class_full()
-    print(self:get_test_runner(module, class))
     if class then
         vim.cmd('w | split | terminal ' .. self:get_test_runner(module, class))
     else
