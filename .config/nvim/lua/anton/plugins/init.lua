@@ -1,5 +1,5 @@
 return {
-    {'numToStr/Comment.nvim', config = true},
+    { 'numToStr/Comment.nvim', config = true },
     'nvim-lua/plenary.nvim',
     'tpope/vim-surround',
     'tpope/vim-unimpaired',

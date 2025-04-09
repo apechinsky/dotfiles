@@ -3,7 +3,7 @@ return {
     cmd = "Copilot",
     event = "InsertEnter",
 
-    enabled = false,
+    enabled = true,
 
     opts = {
         suggestion = {
@@ -33,5 +33,7 @@ return {
         if proxy ~= vim.NIL then
             vim.g.copilot_proxy = 'http://' .. proxy
         end
+
+        require("copilot.api").status = require("copilot.status")
     end,
 }

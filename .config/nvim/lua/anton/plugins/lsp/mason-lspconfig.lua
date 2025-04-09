@@ -4,6 +4,9 @@ local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+    -- Disable semantic tokens hightlighting since they interfere with treesitter groups
+    client.server_capabilities.semanticTokensProvider = nil
+
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     require('anton.keymaps').lsp_keymap(bufopts)
 end

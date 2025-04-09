@@ -30,6 +30,7 @@ end
 -- @return property value or nil default value (nil)
 --
 function M.get_config(property, default)
+    -- will fail if PWD is not in git repo!!!
     local webui = vim.fn.system("git config " .. property)
 
     if webui ~= nil and webui ~= '' then

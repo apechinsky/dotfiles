@@ -230,8 +230,11 @@ config.settings = {
     },
 }
 
-local function on_attach_delegate(_, bufnr)
+local function on_attach_delegate(client, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
+
+    -- Disable semantic tokens hightlighting since they interfere with treesitter groups
+    client.server_capabilities.semanticTokensProvider = nil
 
     require('anton.keymaps').lsp_keymap(bufopts)
     require('anton.keymaps').java_keymap(jdtls, bufopts)
