@@ -35,7 +35,10 @@ function M:package_json()
 end
 
 --
--- Returns list of extension bundles
+-- Returns list of extension bundles.
+--
+-- Bundles are jar files that have special manifest files.
+-- The method obtains list of bundles from package.json/contributes/javaExtensions property.
 --
 -- @return table containing absolute paths to extension bundles
 --
@@ -47,5 +50,11 @@ function M:bundles()
     end)
 end
 
+--
+-- Returns list of extension jar files.
+--
+function M:jars()
+    return utils.get_files(utils.child(self.package_json_dir, 'server/*.jar'))
+end
 
 return M

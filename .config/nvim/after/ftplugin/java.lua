@@ -28,12 +28,16 @@ local function getWorkspaceDir(projectName)
     return xdg.data('jdtls/' .. projectName)
 end
 
--- Java Language Server configuration.
-local jdtls_home = mason.get_package('jdtls'):get_install_path()
+local function getMasonPackage(name)
+    return vim.fn.expand("$MASON/packages/" .. name)
+end
 
-local java_debug_adapter = vscode_ext:new(mason.get_package('java-debug-adapter'):get_install_path(), 'extension')
-local java_test_adapter = vscode_ext:new(mason.get_package('java-test'):get_install_path(), 'extension')
-local java_decompiler = vscode_ext:new(mason.get_package('vscode-java-decompiler'):get_install_path())
+-- Java Language Server configuration.
+local jdtls_home = getMasonPackage("jdtls")
+
+local java_debug_adapter = vscode_ext:new(getMasonPackage('java-debug-adapter'), 'extension')
+local java_decompiler = vscode_ext:new(getMasonPackage('vscode-java-decompiler'))
+local java_test_adapter = vscode_ext:new(getMasonPackage('java-test'), 'extension')
 
 -- 2023-12-09 Experimental
 local jbang_adapter_home = xdg.config('java/jbang-eclipse')

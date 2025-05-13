@@ -111,3 +111,29 @@ function WsLogLua()
 end
 vim.api.nvim_create_user_command('WS', function(_) WsLogLua() end, {})
 
+
+--
+-- Add current file and line as quickfix entry
+-- Useful to create list of location on the fly and save/share it for later use.
+--
+-- @param message optional message
+--
+function AddToQuickfixList(message)
+    local text = message
+    if text == nil or text == '' then
+        text = vim.fn.getline('.')
+    end
+
+    local entry = {
+        filename = vim.fn.expand('%'),
+        lnum = vim.fn.line('.'),
+        text = text
+    }
+
+    vim.fn.setqflist({}, 'a', {items = { entry } } )
+end
+
+vim.api.nvim_create_user_command('AddQuickfix',
+    function(opts) AddToQuickfixList(opts.args) end,
+    { nargs = '?' })
+

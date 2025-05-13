@@ -99,6 +99,13 @@ function M.trim(path, char)
     return M.trim_left(M.trim_right(path, char), char)
 end
 
+--
+-- Remove trailing and leading spaces from 'str'.
+-- TODO: replace space with whitespace
+function M.trim(path)
+    return M.trim_left(M.trim_right(path, ' '), ' ')
+end
+
 function M.trim_right_slash(path)
     return M.trim_right(path, '/')
 end
