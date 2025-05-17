@@ -3,7 +3,7 @@ return {
     cmd = "Copilot",
     event = "InsertEnter",
 
-    enabled = true,
+    enabled = false,
 
     opts = {
         suggestion = {
