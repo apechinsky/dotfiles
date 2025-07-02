@@ -21,6 +21,9 @@ local servers = {
         disabled = true
     },
 
+    kotlin_lsp = {
+    },
+
     clangd = {
     },
 
@@ -85,7 +88,7 @@ return {
             "bashls",
             "jsonls",
             "yamlls",
-            "clangd",
+            "kotlin_lsp",
         },
 
         handlers = {

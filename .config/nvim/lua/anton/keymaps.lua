@@ -119,6 +119,7 @@ M.lsp_keymap = function(bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', 'gR', require('telescope.builtin').lsp_references, bufopts)
+    vim.keymap.set('n', 'gs', require('telescope.builtin').lsp_dynamic_workspace_symbols, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set('n', '<leader>wl', function()
@@ -171,8 +172,6 @@ M.dap_keymap = function(dap, bufopts)
         dap.continue()
     end, vimutils.bufopts(bufopts, 'Debug. Continue.'))
 
-    vim.keymap.set('n', '<F10>', vim.cmd.DapToggleRepl, vimutils.bufopts(bufopts, 'Debug. REPL.'))
-
     vim.keymap.set('n', '<F32>', function()
         dap.toggle_breakpoint()
     end, vimutils.bufopts(bufopts, 'Debug. Toggle breakpoint <Ctrl-F8>.'))
@@ -198,8 +197,11 @@ end
 
 M.dapui_keymap = function(dapui, bufopts)
     vim.keymap.set('n', '<F11>', function()
-        dapui.toggle()
-    end, vimutils.bufopts(bufopts, 'Debug. Toggle DAP UI'))
+        dapui.toggle(2)
+    end, vimutils.bufopts(bufopts, 'Debug. Toggle DAP Console'))
+    vim.keymap.set('n', '<F12>', function()
+        dapui.toggle(1)
+    end, vimutils.bufopts(bufopts, 'Debug. Toggle DAP Scopes, Watches, Repl'))
 end
 
 require("which-key").add({
