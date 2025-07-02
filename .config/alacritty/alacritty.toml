@@ -11,7 +11,7 @@ log_level = "Warn"
 render_timer = false
 
 [font]
-size = 16.0
+size = 15.0
 
 [font.bold]
 family = "JetBrainsMono Nerd Font"
