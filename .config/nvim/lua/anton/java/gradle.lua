@@ -28,7 +28,11 @@ function Gradle:new(root_dir)
     instance.settings_file = instance:fileIfExists('settings.gradle')
         or instance:fileIfExists('settings.gradle.kts')
 
+    assert(instance.settings_file,
+        "Settings file not found in root_dir: '" .. root_dir .. "'")
+
     instance.name = utils.get_property(instance.settings_file, 'rootProject.name')
+
     assert(instance.name, "Can not obtain project name from " .. instance.settings_file)
 
     return instance
@@ -182,7 +186,7 @@ function Gradle:get_test_runner(module, test_filter)
         " -i " ..
         utils.format_if_present(':%s:', module) ..
         "test " ..
-        utils.format_if_present(' --tests %s', test_filter)
+        utils.format_if_present('--rerun-tasks --tests %s', test_filter)
 end
 
 --
@@ -226,11 +230,12 @@ local M = {}
 --
 -- Find gradle project and return Gradle class instance
 --
--- @param a file from which to find the Gradle root dir ('gradlew' file)
+-- @param a file from which to find the Gradle root dir
+--      ('gradlew' or 'settings.gradle' files)
 -- @return an instance of Gradle class or nil if the root was not found
 --
 function M.find(start_file)
-    local root_dir = utils.find_any({ gradlew }, start_file)
+    local root_dir = utils.find_any({ gradlew, 'settings.gradle' }, start_file)
     return root_dir and Gradle:new(root_dir) or nil
 end
 

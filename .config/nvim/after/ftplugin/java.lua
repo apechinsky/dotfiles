@@ -90,7 +90,6 @@ local config = {
 
     capabilities = capabilities,
 }
-
 -- The command that starts the language server
 -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
 config.cmd = {
@@ -110,6 +109,9 @@ config.cmd = {
     '-configuration', utils.child(jdtls_home, "config_linux"),
     '-data', workspace_dir,
 }
+config.on_error = function(err)
+      print(vim.inspect(err))
+end
 
 config.settings = {
 

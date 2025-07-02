@@ -62,7 +62,6 @@ JIRA_URL=https://jira.qulix.com
 plugins=(
     git
     git-prompt
-    adb
     docker
     history-substring-search
     spring
@@ -191,8 +190,11 @@ autoload -Uz compinit && compinit
 # shellcheck source=.config/nvim-Lazyman/.nvimsbind
 [ -f ~/.config/nvim-Lazyman/.nvimsbind ] && source ~/.config/nvim-Lazyman/.nvimsbind
 
+
+
 # CSREPO tool initialization
 [[ -d "/home/apechinsky/.csrepo/bin" ]] && export PATH="$PATH:/home/apechinsky/.csrepo/bin"
 
 eval "$(zoxide init --cmd cd zsh)"
 
+export VAGRANT_HOME="/home/apechinsky/vm/vagrant"
