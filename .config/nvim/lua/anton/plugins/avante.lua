@@ -67,6 +67,7 @@ return {
         "stevearc/dressing.nvim",
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim",
+        -- "zbirenbaum/copilot.lua",
         -- --- The below dependencies are optional,
         -- "nvim-tree/nvim-web-devicons",
         -- "zbirenbaum/copilot.lua",  -- for providers='copilot'

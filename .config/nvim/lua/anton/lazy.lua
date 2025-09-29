@@ -26,6 +26,9 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+    git = {
+        timeout = 180
+    },
     spec = {
         { import = 'anton/plugins' },
         { import = "anton.plugins.lsp" }

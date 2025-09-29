@@ -1,3 +1,5 @@
+-- Copilot plugin
+-- Don't forget to authenticate with `:Copilot auth`
 return {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
