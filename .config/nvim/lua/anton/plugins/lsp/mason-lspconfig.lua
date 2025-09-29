@@ -24,9 +24,9 @@ local servers = {
     kotlin_lsp = {
     },
 
-    clangd = {
-    },
-
+    -- clangd = {
+    -- },
+    --
     pyright = {
     },
 
