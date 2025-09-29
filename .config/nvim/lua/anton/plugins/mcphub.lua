@@ -6,7 +6,9 @@ return {
     build = "npm install -g mcp-hub@latest",
     opts = {
         config = vim.fn.expand("~/.config/mcphub/servers.json"),
+
         native_servers = {
+            -- my vim-native MCP server example
             weather = require('anton.mcp.weather')
         }
     }

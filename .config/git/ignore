@@ -9,3 +9,5 @@ build
 .classpath
 .factorypath
 bin/
+
+**/.claude/settings.local.json

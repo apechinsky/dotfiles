@@ -61,7 +61,7 @@ local project = require('anton.java.gradle').find(utils.get_current_file())
 local workspace_dir = getWorkspaceDir(project:get_name())
 
 -- TODO: enabling diagnostics here causes strange errors when navigating between java files
--- vim.diagnostic.enable()
+vim.diagnostic.enable()
 
 -- is this needed???
 -- local capabilities = vim.lsp.protocol.make_client_capabilities()
