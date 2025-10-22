@@ -48,8 +48,12 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.path:append("**")
 
+-- Clipboard settings
 -- yank (copy/cut) to system clipboard
 vim.opt.clipboard:append("unnamedplus")
+-- OSC52 provider supports copy from remote SSH session
+vim.g.clipboard = 'osc52'
+
 
 -- vim.g.spellfile_URL = 'http://ftp.nluug.nl/vim/runtime/spell'
 -- vim.g.spellfile_URL = 'http://ftp.vim.org/pub/vim/runtime/spell'
@@ -64,7 +68,6 @@ vim.opt.wildignore:append("**/node_modules/**")
 vim.opt.wildignore:append("**/*.class")
 
 
-
 -- highlight tabs and trailing spaces
 -- old config. There are two commands
 -- command! WhitespaceAll set list listchars=eol:¬,tab:>·,trail:◦,extends:>,precedes:<,space:◦
@@ -73,20 +76,6 @@ vim.cmd("set list listchars=tab:>·,trail:◦")
 
 vim.opt.thesaurus:append(os.getenv("HOME") .. "/.config/nvim/thesaurus/thesaurus.txt")
 
--- specify clipboard program
--- fix clipboard.vim startup problem: https://www.reddit.com/r/neovim/comments/uqa947/clipboard_setup_startuptime/
-vim.g.clipboard = {
-    name = "xsel",
-    copy = {
-        ["+"] = "xsel --nodetach -i -b",
-        ["*"] = "xsel --nodetach -i -p",
-    },
-    paste = {
-        ["+"] = "xsel -b",
-        ["*"] = "xsel -p",
-    },
-    cache_enabled = 1,
-}
 
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0

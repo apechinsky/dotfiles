@@ -55,7 +55,13 @@ local project = require('anton.java.gradle').find(utils.get_current_file())
     or require('anton.java.maven').find(utils.get_current_file())
     or require('anton.java.single-file-project').get(utils.get_current_file())
 
--- project:dump()
+if not project then
+    vim.notify("Could not find Java project root file: " .. utils.get_current_file(), vim.log.levels.ERROR)
+    return
+end
+
+project:dump()
+
 -- local root_dir = project:get_root_dir()
 
 local workspace_dir = getWorkspaceDir(project:get_name())
