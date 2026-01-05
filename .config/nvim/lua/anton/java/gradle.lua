@@ -33,6 +33,12 @@ function Gradle:new(root_dir)
 
     instance.name = utils.get_property(instance.settings_file, 'rootProject.name')
 
+    if instance.name == nil then
+        -- Try to infer project name from root dir name
+        instance.name = Path:new(root_dir):make_relative(vim.loop.os_homedir())
+        instance.name = instance.name:gsub(Path._sep, '_')
+    end
+
     assert(instance.name, "Can not obtain project name from " .. instance.settings_file)
 
     return instance
