@@ -49,7 +49,10 @@ vim.opt.signcolumn = "yes"
 vim.opt.path:append("**")
 
 -- yank (copy/cut) to system clipboard
-vim.opt.clipboard:append("unnamedplus")
+-- vim.opt.clipboard:append("unnamedplus")
+vim.opt.clipboard = "unnamedplus"
+-- OSC52 supports transparent clipboard between SSH sessions
+-- vim.g.clipboard = 'osc52'
 
 -- vim.g.spellfile_URL = 'http://ftp.nluug.nl/vim/runtime/spell'
 -- vim.g.spellfile_URL = 'http://ftp.vim.org/pub/vim/runtime/spell'
@@ -72,21 +75,6 @@ vim.opt.wildignore:append("**/*.class")
 vim.cmd("set list listchars=tab:>·,trail:◦")
 
 vim.opt.thesaurus:append(os.getenv("HOME") .. "/.config/nvim/thesaurus/thesaurus.txt")
-
--- specify clipboard program
--- fix clipboard.vim startup problem: https://www.reddit.com/r/neovim/comments/uqa947/clipboard_setup_startuptime/
-vim.g.clipboard = {
-    name = "xsel",
-    copy = {
-        ["+"] = "xsel --nodetach -i -b",
-        ["*"] = "xsel --nodetach -i -p",
-    },
-    paste = {
-        ["+"] = "xsel -b",
-        ["*"] = "xsel -p",
-    },
-    cache_enabled = 1,
-}
 
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
