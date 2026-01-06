@@ -59,7 +59,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.spelllang = "en,ru"
 
 -- Make it possible to use vim navigation keys in normal mode when russian kb layout is active
-vim.opt.langmap = "ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>"
+vim.opt.langmap = "ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>"
 -- vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯЖЭ;ABCDEFGHIJKLMNOPQRSTUVWXYZ:\",фисвуапршолдьтщзйкыегмцчняжэ;abcdefghijklmnopqrstuvwxyz;'"
 
 
