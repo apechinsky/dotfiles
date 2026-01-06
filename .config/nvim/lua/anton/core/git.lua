@@ -49,9 +49,7 @@ end
 --- @return string without leading and trailing whitespaces.
 ---
 function M.trim(str)
-    local trimmed = str:gsub("%s+$", "")
-    trimmed = trimmed:gsub("^%s+", "")
-    return trimmed
+    return (str:gsub("%s+$", ""):gsub("^%s+", ""))
 end
 
 ---
@@ -83,6 +81,9 @@ function M.detect_webui_root()
 
     -- TODO: move URL parsing to separate class
     if gitUrl:match("^git@") then
+        local _,_,host,path = gitUrl:find("git@(.+):(.+).git")
+        result = string.format("https://%s/%s/blob", host, path)
+    elseif gitUrl:match("^ssh://git@") then
         local _,_,host,path = gitUrl:find("git@(.+):(.+).git")
         result = string.format("https://%s/%s/blob", host, path)
     elseif gitUrl:match("^https:") then
@@ -120,7 +121,6 @@ function M.git_webui_current()
     if webui_root == nil or webui_root == '' then
         return nil
     end
-
     local current_file_path = Path:new(utils.get_current_file())
     local current_file_relative = current_file_path:make_relative(M.find_git_root())
 
