@@ -49,7 +49,7 @@ end
 --- @return string without leading and trailing whitespaces.
 ---
 function M.trim(str)
-    return str:gsub("%s+$", ""):gsub("^%s+", "")
+    return (str:gsub("%s+$", ""):gsub("^%s+", ""))
 end
 
 ---
@@ -70,7 +70,7 @@ end
 -- Detect Git WebUI root from remote URL
 --
 -- Extracts host  and path from remote URL and constructs WebUI URL.
--- URL is constructed as 'https://<host>/<path>/blob/<branch>'
+-- URL is constructed as 'https://<host>/<path>/blob'
 --
 -- @return WebUI root URL
 --
@@ -82,12 +82,13 @@ function M.detect_webui_root()
     -- TODO: move URL parsing to separate class
     if gitUrl:match("^git@") then
         local _,_,host,path = gitUrl:find("git@(.+):(.+).git")
-        result = string.format("https://%s/%s/blob/%s",
-            host, path, M.get_current_branch())
+        result = string.format("https://%s/%s/blob", host, path)
+    elseif gitUrl:match("^ssh://git@") then
+        local _,_,host,path = gitUrl:find("git@(.+):(.+).git")
+        result = string.format("https://%s/%s/blob", host, path)
     elseif gitUrl:match("^https:") then
         local _,_,host,path = gitUrl:find("https://(.+)/(.+).git")
-        result = string.format("https://%s/%s/blob/%s",
-            host, path, M.get_current_branch())
+        result = string.format("https://%s/%s/blob", host, path)
     end
 
     return result
@@ -120,11 +121,10 @@ function M.git_webui_current()
     if webui_root == nil or webui_root == '' then
         return nil
     end
-
     local current_file_path = Path:new(utils.get_current_file())
     local current_file_relative = current_file_path:make_relative(M.find_git_root())
 
-    local current_file_url = utils.child(webui_root, current_file_relative)
+    local current_file_url = utils.child(webui_root, M.get_current_branch() .. "/" .. current_file_relative)
     local current_file_line = vim.api.nvim_win_get_cursor(0)[1]
 
     local line_fragment = string.format(M.git_webui_lineformat(), current_file_line)

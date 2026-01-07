@@ -52,7 +52,8 @@ vim.opt.path:append("**")
 -- yank (copy/cut) to system clipboard
 vim.opt.clipboard:append("unnamedplus")
 -- OSC52 provider supports copy from remote SSH session
-vim.g.clipboard = 'osc52'
+-- commented to check new version behavior
+-- vim.g.clipboard = 'osc52'
 
 
 -- vim.g.spellfile_URL = 'http://ftp.nluug.nl/vim/runtime/spell'
@@ -60,7 +61,7 @@ vim.g.clipboard = 'osc52'
 vim.opt.spelllang = "en,ru"
 
 -- Make it possible to use vim navigation keys in normal mode when russian kb layout is active
-vim.opt.langmap = "ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>"
+vim.opt.langmap = "ёйцукенгшщзхъфывапролджэячсмитьбю;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.,ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>"
 -- vim.opt.langmap = "ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯЖЭ;ABCDEFGHIJKLMNOPQRSTUVWXYZ:\",фисвуапршолдьтщзйкыегмцчняжэ;abcdefghijklmnopqrstuvwxyz;'"
 
 
@@ -75,7 +76,6 @@ vim.opt.wildignore:append("**/*.class")
 vim.cmd("set list listchars=tab:>·,trail:◦")
 
 vim.opt.thesaurus:append(os.getenv("HOME") .. "/.config/nvim/thesaurus/thesaurus.txt")
-
 
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
