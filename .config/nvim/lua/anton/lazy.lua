@@ -26,10 +26,15 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+    rocks = {
+        enabled = true,
+        hererocks = true
+    },
     git = {
         timeout = 180
     },
     spec = {
+        { import = 'anton/libs' },
         { import = 'anton/plugins' },
         { import = "anton.plugins.lsp" }
     },
