@@ -248,6 +248,17 @@ function M.get_dir_name(dir)
 end
 
 --
+-- Returns parent directory of the specified file or directory
+--
+function M.get_parent(file)
+    return vim.fn.fnamemodify(file, ':h')
+end
+
+function M.is_file_or_dir(file)
+    return vim.fn.filereadable(file) == 1 or vim.fn.isdirectory(file) == 1
+end
+
+--
 -- Find any of specified files or directories starting from bufname or current 
 -- buffer file and up to the FS root.
 --
@@ -260,18 +271,25 @@ function M.find_any(markers, bufname)
 
     local dirname = M.get_dir(bufname)
 
-    local getparent = function(p)
-        return vim.fn.fnamemodify(p, ':h')
-    end
+    -- while dirname is not a root
+    while M.get_parent(dirname) ~= dirname do
 
-    while getparent(dirname) ~= dirname do
         for _, marker in ipairs(markers) do
-            local fullName = dirname .. "/" .. marker
-            if vim.fn.filereadable(fullName) == 1 or vim.fn.isdirectory(fullName) == 1 then
-                return dirname
+            if type(marker) == 'function' then
+                if marker(dirname) then
+                    return dirname
+                end
+            elseif type(marker) == 'string' then
+                if M.is_file_or_dir(dirname .. "/" .. marker) then
+                    return dirname
+                end
+            else
+                assert(false, "Invalid marker type: " .. type(marker) .. ". Expected string or function.")
             end
         end
-        dirname = getparent(dirname)
+
+        dirname = M.get_parent(dirname)
+
     end
 end
 

@@ -27,7 +27,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
     rocks = {
-        hererocks = true,
+        enabled = true,
+        hererocks = true
     },
     git = {
         timeout = 180

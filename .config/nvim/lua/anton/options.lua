@@ -48,11 +48,13 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.path:append("**")
 
+-- Clipboard settings
 -- yank (copy/cut) to system clipboard
--- vim.opt.clipboard:append("unnamedplus")
-vim.opt.clipboard = "unnamedplus"
--- OSC52 supports transparent clipboard between SSH sessions
+vim.opt.clipboard:append("unnamedplus")
+-- OSC52 provider supports copy from remote SSH session
+-- commented to check new version behavior
 -- vim.g.clipboard = 'osc52'
+
 
 -- vim.g.spellfile_URL = 'http://ftp.nluug.nl/vim/runtime/spell'
 -- vim.g.spellfile_URL = 'http://ftp.vim.org/pub/vim/runtime/spell'
@@ -65,7 +67,6 @@ vim.opt.langmap = "ёйцукенгшщзхъфывапролджэячсмит�
 
 vim.opt.wildignore:append("**/node_modules/**")
 vim.opt.wildignore:append("**/*.class")
-
 
 
 -- highlight tabs and trailing spaces
