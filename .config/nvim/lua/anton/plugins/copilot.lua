@@ -8,6 +8,20 @@ return {
     enabled = true,
 
     opts = {
+
+        filetypes = {
+            ["*"] = true,
+            javascript = true,
+            typescript = true,
+            bash = true,
+            markdown = true,
+            asciidoc = true,
+            java = true,
+
+            -- pass edits secure files with 'text' filetype
+            text = false,
+        },
+
         suggestion = {
             auto_trigger = true,
             keymap = {
