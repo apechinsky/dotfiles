@@ -60,7 +60,7 @@ if not project then
     return
 end
 
-project:dump()
+-- project:dump()
 
 -- local root_dir = project:get_root_dir()
 
@@ -123,7 +123,7 @@ config.settings = {
 
     -- see JavaConfiguration class
     java = {
-        home = HOME .. '/opt/jdk-21',
+        home = HOME .. '/opt/jdk-25',
         eclipse = {
             downloadSources = true,
         },
@@ -153,6 +153,10 @@ config.settings = {
                 {
                     name = "JavaSE-22",
                     path = utils.child(HOME, "/opt/jdk-22"),
+                },
+                {
+                    name = "JavaSE-25",
+                    path = utils.child(HOME, "/opt/jdk-25"),
                 },
             }
         },
