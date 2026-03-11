@@ -198,3 +198,6 @@ autoload -Uz compinit && compinit
 eval "$(zoxide init --cmd cd zsh)"
 
 export VAGRANT_HOME="/home/apechinsky/vm/vagrant"
+
+# opencode
+export PATH=/home/apechinsky/.opencode/bin:$PATH
