@@ -1,30 +1,41 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-# export ZSH=/home/apechinsky/.oh-my-zsh
-export ZSH=$HOME/.oh-my-zsh
+# Path to your Oh My Zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time Oh My Zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="gallois-my"
-ZSH_THEME="eastwood-my"
-# ZSH_THEME="simple"
+ZSH_THEME="dstufft" # set by `omz`
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -36,6 +47,9 @@ ZSH_THEME="eastwood-my"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -45,20 +59,20 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
 HIST_STAMPS="yyyy-mm-dd"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-JIRA_URL=https://jira.qulix.com
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# git-prompt
-# git
 plugins=(
     git
     git-prompt
@@ -83,18 +97,18 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
@@ -103,8 +117,6 @@ source $ZSH/oh-my-zsh.sh
 #
 
 alias -s pdf="evince"
-
-# bindkey -v
 
 # source my environment
 source $HOME/_environment/env.sh
@@ -167,11 +179,7 @@ set +o noclobber
 # prevent shell from being closed with ctrl-d
 set -o ignoreeof
 
-[[ -f ~/.fzf.zsh ]] && source $HOME/.fzf.zsh
-
-
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
+source <(fzf --zsh)
 
 # Add JBang to environment
 alias j!=jbang
@@ -183,15 +191,6 @@ fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
 
-# Source the Lazyman shell initialization for aliases and nvims selector
-# shellcheck source=.config/nvim-Lazyman/.lazymanrc
-[ -f ~/.config/nvim-Lazyman/.lazymanrc ] && source ~/.config/nvim-Lazyman/.lazymanrc
-# Source the Lazyman .nvimsbind for nvims key binding
-# shellcheck source=.config/nvim-Lazyman/.nvimsbind
-[ -f ~/.config/nvim-Lazyman/.nvimsbind ] && source ~/.config/nvim-Lazyman/.nvimsbind
-
-
-
 # CSREPO tool initialization
 [[ -d "/home/apechinsky/.csrepo/bin" ]] && export PATH="$PATH:/home/apechinsky/.csrepo/bin"
 
@@ -201,3 +200,26 @@ export VAGRANT_HOME="/home/apechinsky/vm/vagrant"
 
 # opencode
 export PATH=/home/apechinsky/.opencode/bin:$PATH
+
+
+
+# bun completions
+[ -s "/home/apechinsky/.bun/_bun" ] && source "/home/apechinsky/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Dev containers CLI
+export PATH="$HOME/.devcontainers/bin:$PATH"
+fpath=(~/.zsh/completions $fpath)
+autoload -U compinit && compinit
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/home/apechinsky/.opam/opam-init/init.zsh' ]] || source '/home/apechinsky/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration
