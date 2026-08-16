@@ -221,6 +221,36 @@ function Gradle:run_java_test_class()
     end
 end
 
+function Gradle:run_check()
+    local old_mp = vim.opt_local.makeprg
+    local old_ef = vim.opt_local.errorformat
+
+    vim.opt_local.makeprg = self:get_run_command() .. ' check'
+    vim.opt_local.errorformat = table.concat({
+        -- [ant:checkstyle] [ERROR] /path/File.java:263:8: message [CheckName]
+        [[%E%*[^\ ]\ %*[^\ ]\ %f:%l%m]],
+        -- File.java:28: error: message
+        [[%E%f:%l:\ error:\ %m]],
+        -- File.java:28: warning: message
+        [[%W%f:%l:\ warning:\ %m]],
+        -- File.java:28: note: message
+        [[%I%f:%l:\ note:\ %m]],
+        -- File.kt:28:10: error: message
+        [[%E%f:%l:%c:\ error:\ %m]],
+        -- File.kt:28:10: warning: message
+        [[%W%f:%l:%c:\ warning:\ %m]],
+        -- ignore everything else
+        [[%-G%.%#]],
+    }, ',')
+
+    vim.cmd('silent make!')
+
+    vim.opt_local.makeprg = old_mp
+    vim.opt_local.errorformat = old_ef
+
+    vim.cmd('copen')
+end
+
 function Gradle:get_spring_boot_runner(profile)
     return self:get_run_command() ..
         ' bootRun ' ..

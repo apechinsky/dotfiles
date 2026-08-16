@@ -153,6 +153,10 @@ M.java_keymap = function(jdtls, bufopts)
         require('anton.java.gradle').find():run_java_test_class()
     end, vimutils.bufopts(bufopts, 'Run current test class (via gradle)'))
 
+    vim.keymap.set('n', '<leader>tk', function()
+        require('anton.java.gradle').find():run_check()
+    end, vimutils.bufopts(bufopts, 'Run gradle check'))
+
     vim.keymap.set("n", "<leader>oi", jdtls.organize_imports, { desc = "Organize imports" })
     vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, { desc = "Extract variable" })
     vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, { desc = "Extract constant" })
