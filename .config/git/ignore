@@ -11,3 +11,5 @@ build
 bin/
 
 **/.claude/settings.local.json
+
+.tool-versions
