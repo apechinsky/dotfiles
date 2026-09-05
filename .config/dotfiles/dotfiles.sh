@@ -25,8 +25,29 @@ alias config='dotfiles'
 # Function output modified dotfiles and allows user to select changed ones
 #
 dotfiles-add() {
-    dotfiles status -s | \
+    dotfiles status -s -uall . | \
         sed -e "s|^.\{3\}|$PWD/|" | \
         fzf --multi --preview "bat {} --color=always" | \
         xargs git --git-dir="$dotfilesGitDir" --work-tree="$HOME" add
+}
+
+#
+# Interactive dotfiles manager.
+#
+# Key bindings:
+#   enter   stage selection and exit
+#   ctrl-a  stage selection, stay in fzf
+#   ctrl-d  discard changes in selection, stay in fzf
+#
+dotfiles-manage() {
+    local git="git --git-dir=$dotfilesGitDir --work-tree=$HOME"
+    local list="$git status -s -uall . | sed -e 's|^.\{3\}|$PWD/|'"
+
+    eval "$list" | \
+        fzf --multi \
+            --preview "bat {} --color=always" \
+            --header 'enter: add | ctrl-a: add | ctrl-d: discard changes' \
+            --bind "ctrl-a:execute-silent($git add {+})+reload($list)" \
+            --bind "ctrl-d:execute-silent($git checkout HEAD -- {+} 2>/dev/null)+reload($list)" | \
+        xargs -r $git add
 }
