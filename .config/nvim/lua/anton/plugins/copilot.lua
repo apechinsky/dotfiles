@@ -8,6 +8,7 @@ return {
     enabled = true,
 
     opts = {
+        copilot_node_command = vim.fn.system("asdf where nodejs 24.3.0") .. '/bin/node',
 
         filetypes = {
             ["*"] = true,

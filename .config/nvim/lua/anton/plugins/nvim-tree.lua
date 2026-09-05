@@ -6,6 +6,10 @@ return {
 
         auto_reload_on_write = true,
 
+        git = {
+            enable = true,
+        },
+
         view = {
             width = 40,
         },
