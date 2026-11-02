@@ -14,32 +14,32 @@ return {
         }
 
         local personal = {
-            path = '~/Dropbox/vimwiki/personal',
-            path_html = '~/Dropbox/vimwiki/personal/html',
+            path = '~/Documents/vimwiki/personal',
+            path_html = '~/Documents/vimwiki/personal/html',
             syntax = 'markdown',
             ext = '.md',
             auto_tags = 1,
         }
 
         local work = {
-            path = '~/Dropbox/vimwiki/work',
-            path_html = '~/Dropbox/vimwiki/work/html',
+            path = '~/Documents/vimwiki/work',
+            path_html = '~/Documents/vimwiki/work/html',
             syntax = 'markdown',
             ext = '.md',
             auto_tags = 1,
         }
 
         local electronics = {
-            path = '~/Dropbox/vimwiki/electronics',
-            path_html = '~/Dropbox/vimwiki/electronics/html',
+            path = '~/Documents/vimwiki/electronics',
+            path_html = '~/Documents/vimwiki/electronics/html',
             syntax = 'markdown',
             ext = '.md',
             auto_tags = 1,
         }
 
         local test = {
-            path = '~/Dropbox/vimwiki/test',
-            path_html = '~/Dropbox/vimwiki/test/html',
+            path = '~/Documents/vimwiki/test',
+            path_html = '~/Documents/vimwiki/test/html',
             syntax = 'default',
             ext = '.wiki',
             auto_tags = 1,
