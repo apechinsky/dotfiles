@@ -91,29 +91,40 @@ return {
             "kotlin_lsp",
         },
 
-        handlers = {
-            function(server_name)
-                if servers[server_name] ~= nil and servers[server_name].disabled then
-                    return
-                end
+        -- jdtls is started by nvim-jdtls (see after/ftplugin/java.lua)
+        automatic_enable = {
+            exclude = { 'jdtls' },
+        },
+    },
 
-                -- for nvim-cmp
-                -- local capabilities = vim.lsp.protocol.make_client_capabilities()
-                -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+    -- mason-lspconfig v2 does not support 'handlers' anymore:
+    -- servers are configured via vim.lsp.config() and enabled by mason-lspconfig
+    config = function(_, opts)
+        -- for blink-cmp
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 
-                -- for blink-cmp
-                local capabilities = vim.lsp.protocol.make_client_capabilities()
-                capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+        vim.lsp.config('*', {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            flags = {
+                debounce_text_changes = 150,
+            },
+        })
 
-                require('lspconfig')[server_name].setup {
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = servers[server_name],
-                    flags = {
-                        debounce_text_changes = 150,
-                    }
-                }
+        for server_name, settings in pairs(servers) do
+            if not settings.disabled then
+                vim.lsp.config(server_name, { settings = settings })
             end
-        }
-    }
+        end
+
+        vim.lsp.config('kotlin_lsp', {
+            on_attach = function(client, bufnr)
+                on_attach(client, bufnr)
+                require('anton.keymaps').kotlin_keymap({ noremap = true, silent = true, buffer = bufnr })
+            end,
+        })
+
+        require('mason-lspconfig').setup(opts)
+    end,
 }

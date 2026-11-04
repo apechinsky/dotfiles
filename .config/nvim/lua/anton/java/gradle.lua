@@ -5,6 +5,7 @@
 
 local utils = require('anton.core.utils')
 local java_utils = require('anton.java.utils')
+local kotlin_utils = require('anton.kotlin.utils')
 local Path = require('plenary.path')
 
 local gradlew = 'gradlew'
@@ -66,6 +67,13 @@ function Gradle:get_modules()
     for line in io.lines(self:get_settings_file()) do
         for module in line:gmatch("include%s*[\'\"]([%w%-]*)[\'\"]%s*") do
             table.insert(modules, module)
+        end
+
+        -- Kotlin DSL: include("a", "b", ":c")
+        for arguments in line:gmatch("include%s*%((.-)%)") do
+            for module in arguments:gmatch("[\'\"]:?([^\'\":]+)[\'\"]") do
+                table.insert(modules, module)
+            end
         end
     end
 
@@ -192,7 +200,8 @@ function Gradle:get_test_runner(module, test_filter)
         " -i " ..
         utils.format_if_present(':%s:', module) ..
         "test " ..
-        utils.format_if_present('--rerun-tasks --tests %s', test_filter)
+        -- the filter is quoted: it may contain '$' (nested classes) or spaces (`backtick` names)
+        utils.format_if_present('--rerun-tasks --tests %s', test_filter and vim.fn.shellescape(test_filter))
 end
 
 --
@@ -219,6 +228,48 @@ function Gradle:run_java_test_class()
     else
         print("Can not run test class. Not within a class.")
     end
+end
+
+--
+-- Runs gradle tests of the current Kotlin file with the specified filter
+-- in the terminal split.
+--
+-- @param filter gradle test filter or nil to run all tests of the module
+-- @param what description of the target for the error message
+--
+function Gradle:run_kotlin_tests(filter, what)
+    if what and not filter then
+        print("Can not run " .. what .. ".")
+        return
+    end
+
+    local module = self:get_module(utils.get_current_file())
+    -- ':terminal' expands '%' and '#' (current/alternate file name): escape them
+    local command = self:get_test_runner(module, filter):gsub('[%%#]', '\\%0')
+    vim.cmd('w | split | terminal ' .. command)
+end
+
+--
+-- Returns gradle run command for current kotlin test method.
+--
+function Gradle:run_kotlin_test_method()
+    self:run_kotlin_tests(kotlin_utils.get_current_method_full(),
+        "test method. Not within a method of a class")
+end
+
+--
+-- Returns gradle run command for current kotlin test class.
+--
+function Gradle:run_kotlin_test_class()
+    self:run_kotlin_tests(kotlin_utils.get_current_class_full(),
+        "test class. Not within a class")
+end
+
+--
+-- Runs all tests of the module of the current Kotlin file.
+--
+function Gradle:run_kotlin_test_module()
+    self:run_kotlin_tests(nil, nil)
 end
 
 function Gradle:run_check()

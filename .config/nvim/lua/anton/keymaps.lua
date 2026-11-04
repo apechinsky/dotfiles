@@ -157,10 +157,29 @@ M.java_keymap = function(jdtls, bufopts)
         require('anton.java.gradle').find():run_check()
     end, vimutils.bufopts(bufopts, 'Run gradle check'))
 
-    vim.keymap.set("n", "<leader>oi", jdtls.organize_imports, { desc = "Organize imports" })
-    vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, { desc = "Extract variable" })
-    vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, { desc = "Extract constant" })
-    vim.keymap.set({ "n", "v" }, "<leader>em", jdtls.extract_method, { desc = "Extract method" })
+    vim.keymap.set("n", "<leader>oi", jdtls.organize_imports, vimutils.bufopts(bufopts, "Organize imports"))
+    vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, vimutils.bufopts(bufopts, "Extract variable"))
+    vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, vimutils.bufopts(bufopts, "Extract constant"))
+    vim.keymap.set({ "n", "v" }, "<leader>em", jdtls.extract_method, vimutils.bufopts(bufopts, "Extract method"))
+end
+
+-- Returns a function that applies the code action of the given kind.
+-- In visual mode the selection is passed as the code action range.
+local function code_action_of_kind(kind)
+    return function()
+        vim.lsp.buf.code_action({ context = { only = { kind }, diagnostics = {} }, apply = true })
+    end
+end
+
+M.kotlin_keymap = function(bufopts)
+    vim.keymap.set("n", "<leader>oi", code_action_of_kind("source.organizeImports"),
+        vimutils.bufopts(bufopts, "Organize imports"))
+    vim.keymap.set({ "n", "v" }, "<leader>ev", code_action_of_kind("refactor.extract.variable"),
+        vimutils.bufopts(bufopts, "Extract variable"))
+    vim.keymap.set({ "n", "v" }, "<leader>ec", code_action_of_kind("refactor.extract.constant"),
+        vimutils.bufopts(bufopts, "Extract constant"))
+    vim.keymap.set({ "n", "v" }, "<leader>em", code_action_of_kind("refactor.extract.function"),
+        vimutils.bufopts(bufopts, "Extract function"))
 end
 
 M.dap_keymap = function(dap, bufopts)
